@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Meu Banco</title>
+  <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+  <main>
+    <!-- Esquerda: Imagem -->
+    <div class="loginEsquerda">
+      <img src="assets/logo_branco.png" alt="" class="logo_branco">
+    </div>
+
+    <!-- container da direita frame-7 -->
+    <div class="loginDireita">
+      <!-- Seção de boas-vindas -->
+      <div class="frame-5">
+        <h1 class="welcome-title">Bem vindo <span style="color:#1BC681;">:)</span></h1>
+        <p class="welcome-subtitle">Entre na sua conta</p>
+      </div>
+
+      <!-- Seção do formulário frame-1-->
+      <form class="frame-1">
+        <!-- Campo de usuário -->
+        <div class="input-container">
+          <label for="username" class="label">Usuário</label>
+          <input type="text" id="username" class="rectangle-2" placeholder="Digite seu usuário" required>
+        </div>
+
+        <!-- Campo de senha -->
+        <div class="input-container">
+          <label for="password" class="label">Senha</label>
+          <input type="password" id="password" class="rectangle-2" placeholder="Digite sua senha" required>
+        </div>
+
+        <!-- Opções adicionais -->
+        <div class="frame-4">
+          <div class="frame-2">
+            <input type="checkbox" id="remember" class="rectangle-4">
+            <label for="remember" class="remember-device">Lembrar dispositivo</label>
+          </div>
+          <div class="frame-3">
+            <a href="#" class="forgot-password" style="text-decoration: none;">Esqueceu sua senha?</a>
+          </div>
+        </div>
+
+        <!-- Botão de login -->
+        <button type="submit" class="button">
+          <span class="button-label">ENTRAR</span>
+        </button>
+      </form>
+
+      <!-- Seção de cadastro -->
+      <div class="frame-6">
+        <p class="no-account">Não tem conta?</p>
+        <a href="#" class="sign-up">Faça uma agora</a>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
