@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - MY Banco</title>
+    <link rel="stylesheet" href="css/signup.css">
+</head>
+
+<body>
+    <main>
+        <!-- Esquerda: Imagem -->
+        <div class="loginEsquerda">
+            <img src="assets/logo_branco.png" alt="Logotipo branco do MY Banco" class="logo_branco">
+            <div class="overlay"></div>
+        </div>
+
+        <!-- container da direita -->
+        <div class="loginDireita">
+            <!-- Seção de boas-vindas -->
+            <div class="frame-5">
+                <h1 class="welcome-title">Bem-vindo <span style="color:#1BC681;">:)</span></h1>
+                <p class="welcome-subtitle">Crie sua conta</p>
+            </div>
+
+            <!-- Seção do formulário -->
+            <form class="frame-1" action="signup.php" method="POST">
+                <!-- Campo de usuário -->
+                <div class="input-container">
+                    <label for="username" class="label" id="labelName">Usuário</label>
+                    <input type="text" id="username" name="username" class="rectangle-2" placeholder="Digite seu usuário" required>
+                </div>
+
+                <!-- Campo de senha -->
+                <div class="input-container">
+                    <label for="password" class="label" id="labelPassword">Senha</label>
+                    <input type="password" id="password" name="password" class="rectangle-2" placeholder="Digite sua senha" required>
+                </div>
+
+                <!-- Campo de confirme sua senha -->
+                <div class="input-container">
+                    <label for="confirm-password" class="label" id="labelConfirmPass">Confirme sua senha</label>
+                    <input type="password" id="confirm-password" name="confirm-password" class="rectangle-2" placeholder="Confirme sua senha" required>
+                </div>
+
+                <!-- Opções adicionais -->
+                <div class="frame-4">
+                    <div class="frame-2">
+                        <input type="checkbox" id="remember" name="remember" class="rectangle-4">
+                        <label for="remember" class="remember-device">Lembrar dispositivo</label>
+                    </div>
+                </div>
+
+                <!-- Botão de criação de conta -->
+                <button type="submit" class="button">
+                    <span class="button-label">CRIAR CONTA</span>
+                </button>
+            </form>
+
+        </div>
+    </main>
+    <script src="js/signup.js"></script>
+</body>
+
+</html>

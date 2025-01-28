@@ -17,20 +17,35 @@ main {
 
 /* Frame 46 */
 .loginEsquerda {
+    position: relative;
     display: flex;
     flex-direction: column;
     flex: 0.556;
     padding: 32px;
     background-image: url('../assets/moca_cartao.png');
-    /* Caminho da imagem */
     background-size: cover;
-    /* Faz a imagem preencher todo o espaço */
     background-position: center;
-    /* Centraliza a imagem */
     background-repeat: no-repeat;
-    /* Evita que a imagem se repita */
 }
 
+/* exibe efeito  */
+.loginEsquerda:hover .overlay {
+    opacity: 1;
+}
+
+
+/* div .overlay que da efeito quado passa o mause por cima da div da esquerda */
+.overlay {
+    width: 100%; /* Ajusta para o tamanho total de .loginEsquerda */
+    height: 100%; /* Ajusta para o tamanho total de .loginEsquerda */
+    position: absolute; /* Relativo a .loginEsquerda */
+    top: 0;
+    left: 0;
+    z-index: 9888; /* Fica acima do conteúdo de .loginEsquerda */
+    background-color: rgba(27, 198, 129, 0.3);
+    opacity: 0; /* Invisível por padrão */
+    transition: opacity 0.3s ease; /* Efeito de transição suave */
+}
 
 
 /* Logo */
