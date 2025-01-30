@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    display: flex;
+    background-color: rgba(255, 255, 255, 1);
+    height: 100vh;
+}
+
+/* Frame 46 */
+.loginEsquerda {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 0.556;
+    padding: 32px;
+    background-image: url('../img/moca_cartao.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* exibe efeito  */
+.loginEsquerda:hover .overlay {
+    opacity: 1;
+}
+
+
+/* div .overlay que da efeito quado passa o mause por cima da div da esquerda */
+.overlay {
+    width: 100%;
+    /* Ajusta para o tamanho total de .loginEsquerda */
+    height: 100%;
+    /* Ajusta para o tamanho total de .loginEsquerda */
+    position: absolute;
+    /* Relativo a .loginEsquerda */
+    top: 0;
+    left: 0;
+    z-index: 9888;
+    /* Fica acima do conteúdo de .loginEsquerda */
+    background-color: rgba(27, 198, 129, 0.3);
+    opacity: 0;
+    /* Invisível por padrão */
+    transition: opacity 0.3s ease;
+    /* Efeito de transição suave */
+}
+
+
+/* Logo */
+.logo_branco {
+    width: 200px;
+    height: 43.13px;
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    z-index: 1;
+}
+
+
+/* começo da div da esquerda ---  começo da div da esquerda ---  começo da div da esquerda ---  começo da div da esquerda ---  começo da div da esquerda ---  */
+
+
+/* Área direita (Login) */
+.loginDireita {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 0.444;
+    gap: 3rem;
+    padding: 20px;
+    background: #FAFAFA;
+}
+
+/* Título e subtítulo */
+.frame-5 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 90%;
+    max-width: 360px;
+    gap: 8px;
+}
+
+.frame-5 .welcome-title {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 58px;
+    color: #484848;
+    text-align: center;
+}
+
+.frame-5 .welcome-subtitle {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 29px;
+    color: #484848;
+    text-align: left;
+}
+
+/* Formulário */
+.frame-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    width: 90%;
+    max-width: 360px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+}
+
+.input-container .label {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #484848;
+}
+
+.input-container input {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    color: #484848;
+    padding: 10px;
+    width: 100%;
+    border: 2px solid #D9D9D9;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+.input-container input:focus {
+    outline: none;
+    border-color: #1BC681;
+}
+
+/* Lembrete e senha */
+.frame-4 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    color: #1E1E1E;
+}
+
+.frame-4 .forgot-password {
+    color: #43B7FF;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.frame-4 .forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* Botão */
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 24px;
+    width: 100%;
+    background: #1BC681;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #FFFFFF;
+    transition: background 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: #17A86F;
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+/* Rodapé */
+.frame-6 {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.3rem;
+}
+
+.frame-6 .no-account {
+    font-weight: 300;
+    color: #1E1E1E;
+}
+
+.frame-6 .sign-up {
+    font-weight: 600;
+    color: #1BC681;
+    text-decoration: none;
+}
+
+.frame-6 .sign-up:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 1023px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .loginEsquerda {
+        display: none;
+    }
+
+    .loginDireita {
+        max-width: 450px;
+        width: 90%;
+        gap: 1.5rem;
+        padding: 3rem;
+        border: 2px solid #ccc;
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+}
+
+@media (max-width: 767px) {
+    .loginDireita {
+        width: 80%;
+        gap: 1rem;
+        padding: 1.3rem;
+    }
+
+
+    .frame-5 {
+        align-items: center;
+        gap: 0px;
+        text-align: center;
+    }
+
+    .frame-5 .welcome-title {
+        font-size: 28px;
+        line-height: none;
+    }
+
+
+    .frame-5 .welcome-subtitle {
+        font-size: 16px;
+    }
+
+    .input-container .label {
+        font-size: 14px;
+    }
+
+    .input-container input {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    .button {
+        font-size: 16px;
+    }
+}

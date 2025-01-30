@@ -22,7 +22,7 @@ main {
     flex-direction: column;
     flex: 0.556;
     padding: 32px;
-    background-image: url('../assets/moca_cartao.png');
+    background-image: url('../img/moca_cartao.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -36,15 +36,21 @@ main {
 
 /* div .overlay que da efeito quado passa o mause por cima da div da esquerda */
 .overlay {
-    width: 100%; /* Ajusta para o tamanho total de .loginEsquerda */
-    height: 100%; /* Ajusta para o tamanho total de .loginEsquerda */
-    position: absolute; /* Relativo a .loginEsquerda */
+    width: 100%;
+    /* Ajusta para o tamanho total de .loginEsquerda */
+    height: 100%;
+    /* Ajusta para o tamanho total de .loginEsquerda */
+    position: absolute;
+    /* Relativo a .loginEsquerda */
     top: 0;
     left: 0;
-    z-index: 9888; /* Fica acima do conteúdo de .loginEsquerda */
+    z-index: 9888;
+    /* Fica acima do conteúdo de .loginEsquerda */
     background-color: rgba(27, 198, 129, 0.3);
-    opacity: 0; /* Invisível por padrão */
-    transition: opacity 0.3s ease; /* Efeito de transição suave */
+    opacity: 0;
+    /* Invisível por padrão */
+    transition: opacity 0.3s ease;
+    /* Efeito de transição suave */
 }
 
 
@@ -106,7 +112,7 @@ main {
     color: #484848;
 }
 
-/* Frame 1 */
+/* Frame 1 formulario*/
 .frame-1 {
     display: flex;
     flex-direction: column;
@@ -193,9 +199,9 @@ main {
     font-weight: 600;
 }
 
-input:focus, .button:focus {
-    outline: 2px solid #1BC681; /* Cor em harmonia com o design */
-    outline-offset: 2px;
+.input-container input:focus {
+    outline: none;
+    border-color: #1BC681;
 }
 
 .input-container .input-box {
@@ -231,18 +237,21 @@ input:focus, .button:focus {
 }
 
 .button:hover {
-    background: #17A86F; /* Um verde mais escuro */
+    background: #17A86F;
+    /* Um verde mais escuro */
     cursor: pointer;
 }
 
 .button:active {
-    transform: scale(0.98); /* Efeito de pressionado */
+    transform: scale(0.98);
+    /* Efeito de pressionado */
 }
 
 /* Frame 6 */
 .frame-6 {
-    margin-top: 10px;
+    margin-top: 1.5rem;
     display: flex;
+    justify-content: center;
     flex-direction: row;
     align-items: center;
     padding: 0;
@@ -270,8 +279,8 @@ input:focus, .button:focus {
     text-decoration: none;
 }
 
-/* nao precisei usar  
-// Background Elements 
+/* nao precisei usar
+// Background Elements
 .background-frame {
     position: absolute;
     width: 800px;
@@ -330,6 +339,7 @@ input:focus, .button:focus {
     /* Estilos para telas menores que 768px (móveis) */
 
     .loginDireita {
+        gap: 0.5rem;
         padding: 1.6rem;
         max-width: 90%;
         margin: 0 auto;
@@ -339,12 +349,18 @@ input:focus, .button:focus {
     .frame-5 {
         width: 100%;
         height: auto;
-        text-align: center; /* Centraliza o texto */
+        text-align: center;
+        /* Centraliza o texto */
     }
 
     .frame-5 .welcome-title {
         width: 100%;
-        font-size: 28px; /* Reduz tamanho para telas menores */
+        font-size: 28px;
+        line-height: 30px;
+        height: 38px;
+
+
+        /* Reduz tamanho para telas menores */
     }
 
     .frame-5 .welcome-subtitle {
@@ -362,12 +378,14 @@ input:focus, .button:focus {
     .input-container {
         gap: 6px;
         width: 100%;
-        height: auto; /* Remove altura fixa */
+        height: auto;
+        /* Remove altura fixa */
     }
 
     .input-container .label {
         width: 100%;
-        font-size: 16px; /* Ajusta tamanho */
+        font-size: 16px;
+        /* Ajusta tamanho */
         line-height: 1.2;
     }
 
@@ -375,16 +393,19 @@ input:focus, .button:focus {
         padding: 6px;
         font-size: 14px;
         width: 100%;
-        height: 40px;
-        border-radius: 4px; /* Ajusta bordas */
+        height: 35px;
+        border-radius: 4px;
+        /* Ajusta bordas */
     }
 
     /* Frame 4 */
     .frame-4 {
         padding: 8px 0;
-        gap: 16px; /* Reduz o espaço */
+        gap: 16px;
+        /* Reduz o espaço */
         width: 100%;
-        height: auto; /* Remove altura fixa */
+        height: auto;
+        /* Remove altura fixa */
         font-size: 12px;
     }
 
@@ -398,7 +419,8 @@ input:focus, .button:focus {
 
     .input-container .input-box {
         width: 100%;
-        height: 40px; /* Ajusta altura */
+        height: 40px;
+        /* Ajusta altura */
     }
 
     /* Botão */
@@ -406,20 +428,24 @@ input:focus, .button:focus {
         padding: 8px 16px;
         gap: 8px;
         width: 100%;
-        height: 40px;
+        height: 30px;
         font-size: 16px;
         line-height: 1.2;
-        border-radius: 4px; /* Ajusta bordas */
+        border-radius: 4px;
+        /* Ajusta bordas */
     }
 
     /* Frame 6 */
     .frame-6 {
         padding: 0;
-        gap: 4px; /* Reduz espaço entre itens */
+        gap: 4px;
+        /* Reduz espaço entre itens */
         width: 100%;
-        height: auto; /* Remove altura fixa */
+        height: auto;
+        /* Remove altura fixa */
         justify-content: center;
-        flex-wrap: wrap; /* Garante que os elementos se ajustem */
+        flex-wrap: wrap;
+        /* Garante que os elementos se ajustem */
     }
 
     .frame-6 .no-account {
