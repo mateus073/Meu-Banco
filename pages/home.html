@@ -1,42 +1,172 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../assets/css/home.css">
-  <title>Meu Banco</title>
+  <title>Meu Banco - Painel de Controle</title>
 </head>
+
 <body>
   <!-- Barra lateral -->
-  <div class="sidebar">
-    <div class="logo"><img src="assets/" alt=""></div>
-    <ul class="menu">
-      <li><a href="#">Painel</a></li>
-      <li><a href="#">Carteira</a></li>
-      <li><a href="#">Transferências</a></li>
-      <li><a href="#">Serviços</a></li>
-      <li><a href="#">Configurações</a></li>
-    </ul>
-    <div class="help">Precisa de ajuda? <br> CONTATAR</div>
-  </div>
+  <nav class="sidebar">
+    <div class="navMenu">
+      <div class="logo">
+        <img src="../assets/img/logo_verde.png" alt="Logo do Meu Banco">
+      </div>
+      <ul class="menu">
+        <li class="active" style="background-color:rgba(27, 198, 129, 1);">
+          <img src="../assets/img/home-white.png" alt="Ícone de Painel">
+          <a href="#">Painel</a>
+        </li>
+        <li>
+          <img src="../assets/img/variant3-default.png" alt="Ícone de Carteira">
+          <a href="#">Carteira</a>
+        </li>
+        <li>
+          <img src="../assets/img/transfer-default.png" alt="Ícone de Transferências">
+          <a href="#">Transferências</a>
+        </li>
+        <li>
+          <img src="../assets/img/services-default.png" alt="Ícone de Serviços">
+          <a href="#">Serviços</a>
+        </li>
+        <li>
+          <img src="../assets/img/cog-default.png" alt="Ícone de Configurações">
+          <a href="#">Configurações</a>
+        </li>
+      </ul>
+    </div>
+
+    <section class="help">
+      <h2 class="titleHelp">Precisa de ajuda?</h2>
+      <p class="pHelp">Fale com um dos nossos especialistas</p>
+      <button class="btnHelp" aria-label="Contatar um especialista">CONTATAR</button>
+    </section>
+  </nav>
 
   <!-- Área principal -->
-  <div class="main">
-    <!-- Cabeçalho -->
-    <div class="header">
+  <main class="main">
+    <header class="header">
       <div class="search">
-        <input type="text" placeholder="Buscar">
+        <button class="btnBuscar" aria-label="Buscar"></button>
+        <input type="text" placeholder="Buscar" class="iptBusca">
       </div>
       <div class="profile">
-        <img src="https://via.placeholder.com/20" alt="Profile">
-        <span>Bem vindo, Tide Cardoso</span>
+        <img src="../assets/img/bell-white.png" alt="Ícone de Notificação">
+        <img src="../assets/img/user-white.png" alt="Foto do Perfil">
+        <span>Bem-vindo, <span class="spanNameUser">Tider Cardoso</span></span>
       </div>
-    </div>
+    </header>
 
     <!-- Conteúdo principal -->
-    <div class="content">
-      <div class="placeholder">Placeholder de navegação</div>
-    </div>
-  </div>
+    <section class="content">
+      <div class="paiAtalhos">
+        <!-- Atalho dos gastos do cartão -->
+        <article class="atalho">
+          <div class="dPctAtalho">
+            <span class="pctAtalho">+23%</span>
+          </div>
+          <div class="dNameValue">
+            <span class="nameAtalho">Gastos do mês</span>
+            <span class="valueAtalho">R$ 2.444,67</span>
+          </div>
+        </article>
+
+        <!-- Atalho dos gastos recebidos -->
+        <article class="atalho dReceived">
+          <div class="dPctAtalho">
+            <span class="pctAtalho">+61%</span>
+          </div>
+          <div class="dNameValue">
+            <span class="nameAtalho">Recebimentos</span>
+            <span class="valueAtalho">R$ 3.974,64</span>
+          </div>
+        </article>
+
+        <!-- Atalho dos investimentos -->
+        <article class="atalho investment">
+          <div class="dPctAtalho">
+            <span class="pctAtalho">+55%</span>
+          </div>
+          <div class="dNameValue">
+            <span class="nameAtalho">Investimentos</span>
+            <span class="valueAtalho">R$ 6.546,11</span>
+          </div>
+        </article>
+
+        <!-- Atalho dos cartões -->
+        <article class="cartoes">
+          <div class="dNameValue">
+            <span class="nameAtalho">Cartões</span>
+            <span class="valueAtalho">R$ 2.444,67</span>
+          </div>
+        </article>
+
+        <!-- Adicionar atalho -->
+        <div class="cfgAtalho">
+          <button class="btnAddAtalho" aria-label="Adicionar atalho">
+            <span>+</span>
+          </button>
+          <span>configurar atalhos</span>
+        </div>
+      </div>
+
+      <!-- Cartões e histórico de compras -->
+      <section class="dCardExpenses">
+        <!-- Cartões -->
+        <article class="paiCardInfoAdd">
+          <h2>Cartões</h2>
+          <div class="dcardHist">
+            <div class="cardLimit">
+              <div class="card">
+                <img src="../assets/img/logo_branco.png" alt="Logo do Cartão">
+                <div class="cardShip">
+                  <img src="" alt="Chip do Cartão">
+                  <img src="" alt="Símbolo de Aproximação">
+                </div>
+                <div class="cardNumber">123 123 123 123</div>
+                <div class="cardNameVald">
+                  <span class="sCardName">Mateus Marques</span>
+                  <span class="cardDate">12/28</span>
+                  <img src="" alt="Bandeira do Cartão">
+                </div>
+              </div>
+              <div class="barrLimit">
+                <div class="barrLimit1">
+                  <div class="barrLimit2">---------------------</div>
+                </div>
+              </div>
+              <span>Limite mensal</span>
+              <span class="value">R$ 300/3000</span>
+            </div>
+
+            <div class="cardInfoExtra">
+              <div class="txtLimit">
+                <span class="stitleLimit">Limite disponível</span>
+                <span class="sValorLimit">R$ 3.000,00</span>
+              </div>
+              <div class="LastPurchase">
+                <span class="stitleLastPurchase">Última compra</span>
+                <span class="stxtLastPurchase">Bazar Mituzi R$ 300,00</span>
+              </div>
+              <button class="storeMoreDetails" aria-label="Ver mais detalhes">MAIS DETALHES</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Histórico de compras -->
+        <article class="purchaseHisty">
+          <h2>Últimas Compras</h2>
+          <ul class="listCompras">
+            <li>Item fictício da lista</li>
+          </ul>
+          <button class="btnAddAtalho" aria-label="Ver extrato">VER EXTRATO</button>
+        </article>
+      </section>
+    </section>
+  </main>
 </body>
+
 </html>

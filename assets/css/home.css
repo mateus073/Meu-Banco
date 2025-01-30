@@ -12,106 +12,172 @@ body {
     height: 100vh;
 }
 
-/* Barra lateral */
 .sidebar {
-    width: 250px;
-    background-color: #2ecc71;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    flex: 0.194;
+}
+
+/* msg de ajuda do menu lateral */
+.sidebar .help {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: 16px;
+    margin: 20px;
+    color: #FFFFFF;
+    gap: 8px;
+    background: rgba(27, 198, 129, 1);
+    border-radius: 8px;
+}
+
+
+.main {
+    background: rgba(27, 198, 129, 1);
     display: flex;
     flex-direction: column;
     padding: 20px;
-    color: white;
+    flex: 0.806;
 }
 
-.sidebar .logo {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.sidebar .menu {
-    list-style: none;
-}
-
-.sidebar .menu li {
-    margin-bottom: 15px;
-}
-
-.sidebar .menu li a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
+.main .header {
     display: flex;
-    align-items: center;
-}
-
-.sidebar .menu li a:hover {
-    color: #27ae60;
-}
-
-.sidebar .help {
-    margin-top: auto;
-    background-color: white;
-    color: #2ecc71;
-    padding: 15px;
-    text-align: center;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-.sidebar .help:hover {
-    background-color: #27ae60;
-    color: white;
-    cursor: pointer;
-}
-
-/* Cabeçalho */
-.header {
-    background-color: #2ecc71;
-    height: 60px;
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    margin-bottom: 30px;
     color: white;
-    width: 100%;
 }
 
-.header .search {
+.main .content {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 
-.header .search input {
-    height: 30px;
-    padding: 5px;
-    border-radius: 4px;
-    border: none;
-}
 
-.header .profile {
+.content .paiAtalhos {
     display: flex;
-    align-items: center;
+    gap: 20px;
+    font-family: 'Lato';
+    font-style: normal;
+    margin-bottom: 30px;
+    /* espaçamento temporario corrigir dps */
 }
 
-.header .profile img {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    margin-right: 10px;
+/* css do atalho padrao com oque exibe pct */
+.paiAtalhos .atalho {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 8px;
+    width: 205.2px;
+    height: 140px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
 }
 
-/* Área de navegação */
-.content {
-    flex: 1;
-    background-color: #f4f4f4;
+
+/* css do atalho que nao exibe% so nome e valor*/
+.paiAtalhos .cartoes {
+    display: flex;
+    flex-direction: flex-start;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: 16px;
+    gap: 8px;
+    width: 205.2px;
+    height: 140px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+
+/* css da div de criar e configurar atalhos */
+.paiAtalhos .cfgAtalho {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 16px;
+    gap: 8px;
+    width: 205.2px;
+    height: 140px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
 }
 
-.content .placeholder {
-    color: gray;
-    font-size: 20px;
+/* texto de nome e valor das divs atalho */
+.dNameValue {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+/* css da div pai a que tem o cartao e o historico de compras */
+.dCardExpenses {
+    display: flex;
+    gap: 30px;
+}
+
+
+.dCardExpenses .paiCardInfoAdd {
+    padding: 16px;
+    gap: 8px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.paiCardInfoAdd .dcardHist {
+    display: flex;
+    gap: 2rem;
+}
+
+/* cartao */
+.dcardHist .card {
+    background-color: green;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: white;
+}
+
+
+/* div com informaçoes extras que fica ao lado do cartao */
+.dcardHist .cardInfoExtra {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cardInfoExtra .txtLimit {
+    display: flex;
+    flex-direction: column;
+}
+
+.cardInfoExtra .LastPurchase {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* div pai do historico */
+.dCardExpenses .purchaseHisty {
+    padding: 16px;
+    gap: 8px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
 }
