@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
     margin: 0;
@@ -9,107 +10,394 @@
 body {
     font-family: Arial, sans-serif;
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
 }
 
+/* div da esqueda de menu latera */
 .sidebar {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     flex: 0.194;
+    padding: 1.3rem 0rem;
 }
+
+/* div do menu de navegaçao e da logo */
+.sidebar .navMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* img logo do menu lateral */
+.navMenu .dLogoSidebar img {
+    max-width: 200px;
+    max-height: 43.13px;
+}
+
+/* ul de navegaçao */
+.navMenu .menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 0px;
+    width: 100%;
+}
+
+.menu li {
+    border-radius: 12px 0px 0px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 10px;
+    gap: 20px;
+    width: 85%;
+    height: 50px;
+}
+
+/* link do menu de navegaçao  */
+.menu li a {
+    text-decoration: none;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    color: #484848;
+}
+
 
 /* msg de ajuda do menu lateral */
 .sidebar .help {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-end;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 16px;
     padding: 16px;
-    margin: 20px;
+    width: 80%;
     color: #FFFFFF;
-    gap: 8px;
-    background: rgba(27, 198, 129, 1);
-    border-radius: 8px;
+    background: #1BC681;
+    border-radius: 6px;
+}
+
+/* titulo da div de help que fica no final do menu lateral */
+.help h2 {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #FFFFFF;
+    width: 101px;
+}
+
+/* paragrafo  da div de help que fica no final do menu lateral */
+.help p {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #FFFFFF;
+    width: 140px;
+    height: 38px;
+}
+
+/* botao de ctt da div help */
+.help .btnHelp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 24px;
+    border: 2px solid #FFFFFF;
+    border-radius: 6px;
+    background-color: transparent;
+}
+
+/* span do botao de "contado" da div help */
+.btnHelp span {
+    width: 96px;
+    height: 22px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    background-color: transparent;
+    color: #FFFFFF;
 }
 
 
+/* fim do header comeco do main --  fim do header comeco do main --  fim do header comeco do main --  fim do header comeco do main --  */
+
+
+
+/* div pai da div da direita que contem o conteudo prinicipal */
 .main {
-    background: rgba(27, 198, 129, 1);
+    background: #1BC681;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 0 2.5rem;
     flex: 0.806;
 }
 
+/* div pai do cabecalho com pesquisa e login */
 .main .header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 24px 0px;
+    height: 84px;
     margin-bottom: 30px;
     color: white;
 }
 
+
+/* div do input de pesquisa */
+.header .search {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    /* gap: 16px; */
+    /* width: 240px;*/
+    height: 36px;
+    padding: 8px;
+    border: 1px solid #FFFFFF;
+    border-radius: 6px;
+    order: 0;
+    flex-grow: 0;
+}
+
+/* btn do input de pesquisa */
+.search .btnBuscar {
+    height: 20px;
+    width: 20px;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-right: 8px;
+    /* Espaço entre o botão e o input */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* img do btn do input de pesquisa */
+.search .btnBuscar img {
+    width: 16px;
+    height: 16px;
+}
+
+/* ipt dentro do  do input de pesquisa */
+.search .iptBusca {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    flex: 1;
+    color: #FFFFFF;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.iptBusca::placeholder {
+    color: #FFFFFF;
+    /* Cor do placeholder */
+    opacity: 0.8;
+}
+
+
+
+
+
+
+
+
+/* div do texto de bem vido usuario e o icone de perfil  */
+.header .profile {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 24px;
+    /* width: 250px;
+    height: 20px; */
+    /* margin: 0 auto; */
+    order: 1;
+    flex-grow: 0;
+}
+
+/* div com bem vindo e icone de usuario */
+.profile .dPfProfile {
+    display: flex;
+    gap: 8px;
+}
+
+/* span name bem vido */
+.dPfProfile span {
+    white-space: nowrap;
+}
+
+
+/* fim do header e comeco do main -- fim do header e comeco do main -- fim do header e comeco do main -- fim do header e comeco do main */
+
+
+
+/* div onde vai ficar o conteudo principal de cada sessao */
 .main .content {
     display: flex;
     flex-direction: column;
 }
 
-
+/* div pai das divs de atalho do home */
 .content .paiAtalhos {
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
+    gap: 16px;
+    flex: 1;
     font-family: 'Lato';
     font-style: normal;
     margin-bottom: 30px;
-    /* espaçamento temporario corrigir dps */
 }
 
 /* css do atalho padrao com oque exibe pct */
-.paiAtalhos .atalho {
+.atalhoPadrao {
+    width: 205.2px;
+    height: 140px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    padding: 16px;
+}
+
+/* restante do css do atalho, porem esse e um dos atalho que nao exibe pct */
+.atalhoNoPct {
+    display: flex;
+    flex-direction: column;
+    /* Itens dispostos em coluna */
+}
+
+
+/* restante do css do atalho, porem esse e do que exibe pct */
+.atalhoComPct {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 16px;
     gap: 8px;
-    width: 205.2px;
-    height: 140px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
+}
+
+/* span pct do atalho padrao*/
+.pctAtalho {
+    margin: 0 auto;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 29px;
+    color: #1BC681;
 }
 
 
-/* css do atalho que nao exibe% so nome e valor*/
-.paiAtalhos .cartoes {
+/* div pct do atalho de investimento */
+.dAtalhoIvstm {
     display: flex;
-    flex-direction: flex-start;
-    justify-content: flex-start;
-    align-items: flex-end;
-    padding: 16px;
-    gap: 8px;
-    width: 205.2px;
-    height: 140px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
-}
-
-/* css da div de criar e configurar atalhos */
-.paiAtalhos .cfgAtalho {
-    display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 16px;
-    gap: 8px;
-    width: 205.2px;
-    height: 140px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
+    padding: 4px 8px;
+    gap: 10px;
+    height: 22px;
+    background: #1BC681;
+    border-radius: 6px;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
 }
+
+/* span pct do atalho de investimento */
+.pctInvestments {
+    height: 14px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #FFFFFF;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+
+/* div pai do texto de nome do item do atalho e valor */
+.dNameValue {
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    margin: 0 auto;
+    width: 100%;
+    height: 48px;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+/* div pai do nome e valor do atalho que nao exibe a pct */
+.dNameValueNoPct {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    width: 100%;
+    height: 48px;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+
+/* nome do gasto do atalho  */
+.atalhoPadrao .nameAtalho {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+    color: #484848;
+}
+
+/* css do valor do atalho */
+.atalhoPadrao .valueAtalho {
+    height: 29px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #484848;
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
 
 /* texto de nome e valor das divs atalho */
 .dNameValue {
@@ -118,17 +406,89 @@ body {
 }
 
 
+/* css da div de criar e configurar atalhos */
+.paiAtalhos .cfgAtalho {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    align-items: center;
+    background: #EAE9E9;
+}
+
+/* div do btn de adicionar atalho a do + */
+.cfgAtalho .btnAddAtalho {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    width: 32px;
+    height: 32px;
+    background: #484848;
+    border-radius: 100px;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+/* span do que tem o + de configurar atalho */
+.btnAddAtalho .Positivo {
+    width: 14px;
+    height: 24px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 24px;
+    text-align: center;
+    color: #FFFFFF;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+
+}
+
+/* texto de configurar atalho */
+.cfgAtalho .spConfigAtalho {
+    width: 173.2px;
+    height: 44px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #484848;
+    /* Inside auto layut */
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+
+}
+
+
+/* css das divs de catao e ultimas compras  css das divs de catao e ultimas compras  css das divs de catao e ultimas compras  css das divs de catao e ultimas compras  css das divs de catao e ultimas compras  */
+
 
 /* css da div pai a que tem o cartao e o historico de compras */
 .dCardExpenses {
     display: flex;
     gap: 30px;
+    margin-bottom: 16px;
 }
 
 
 .dCardExpenses .paiCardInfoAdd {
-    padding: 16px;
-    gap: 8px;
+    height: fit-content;
+    /*pra div nao crecer e ficar do comprimeento do lista decompras que ta do lado*/
+    flex: 1;
+    padding: 24px;
+    gap: 16px;
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
@@ -136,48 +496,543 @@ body {
     flex-direction: column;
 }
 
+/* titulo da sessao de cartao */
+.paiCardInfoAdd .h2card {
+    height: 24px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: left;
+    color: #484848;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+/* div principal da sessao de cartao onde tem o cartao e infos de limite etc... */
 .paiCardInfoAdd .dcardHist {
+    /* Auto layout */
     display: flex;
-    gap: 2rem;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+
+/* div da esqueda da seçao de cartao */
+.dcardHist .cardLimit {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 /* cartao */
 .dcardHist .card {
-    background-color: green;
-    padding: 10px;
+    padding: 9.42598px 15.2266px;
+    gap: 11.6px;
+    margin: 0;
+    width: 240px;
+    height: 140px;
+    background: linear-gradient(248.54deg, #1BC681 1.38%, #0D603F 89.61%);
+    border-radius: 8.70091px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    color: white;
+    color: #FFFFFF;
+}
+
+/* logo do cartao */
+.card .logoInCard {
+    width: 72.51px;
+    height: 15.64px;
+}
+
+/* div que contem o chip e simbolo de aproximaçao */
+.card .cardShip {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 11px;
+    width: 59.61px;
+    height: 23.2px;
+}
+
+/* div que contem o numero do cartao */
+.card .cardNumber {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 11.6px;
+    width: 174.8px;
+    height: 17.4px;
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14.5015px;
+    line-height: 17px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+/* div pai dos dados no final do cartao (nome validade e bandeira) */
+.card .cardNameVald {
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    width: 209.55px;
+    height: 29px;
+
+}
+
+/* nome que ta abaixo do cartao */
+.cardNameVald .sCardName {
+    height: 18px;
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11.6012px;
+    line-height: 17px;
+    white-space: nowrap;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+/* data de validade do cartao */
+.card .cardValidadedate {
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px;
+    height: 19px;
+}
+
+/* palavra validade */
+.cardNameVald .cardDateTxt {
+    height: 8px;
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 5.8006px;
+    line-height: 8px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+/* data de validade */
+.cardNameVald .cardDateNumber {
+    height: 11px;
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 8.70091px;
+    line-height: 11px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+/* div da img da bandeira */
+.cardBandeira {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* img da bandeira */
+.cardBandeira img {
+    width: 29.98px;
+    height: 17.4px;
+}
+
+
+/* div pai da barra de limite e txt que aconpanha*/
+.dcardHist .cardLimit {
+    gap: 16px;
+}
+
+/* div pai da div de barr limite e texto */
+.cardLimit .barrTxtLimit {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+    width: 100%;
+    height: 36px;
+}
+
+/* div pai da barra de limite */
+.barrTxtLimit .barrLimit {
+    width: 100%;
+}
+
+/* corpo da barra de limite */
+.barrTxtLimit .barrLimit1 {
+    height: 8px;
+    width: 100%;
+    background: #D9D9D9;
+    border-radius: 5.1686px;
+}
+
+/* barra interna a verde  */
+.barrTxtLimit .barrLimit2 {
+    width: 24px;
+    height: 8px;
+    background: #1BC681;
+    border-radius: 5.1686px;
+}
+
+/* texto que fica abaixo da barra de limite */
+.barrTxtLimit .barrText {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    gap: 58px;
+    width: 100%;
+    height: 24px;
+}
+
+.barrText .txtLM {
+    margin: 0 auto;
+    height: 24px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #484848;
+}
+
+.barrText .value {
+    margin: 0 auto;
+    height: 24px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #484848;
 }
 
 
 /* div com informaçoes extras que fica ao lado do cartao */
 .dcardHist .cardInfoExtra {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    max-width: 187px;
 }
 
+
+/* div do pai do span de txt de limite e valor  */
 .cardInfoExtra .txtLimit {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    height: 48px;
+    width: 100%;
 }
 
+/* span  "limite disponivel" */
+.txtLimit .stitleLimit {
+    height: 24px;
+    flex-wrap: nowrap;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #484848;
+    /* order: 0;
+    align-self: stretch;
+    flex-grow: 0; */
+}
+
+/* span de valor de limite disponivel  */
+.txtLimit .sValorLimit {
+    flex-wrap: nowrap;
+    height: 24px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 24px;
+    text-align: center;
+    color: #484848;
+    /* order: 1;
+    align-self: stretch;
+    flex-grow: 0; */
+}
+
+/* div que fica avaixo com ultima compra */
 .cardInfoExtra .LastPurchase {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    height: 48px;
+    width: 100%;
+}
+
+/* span de txt "Última compra" */
+.LastPurchase .stitleLastPurchase {
+    flex-wrap: nowrap;
+    height: 24px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    color: #484848;
+}
+
+/* div pai do estabelecimento e valor */
+.estabelecimentoValor {
+    flex-wrap: nowrap;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 24px;
+    height: 24px;
+    width: 100%;
+    order: 1;
+    flex-grow: 0;
+}
+
+/* span de txt com nome do lugar da ultima compra */
+.estabelecimentoValor .estabelecimento {
+    flex-wrap: nowrap;
+    height: 24px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #484848;
+}
+
+/* span de txt valor da ultima compra */
+.estabelecimentoValor .valor {
+    flex-wrap: nowrap;
+    height: 24px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #484848;
+}
+
+/* div do botao de mais detalhes */
+.cardInfoExtra .btnMaisDetalhes {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto;
+    width: 100%;
+    height: 38px;
+
+}
+
+/* botao de mais detalhes */
+.btnMaisDetalhes .storeMoreDetails {
+    flex-wrap: nowrap;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    border: none;
+    width: 100%;
+    height: 100%;
+    background: #1BC681;
+    border-radius: 6px;
+    color: #FFFFFF;
 }
 
 
 /* div pai do historico */
 .dCardExpenses .purchaseHisty {
-    padding: 16px;
-    gap: 8px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    gap: 16px;
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
+}
+
+/* titulo "ultimas compras" */
+.purchaseHisty .h2UC {
+    width: 100%;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: #484848;
+
+}
+
+/* divpai das divs de compras */
+.purchaseHisty .listsComp {
+    width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 0px 24px;
+    gap: 24px;
+}
+
+/* divs de dias do mes com suas li de compras */
+.listsComp .dDiaMes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 12px;
+    width: 100%;
+}
+
+/* data com dia da div que contem as compras daquele dia  */
+.dDiaMes .titleDataCompr {
+    height: 17px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    color: #1BC681;
+    flex: none;
+    /* order: 0;
+    align-self: stretch;
+    flex-grow: 0; */
+}
+
+
+
+/* ol com compras do dia  */
+.dDiaMes .ulComp {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+    width: 100%;
+    flex: none;
+    /* order: 1;
+    align-self: stretch;
+    flex-grow: 0; */
+}
+
+/* item da lista de compras */
+.ulComp .itemLst {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px;
+    gap: 190px;
+    width: 100%;
+    height: 39px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    /* Inside auto layout */
+    /* flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0; */
+}
+
+/* txt da esquerda do meu item da lista de compras */
+.itemLst .itemLstEsquerda {
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+}
+
+/* nome do estabelecimento do item da lista */
+.itemLstEsquerda .nLugar {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    color: #484848;
+}
+
+/* txt de forma de pagamento do item da lista */
+.itemLstEsquerda .CredDeb {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #B5B5B5;
+}
+
+
+
+/* valor da compra do li da lista de compras */
+.itemLst .itemLstDireta {
+    width: 65px;
+    height: 17px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    text-align: center;
+    color: #1BC681;
+}
+
+/* div que contem o botao de ver extrato */
+.purchaseHisty .btnVeEXComp {
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* padding: 8px 24px; */
+    gap: 10px;
+    width: 169px;
+    height: 38px;
+}
+
+.purchaseHisty .btnVerExtrado {
+    width: 100%;
+    height: 100%; 
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 600;
+    background: #1BC681;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px; 
+    text-align: center;
+    color: #FFFFFF;
 }

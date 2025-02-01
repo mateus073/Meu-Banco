@@ -12,13 +12,13 @@
   <!-- Barra lateral -->
   <nav class="sidebar">
     <div class="navMenu">
-      <div class="logo">
-        <img src="../assets/img/logo_verde.png" alt="Logo do Meu Banco">
+      <div class="dLogoSidebar">
+        <img class="imgLogoSidevar" src="../assets/img/logo_verde.png" alt="Logo do Meu Banco">
       </div>
       <ul class="menu">
         <li class="active" style="background-color:rgba(27, 198, 129, 1);">
           <img src="../assets/img/home-white.png" alt="Ícone de Painel">
-          <a href="#">Painel</a>
+          <a href="#" style="color: white;">Painel</a>
         </li>
         <li>
           <img src="../assets/img/variant3-default.png" alt="Ícone de Carteira">
@@ -40,9 +40,11 @@
     </div>
 
     <section class="help">
-      <h2 class="titleHelp">Precisa de ajuda?</h2>
-      <p class="pHelp">Fale com um dos nossos especialistas</p>
-      <button class="btnHelp" aria-label="Contatar um especialista">CONTATAR</button>
+      <h2>Precisa de ajuda?</h2>
+      <p>Fale com um dos nossos especialistas</p>
+      <div class="btnCtt">
+        <button class="btnHelp" aria-label="Contatar um especialista"> <span>CONTATAR</span></button>
+      </div>
     </section>
   </nav>
 
@@ -50,13 +52,15 @@
   <main class="main">
     <header class="header">
       <div class="search">
-        <button class="btnBuscar" aria-label="Buscar"></button>
+        <button class="btnBuscar" aria-label="Buscar"><img src="../assets/img/search-white.png" alt=""></button>
         <input type="text" placeholder="Buscar" class="iptBusca">
       </div>
       <div class="profile">
         <img src="../assets/img/bell-white.png" alt="Ícone de Notificação">
-        <img src="../assets/img/user-white.png" alt="Foto do Perfil">
-        <span>Bem-vindo, <span class="spanNameUser">Tider Cardoso</span></span>
+        <div class="dPfProfile">
+          <img src="../assets/img/user-white.png" alt="Foto do Perfil">
+          <span>Bem-vindo, <span class="spanNameUser">Tider Cardoso</span></span>
+        </div>
       </div>
     </header>
 
@@ -64,7 +68,7 @@
     <section class="content">
       <div class="paiAtalhos">
         <!-- Atalho dos gastos do cartão -->
-        <article class="atalho">
+        <article class="atalhoPadrao atalhoComPct">
           <div class="dPctAtalho">
             <span class="pctAtalho">+23%</span>
           </div>
@@ -75,7 +79,7 @@
         </article>
 
         <!-- Atalho dos gastos recebidos -->
-        <article class="atalho dReceived">
+        <article class="atalhoPadrao atalhoComPct">
           <div class="dPctAtalho">
             <span class="pctAtalho">+61%</span>
           </div>
@@ -86,9 +90,9 @@
         </article>
 
         <!-- Atalho dos investimentos -->
-        <article class="atalho investment">
-          <div class="dPctAtalho">
-            <span class="pctAtalho">+55%</span>
+        <article class="atalhoPadrao atalhoComPct">
+          <div class="dAtalhoIvstm">
+            <span class="pctInvestments">+R$ 242,13 (+2.54%) </span>
           </div>
           <div class="dNameValue">
             <span class="nameAtalho">Investimentos</span>
@@ -97,49 +101,61 @@
         </article>
 
         <!-- Atalho dos cartões -->
-        <article class="cartoes">
-          <div class="dNameValue">
+        <article class="atalhoNoPct atalhoPadrao">
+          <div class="dNameValueNoPct">
             <span class="nameAtalho">Cartões</span>
             <span class="valueAtalho">R$ 2.444,67</span>
           </div>
         </article>
 
         <!-- Adicionar atalho -->
-        <div class="cfgAtalho">
+        <div class="atalhoPadrao cfgAtalho">
           <button class="btnAddAtalho" aria-label="Adicionar atalho">
-            <span>+</span>
+            <span class="Positivo">+</span>
           </button>
-          <span>configurar atalhos</span>
+          <span class="spConfigAtalho">configurar <br> atalhos</span>
         </div>
       </div>
 
       <!-- Cartões e histórico de compras -->
       <section class="dCardExpenses">
-        <!-- Cartões -->
+        <!-- Cartoes-->
         <article class="paiCardInfoAdd">
-          <h2>Cartões</h2>
+          <h2 class="h2card">Cartões</h2>
+
           <div class="dcardHist">
+
             <div class="cardLimit">
               <div class="card">
-                <img src="../assets/img/logo_branco.png" alt="Logo do Cartão">
+                <img src="../assets/img/logo_branco.png" alt="Logo do Cartão" class="logoInCard">
                 <div class="cardShip">
-                  <img src="" alt="Chip do Cartão">
-                  <img src="" alt="Símbolo de Aproximação">
+                  <img src="../assets/img/chip.png" alt="Chip do Cartão">
+                  <img src="../assets/img/imgAproxima.png" alt="Símbolo de Aproximação">
                 </div>
-                <div class="cardNumber">123 123 123 123</div>
+                <div class="cardNumber">1234 1234 1234 1234</div>
                 <div class="cardNameVald">
-                  <span class="sCardName">Mateus Marques</span>
-                  <span class="cardDate">12/28</span>
-                  <img src="" alt="Bandeira do Cartão">
+                  <div class="sCardName">
+                    Mateus Marques
+                  </div>
+                  <div class="cardValidadedate">
+                    <span class="cardDateTxt">validade</span>
+                    <span class="cardDateNumber">12/28</span>
+                  </div>
+                  <div class="cardBandeira">
+                    <img src="../assets/img/bandeiraCard.png" alt="Bandeira do Cartão">
+                  </div>
                 </div>
               </div>
-              <div class="barrLimit">
-                <div class="barrLimit1">
-                  <div class="barrLimit2">---------------------</div>
+              <div class="barrTxtLimit">
+                <div class="barrLimit">
+                  <div class="barrLimit1">
+                    <div class="barrLimit2"><!----------------------- --></div>
+                  </div>
+                </div>
+                <div class="barrText">
+                  <span class="txtLM">Limite mensal</span><span class="value">R$ 300/3000</span>
                 </div>
               </div>
-              <span>Limite mensal</span>
-              <span class="value">R$ 300/3000</span>
             </div>
 
             <div class="cardInfoExtra">
@@ -149,20 +165,94 @@
               </div>
               <div class="LastPurchase">
                 <span class="stitleLastPurchase">Última compra</span>
-                <span class="stxtLastPurchase">Bazar Mituzi R$ 300,00</span>
+                <div class="estabelecimentoValor">
+                  <span class="estabelecimento">Bazar Mituzi</span>
+                  <span class="valor">R$300,00</span>
+                </div>
               </div>
-              <button class="storeMoreDetails" aria-label="Ver mais detalhes">MAIS DETALHES</button>
+              <div class="btnMaisDetalhes">
+                <button class="storeMoreDetails" aria-label="Ver mais detalhes">MAIS DETALHES</button>
+              </div>
             </div>
           </div>
         </article>
 
         <!-- Histórico de compras -->
         <article class="purchaseHisty">
-          <h2>Últimas Compras</h2>
-          <ul class="listCompras">
-            <li>Item fictício da lista</li>
-          </ul>
-          <button class="btnAddAtalho" aria-label="Ver extrato">VER EXTRATO</button>
+          <h2 class="h2UC">Últimas Compras</h2>
+          <div class="listsComp">
+            <div class="dDiaMes">
+              <h3 class="titleDataCompr">03/jan</h3>
+              <ul class="ulComp">
+                <div class="itemLst">
+                  <div class="itemLstEsquerda">
+                    <span class="nLugar">Loja 1Real</span>
+                    <span class="CredDeb">Compra no credito</span>
+                  </div>
+                  <div class="itemLstDireta">R$ 89,00</div>
+                </div>
+
+                <div class="itemLst">
+                  <div class="itemLstEsquerda">
+                    <span class="nLugar">Bazar Mizuto</span>
+                    <span class="CredDeb">Compra no debito</span>
+                  </div>
+                  <div class="itemLstDireta">R$ 300,00</div>
+                </div>
+
+                <div class="itemLst">
+                  <div class="itemLstEsquerda">
+                    <span class="nLugar">Mercado</span>
+                    <span class="CredDeb">Compra no credito</span>
+                  </div>
+                  <div class="itemLstDireta">R$ 980,00</div>
+                </div>
+              </ul>
+            </div>
+            <div class="dDiaMes">
+              <h3 class="titleDataCompr">03/jan</h3>
+              <ul class="ulComp">
+                <div class="itemLst">
+                  <div class="itemLstEsquerda">
+                    <span class="nLugar">Loja 1Real</span>
+                    <span class="CredDeb">Compra no credito</span>
+                  </div>
+                  <div class="itemLstDireta">R$ 89,00</div>
+                </div>
+
+                <div class="itemLst">
+                  <div class="itemLstEsquerda">
+                    <span class="nLugar">Loja 1Real</span>
+                    <span class="CredDeb">Compra no credito</span>
+                  </div>
+                  <div class="itemLstDireta">R$ 89,00</div>
+                </div>
+
+                <div class="itemLst">
+                  <div class="itemLstEsquerda">
+                    <span class="nLugar">Bazar Mizuto</span>
+                    <span class="CredDeb">Compra no debito</span>
+                  </div>
+                  <div class="itemLstDireta">R$ 300,00</div>
+                </div>
+              </ul>
+            </div>
+            <div class="dDiaMes">
+              <h3 class="titleDataCompr">03/jan</h3>
+              <ul class="ulComp">
+                <div class="itemLst">
+                  <div class="itemLstEsquerda">
+                    <span class="nLugar">Loja 1Real</span>
+                    <span class="CredDeb">Compra no credito</span>
+                  </div>
+                  <div class="itemLstDireta">R$ 89,00</div>
+                </div>
+              </ul>
+            </div>
+          </div>
+          <div class="btnVeEXComp">
+            <button class="btnVerExtrado " aria-label="Ver extrato">VER EXTRATO</button>
+          </div>
         </article>
       </section>
     </section>
