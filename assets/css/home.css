@@ -7,10 +7,22 @@
     box-sizing: border-box;
 }
 
+:root {
+    --color-primary: #1BC681;
+    --color-white: #FFFFFF;
+    --color-grey: #484848;
+    --font-lato: 'Lato', sans-serif;
+    --font-poppins: 'Poppins', sans-serif;
+    --font-size-base: 16px;
+    --border-radius: 6px;
+}
+
+
 body {
     font-family: Arial, sans-serif;
     display: flex;
     min-height: 100vh;
+    /* width: 100%; */
 }
 
 /* div da esqueda de menu latera */
@@ -37,7 +49,21 @@ body {
 .navMenu .dLogoSidebar img {
     max-width: 200px;
     max-height: 43.13px;
+    margin: 0 10px;
 }
+
+.navMenu .dLogoSidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* some a logo do ususario que so aparece no menu mobile */
+.MOBsidebar {
+    display: none;
+}
+
 
 /* ul de navegaçao */
 .navMenu .menu {
@@ -60,6 +86,11 @@ body {
     height: 50px;
 }
 
+.menu li:hover:not(.active),
+.logoltBtn:hover {
+    background-color: rgba(27, 198, 129, 0.1);
+}
+
 /* link do menu de navegaçao  */
 .menu li a {
     text-decoration: none;
@@ -67,7 +98,7 @@ body {
     font-style: normal;
     font-weight: 700;
     font-size: 17px;
-    color: #484848;
+    color: var(--color-grey);
 }
 
 
@@ -80,30 +111,31 @@ body {
     gap: 16px;
     padding: 16px;
     width: 80%;
-    color: #FFFFFF;
-    background: #1BC681;
+    min-width: 180px;
+    color: var(--color-white);
+    background: var(--color-primary);
     border-radius: 6px;
 }
 
 /* titulo da div de help que fica no final do menu lateral */
 .help h2 {
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
     line-height: 29px;
-    color: #FFFFFF;
+    color: var(--color-white);
     width: 101px;
 }
 
 /* paragrafo  da div de help que fica no final do menu lateral */
 .help p {
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
+    font-size: var(--font-size-base);
     line-height: 19px;
-    color: #FFFFFF;
+    color: var(--color-white);
     width: 140px;
     height: 38px;
 }
@@ -123,14 +155,14 @@ body {
 .btnHelp span {
     width: 96px;
     height: 22px;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
     line-height: 22px;
     text-align: center;
     background-color: transparent;
-    color: #FFFFFF;
+    color: var(--color-white);
 }
 
 
@@ -140,22 +172,22 @@ body {
 
 /* div pai da div da direita que contem o conteudo prinicipal */
 .main {
-    background: #1BC681;
+    background: var(--color-primary);
     display: flex;
     flex-direction: column;
-    padding: 0 2.5rem;
     flex: 0.806;
 }
 
 /* div pai do cabecalho com pesquisa e login */
 .main .header {
+    margin: 0 2.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 24px 0px;
     height: 84px;
-    margin-bottom: 30px;
-    color: white;
+    /* margin-bottom: 30px; */
+    color: var(--color-white);
 }
 
 
@@ -165,11 +197,9 @@ body {
     flex: 1;
     flex-direction: row;
     align-items: center;
-    /* gap: 16px; */
-    /* width: 240px;*/
     height: 36px;
     padding: 8px;
-    border: 1px solid #FFFFFF;
+    border: 1px solid var(--color-white);
     border-radius: 6px;
     order: 0;
     flex-grow: 0;
@@ -202,16 +232,16 @@ body {
     border: none;
     outline: none;
     flex: 1;
-    color: #FFFFFF;
-    font-family: 'Lato';
+    color: var(--color-white);
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
+    font-size: var(--font-size-base);
     line-height: 19px;
 }
 
 .iptBusca::placeholder {
-    color: #FFFFFF;
+    color: var(--color-white);
     /* Cor do placeholder */
     opacity: 0.8;
 }
@@ -231,9 +261,6 @@ body {
     align-items: center;
     padding: 0px;
     gap: 24px;
-    /* width: 250px;
-    height: 20px; */
-    /* margin: 0 auto; */
     order: 1;
     flex-grow: 0;
 }
@@ -260,25 +287,44 @@ body {
     flex-direction: column;
 }
 
-/* div pai das divs de atalho do home */
+/* div pai das divs de atalho do home dentro dela tem a div que serve de scrol */
 .content .paiAtalhos {
     display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    flex: 1;
-    font-family: 'Lato';
-    font-style: normal;
-    margin-bottom: 30px;
+    min-height: 200px;
+    align-items: center;
+    position: relative;
+    /* background-color: #0D603F; */
+    overflow: hidden;
+    overflow-x: auto;
 }
+
+/* tira barra de scrol */
+.paiAtalhos::-webkit-scrollbar {
+    display: none;
+}
+
+/* div que rola  */
+.paiAtalhos .filhaPaiAtalho {
+    position: absolute;
+    gap: 16px;
+    padding: 0rem 2.5rem;
+    display: flex;
+    /* background-color: #B5B5B5; */
+}
+
 
 /* css do atalho padrao com oque exibe pct */
 .atalhoPadrao {
+    font-family: var(--font-lato);
+    font-style: normal;
     width: 205.2px;
     height: 140px;
-    background: #FFFFFF;
+    background: var(--color-white);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     padding: 16px;
+    flex-shrink: 0;
+    /* Evita que as divs encolham */
 }
 
 /* restante do css do atalho, porem esse e um dos atalho que nao exibe pct */
@@ -301,12 +347,12 @@ body {
 /* span pct do atalho padrao*/
 .pctAtalho {
     margin: 0 auto;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 300;
     font-size: 24px;
     line-height: 29px;
-    color: #1BC681;
+    color: var(--color-primary);
 }
 
 
@@ -319,7 +365,7 @@ body {
     padding: 4px 8px;
     gap: 10px;
     height: 22px;
-    background: #1BC681;
+    background: var(--color-primary);
     border-radius: 6px;
     /* Inside auto layout */
     flex: none;
@@ -330,12 +376,12 @@ body {
 /* span pct do atalho de investimento */
 .pctInvestments {
     height: 14px;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
     line-height: 14px;
-    color: #FFFFFF;
+    color: var(--color-white);
     /* Inside auto layout */
     flex: none;
     order: 0;
@@ -375,23 +421,23 @@ body {
 
 /* nome do gasto do atalho  */
 .atalhoPadrao .nameAtalho {
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 300;
-    font-size: 16px;
+    font-size: var(--font-size-base);
     line-height: 19px;
-    color: #484848;
+    color: var(--color-grey);
 }
 
 /* css do valor do atalho */
 .atalhoPadrao .valueAtalho {
     height: 29px;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
     line-height: 29px;
-    color: #484848;
+    color: var(--color-grey);
     flex: none;
     order: 1;
     align-self: stretch;
@@ -426,7 +472,7 @@ body {
     gap: 10px;
     width: 32px;
     height: 32px;
-    background: #484848;
+    background: var(--color-grey);
     border-radius: 100px;
     /* Inside auto layout */
     flex: none;
@@ -438,13 +484,13 @@ body {
 .btnAddAtalho .Positivo {
     width: 14px;
     height: 24px;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
     line-height: 24px;
     text-align: center;
-    color: #FFFFFF;
+    color: var(--color-white);
     /* Inside auto layout */
     flex: none;
     order: 0;
@@ -456,13 +502,13 @@ body {
 .cfgAtalho .spConfigAtalho {
     width: 173.2px;
     height: 44px;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
     line-height: 22px;
     text-align: center;
-    color: #484848;
+    color: var(--color-grey);
     /* Inside auto layut */
     flex: none;
     order: 1;
@@ -477,7 +523,9 @@ body {
 
 /* css da div pai a que tem o cartao e o historico de compras */
 .dCardExpenses {
+    margin: 0 2.5rem;
     display: flex;
+    flex-wrap: wrap;
     gap: 30px;
     margin-bottom: 16px;
 }
@@ -489,7 +537,7 @@ body {
     flex: 1;
     padding: 24px;
     gap: 16px;
-    background: #FFFFFF;
+    background: var(--color-white);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     display: flex;
@@ -499,13 +547,13 @@ body {
 /* titulo da sessao de cartao */
 .paiCardInfoAdd .h2card {
     height: 24px;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
     line-height: 24px;
     text-align: left;
-    color: #484848;
+    color: var(--color-grey);
     /* Inside auto layout */
     flex: none;
     order: 0;
@@ -541,7 +589,7 @@ body {
     border-radius: 8.70091px;
     display: flex;
     flex-direction: column;
-    color: #FFFFFF;
+    color: var(--color-white);
 }
 
 /* logo do cartao */
@@ -575,7 +623,7 @@ body {
     font-size: 14.5015px;
     line-height: 17px;
     text-align: center;
-    color: #FFFFFF;
+    color: var(--color-white);
 }
 
 /* div pai dos dados no final do cartao (nome validade e bandeira) */
@@ -601,7 +649,7 @@ body {
     line-height: 17px;
     white-space: nowrap;
     text-align: center;
-    color: #FFFFFF;
+    color: var(--color-white);
 }
 
 /* data de validade do cartao */
@@ -624,7 +672,7 @@ body {
     font-size: 5.8006px;
     line-height: 8px;
     text-align: center;
-    color: #FFFFFF;
+    color: var(--color-white);
 }
 
 /* data de validade */
@@ -636,7 +684,7 @@ body {
     font-size: 8.70091px;
     line-height: 11px;
     text-align: center;
-    color: #FFFFFF;
+    color: var(--color-white);
 }
 
 /* div da img da bandeira */
@@ -686,7 +734,7 @@ body {
 .barrTxtLimit .barrLimit2 {
     width: 24px;
     height: 8px;
-    background: #1BC681;
+    background: var(--color-primary);
     border-radius: 5.1686px;
 }
 
@@ -705,23 +753,23 @@ body {
 .barrText .txtLM {
     margin: 0 auto;
     height: 24px;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
-    color: #484848;
+    color: var(--color-grey);
 }
 
 .barrText .value {
     margin: 0 auto;
     height: 24px;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
-    color: #484848;
+    color: var(--color-grey);
 }
 
 
@@ -749,32 +797,26 @@ body {
 .txtLimit .stitleLimit {
     height: 24px;
     flex-wrap: nowrap;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 300;
-    font-size: 16px;
+    font-size: var(--font-size-base);
     line-height: 24px;
     text-align: center;
-    color: #484848;
-    /* order: 0;
-    align-self: stretch;
-    flex-grow: 0; */
+    color: var(--color-grey);
 }
 
 /* span de valor de limite disponivel  */
 .txtLimit .sValorLimit {
     flex-wrap: nowrap;
     height: 24px;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
     line-height: 24px;
     text-align: center;
-    color: #484848;
-    /* order: 1;
-    align-self: stretch;
-    flex-grow: 0; */
+    color: var(--color-grey);
 }
 
 /* div que fica avaixo com ultima compra */
@@ -790,12 +832,12 @@ body {
 .LastPurchase .stitleLastPurchase {
     flex-wrap: nowrap;
     height: 24px;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 300;
-    font-size: 16px;
+    font-size: var(--font-size-base);
     line-height: 24px;
-    color: #484848;
+    color: var(--color-grey);
 }
 
 /* div pai do estabelecimento e valor */
@@ -816,26 +858,26 @@ body {
 .estabelecimentoValor .estabelecimento {
     flex-wrap: nowrap;
     height: 24px;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 600;
-    font-size: 16px;
+    font-size: var(--font-size-base);
     line-height: 24px;
     text-align: center;
-    color: #484848;
+    color: var(--color-grey);
 }
 
 /* span de txt valor da ultima compra */
 .estabelecimentoValor .valor {
     flex-wrap: nowrap;
     height: 24px;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 600;
-    font-size: 16px;
+    font-size: var(--font-size-base);
     line-height: 24px;
     text-align: center;
-    color: #484848;
+    color: var(--color-grey);
 }
 
 /* div do botao de mais detalhes */
@@ -854,7 +896,7 @@ body {
 /* botao de mais detalhes */
 .btnMaisDetalhes .storeMoreDetails {
     flex-wrap: nowrap;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -863,14 +905,15 @@ body {
     border: none;
     width: 100%;
     height: 100%;
-    background: #1BC681;
+    background: var(--color-primary);
     border-radius: 6px;
-    color: #FFFFFF;
+    color: var(--color-white);
 }
 
 
 /* div pai do historico */
 .dCardExpenses .purchaseHisty {
+    min-width: 430px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -878,7 +921,7 @@ body {
     align-items: center;
     padding: 24px;
     gap: 16px;
-    background: #FFFFFF;
+    background: var(--color-white);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
 }
@@ -886,12 +929,12 @@ body {
 /* titulo "ultimas compras" */
 .purchaseHisty .h2UC {
     width: 100%;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
     line-height: 24px;
-    color: #484848;
+    color: var(--color-grey);
 
 }
 
@@ -918,16 +961,13 @@ body {
 /* data com dia da div que contem as compras daquele dia  */
 .dDiaMes .titleDataCompr {
     height: 17px;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
     line-height: 17px;
-    color: #1BC681;
+    color: var(--color-primary);
     flex: none;
-    /* order: 0;
-    align-self: stretch;
-    flex-grow: 0; */
 }
 
 
@@ -941,9 +981,6 @@ body {
     gap: 4px;
     width: 100%;
     flex: none;
-    /* order: 1;
-    align-self: stretch;
-    flex-grow: 0; */
 }
 
 /* item da lista de compras */
@@ -957,11 +994,6 @@ body {
     width: 100%;
     height: 39px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-    /* Inside auto layout */
-    /* flex: none;
-    order: 0;
-    align-self: stretch;
-    flex-grow: 0; */
 }
 
 /* txt da esquerda do meu item da lista de compras */
@@ -975,18 +1007,17 @@ body {
 
 /* nome do estabelecimento do item da lista */
 .itemLstEsquerda .nLugar {
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
-    /* identical to box height */
-    color: #484848;
+    color: var(--color-grey);
 }
 
 /* txt de forma de pagamento do item da lista */
 .itemLstEsquerda .CredDeb {
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
@@ -1000,24 +1031,21 @@ body {
 .itemLst .itemLstDireta {
     width: 65px;
     height: 17px;
-    font-family: 'Lato';
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
     line-height: 17px;
-    /* identical to box height */
     text-align: center;
-    color: #1BC681;
+    color: var(--color-primary);
 }
 
 /* div que contem o botao de ver extrato */
 .purchaseHisty .btnVeEXComp {
-    /* Auto layout */
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    /* padding: 8px 24px; */
     gap: 10px;
     width: 169px;
     height: 38px;
@@ -1025,14 +1053,402 @@ body {
 
 .purchaseHisty .btnVerExtrado {
     width: 100%;
-    height: 100%; 
-    font-family: 'Lato';
+    height: 100%;
+    font-family: var(--font-lato);
     font-style: normal;
     font-weight: 600;
-    background: #1BC681;
+    background: var(--color-primary);
     border: none;
     border-radius: 6px;
-    font-size: 18px; 
+    font-size: 18px;
     text-align: center;
-    color: #FFFFFF;
+    color: var(--color-white);
+}
+
+
+
+/* REPONSIVIDADE --  REPONSIVIDADE --  REPONSIVIDADE --  REPONSIVIDADE --  REPONSIVIDADE --  REPONSIVIDADE --  REPONSIVIDADE --  REPONSIVIDADE --  */
+
+
+
+@media(max-width: 850px) {
+    :root {
+        --font-size-base: 14px;
+    }
+
+    main {
+        /* padding: 20px; */
+        position: absolute;
+        z-index: 1;
+        display: flex;
+        padding-left: 90px;
+    }
+
+    /* some a div que fica o usuario e bem vindo */
+    .header .profile .dPfProfile{
+        display: none;
+    }
+
+    /* some com o menu desctop */
+    .sidebar {
+        display: none;
+        position: relative;
+    }
+
+    /* exibe menu mobile */
+    .MOBsidebar {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: var(--color-white);
+        height: 100vh;
+        border-radius: 0px 18px 18px 0px;
+        position: fixed;
+        transition: all .5s;
+        min-width: 82px;
+        z-index: 2;
+    }
+
+
+    /* div do menu de navegaçao e da logo */
+    .MOBsidebar .MOBnavMenu {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        /* Reduz o gap entre a logo e o menu */
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    /* exibe a div do logo de user no menu mob */
+    .menuDivProfile {
+        height: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        text-decoration: none;
+        gap: 6px;
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--color-grey);
+        margin: 10px 0px;
+    }
+
+    /* div do logo e img login */
+    .dLogoSidebar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    /* ajusta com a img da logo do menu  */
+    .imgLogoSidevar {
+        margin-top: 20px;
+    }
+
+    /* img do usuario */
+    .menuDivProfile img {
+        width: 32px;
+        height: 32px;
+        object-fit: cover;
+    }
+
+    /* ul de navegaçao */
+    .MOBnavMenu .menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* nao sei pq devo concetta sempre que a class abri menu estiver ativa*/
+        align-items: center;
+        /* padding: 0px 20px; */
+        width: 100%;
+    }
+
+    .menu .active {
+        background-color: var(--color-primary);
+    }
+
+    .menu li {
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0px 20px;
+        width: 85%;
+        background-color: var(--color-white);
+        height: 45px;
+    }
+
+
+    /* link do menu de navegaçao  */
+    .menu li a {
+        font-size: 16px;
+        /* Ajusta o tamanho da fonte */
+    }
+
+    .logout {
+        border-top: 1px solid #e3e9f7;
+        padding: 12px;
+    }
+
+    .logoltBtn {
+        border: none;
+        padding: 12px;
+        font-size: 14px;
+        display: flex;
+        /* gap: 20px; */
+        align-items: center;
+        border-radius: 8px;
+        text-align: start;
+        cursor: pointer;
+        background-color: transparent;
+    }
+
+    .logoltBtn img {
+        height: 24px;
+        width: 24px;
+    }
+
+    .pLOgout {
+        padding: 0px 0px 0px 10px;
+    }
+
+    /* botao que vai abrie fechar o menu */
+    .open_btn {
+        position: absolute;
+        top: 30px;
+        right: -10px;
+        border-radius: 100%;
+        background-color: var(--color-primary);
+        box-shadow: 1px 1px 2px var(--color-grey);
+        height: 30px;
+        height: 30px;
+        padding: 4px;
+        /* background-color: transparent; */
+        border: none;
+    }
+
+    /* img do botao que abre e fecha menu */
+    .open_btn img {
+        height: 100%;
+        width: 100%;
+        /* object-fit: cover; */
+    }
+
+    /* some os texto quando estiver fechado */
+    .itemDescription {
+        width: 0px;
+        overflow: hidden;
+    }
+    
+    .opemSidbar {
+        width: 280px;
+    }
+    
+    /* exibe os itens quando abri menu */
+    .opemSidbar .itemDescription {
+        width: auto;
+    }
+
+    .opemSidbar .help {
+        display: flex;
+    }
+
+
+
+    /* span do botao de "contado" da div help */
+    .btnHelp span {
+        font-size: 13px;
+        width: auto;
+        height: auto;
+        line-height: 22px;
+        text-align: center;
+    }
+
+    /* msg de ajuda do menu lateral */
+    .help {
+        background-color: var(--color-primary);
+        border-radius: 8px;
+        margin: 10px;
+        display: none;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        width: 85%;
+        min-width: unset;
+        gap: 8px;
+        padding: 12px;
+        /* Ajusta o padding */
+    }
+
+    /* titulo da div de help que fica no final do menu lateral */
+    .help h2 {
+        font-size: 18px;
+        width: auto;
+        line-height: 25px;
+        color: var(--color-white);
+    }
+
+    /* paragrafo  da div de help que fica no final do menu lateral */
+    .help p {
+        font-weight: 400;
+        font-size: var(--font-size-base);
+        line-height: 16px;
+        width: 100%;
+        height: auto;
+
+    }
+
+    /* botao de ctt da div help */
+    .help .btnHelp {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 6px 16px;
+        /* Ajusta o padding do botão */
+    }
+}
+
+
+/* ressponsividade mobile */
+
+@media(max-width: 650px) {
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    :root {
+        --font-size-base: 16px;
+        --border-radius: 6px;
+    }
+    
+    body {
+        min-height: 100vh;
+    }
+    
+    .sidebar {
+        padding: 1.3rem 0rem;
+    }
+    
+    .sidebar .navMenu {
+        gap: 50px;
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    .navMenu .dLogoSidebar img {
+        max-width: 200px;
+        max-height: 43.13px;
+        margin: 0 10px;
+    }
+    
+    .navMenu .dLogoSidebar {
+        gap: 20px;
+    }
+    
+    .menu li {
+        border-radius: 12px 0px 0px 12px;
+        padding-left: 10px;
+        gap: 20px;
+        width: 85%;
+        height: 50px;
+    }
+    
+    .sidebar .help {
+        gap: 16px;
+        padding: 16px;
+        width: 80%;
+        min-width: 180px;
+        border-radius: 6px;
+    }
+    
+    .help h2 {
+        font-size: 24px;
+        line-height: 29px;
+        width: 101px;
+    }
+    
+    .help p {
+        font-size: var(--font-size-base);
+        line-height: 19px;
+        width: 140px;
+        height: 38px;
+    }
+    
+    .help .btnHelp {
+        padding: 8px 24px;
+        border-radius: 6px;
+    }
+    
+    .btnHelp span {
+        width: 96px;
+        height: 22px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+    
+    .main .header {
+        margin: 0 2.5rem;
+        padding: 24px 0px;
+        height: 84px;
+    }
+    
+    .header .search {
+        height: 36px;
+        padding: 8px;
+        border-radius: 6px;
+    }
+    
+    .search .btnBuscar {
+        height: 20px;
+        width: 20px;
+        margin-right: 8px;
+    }
+    
+    .search .btnBuscar img {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .search .iptBusca {
+        font-size: var(--font-size-base);
+        line-height: 19px;
+    }
+    
+    .header .profile {
+        gap: 24px;
+    }
+    
+    .profile .dPfProfile {
+        gap: 8px;
+    }
+    
+    .content .paiAtalhos {
+        min-height: 200px;
+    }
+    
+    .paiAtalhos .filhaPaiAtalho {
+        gap: 16px;
+        padding: 0rem 2.5rem;
+    }
+    
+    .atalhoPadrao {
+        width: 205.2px;
+        height: 140px;
+        border-radius: 8px;
+        padding: 16px;
+    }
+    
+    .atalhoComPct {
+        gap: 8px;
+    }
+    
 }

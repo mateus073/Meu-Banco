@@ -15,28 +15,79 @@
       <div class="dLogoSidebar">
         <img class="imgLogoSidevar" src="../assets/img/logo_verde.png" alt="Logo do Meu Banco">
       </div>
+
       <ul class="menu">
         <li class="active" style="background-color:rgba(27, 198, 129, 1);">
           <img src="../assets/img/home-white.png" alt="Ícone de Painel">
-          <a href="#" style="color: white;">Painel</a>
+          <a href="#" style="color: white;" class="">Painel</a>
         </li>
         <li>
           <img src="../assets/img/variant3-default.png" alt="Ícone de Carteira">
-          <a href="#">Carteira</a>
+          <a href="#" class="">Carteira</a>
         </li>
         <li>
           <img src="../assets/img/transfer-default.png" alt="Ícone de Transferências">
-          <a href="#">Transferências</a>
+          <a href="#" class="">Transferências</a>
         </li>
         <li>
           <img src="../assets/img/services-default.png" alt="Ícone de Serviços">
-          <a href="#">Serviços</a>
+          <a href="#" class="">Serviços</a>
         </li>
         <li>
           <img src="../assets/img/cog-default.png" alt="Ícone de Configurações">
-          <a href="#">Configurações</a>
+          <a href="#" class="">Configurações</a>
         </li>
       </ul>
+    </div>
+    <section class="help">
+      <h2>Precisa de ajuda?</h2>
+      <p>Fale com um dos nossos especialistas</p>
+      <div class="btnCtt">
+        <button class="btnHelp" aria-label="Contatar um especialista"> <span>CONTATAR</span></button>
+      </div>
+    </section>
+  </nav>
+
+  <!-- menu mobile -->
+  <nav class="MOBsidebar">
+    <div class="MOBnavMenu">
+      <div class="dLogoSidebar">
+        <img class="imgLogoSidevar itemDescription" src="../assets/img/logo_verdeMOB.png" alt="Logo do Meu Banco">
+        <!-- foto de perfil que entra no menu modo desktop -->
+      </div>
+
+      <ul class="menu">
+          <div class="menuDivProfile">
+            <img src="../assets/img/001-usurio-de-perfil.png" alt="Foto do Perfil">
+            <span class="spmob itemDescription">Bem-vindo, <span class="MenuNameUser">Tider Cardoso</span></span>
+          </div>
+        
+        <li class="active">
+          <img src="../assets/img/home-white.png" alt="Ícone de Painel">
+          <a href="#" style="color: white;" class="itemDescription">Painel</a>
+        </li>
+        <li>
+          <img src="../assets/img/variant3-default.png" alt="Ícone de Carteira">
+          <a href="#" class="itemDescription">Carteira</a>
+        </li>
+        <li>
+          <img src="../assets/img/transfer-default.png" alt="Ícone de Transferências">
+          <a href="#" class="itemDescription">Transferências</a>
+        </li>
+        <li>
+          <img src="../assets/img/services-default.png" alt="Ícone de Serviços">
+          <a href="#" class="itemDescription">Serviços</a>
+        </li>
+        <li>
+          <img src="../assets/img/cog-default.png" alt="Ícone de Configurações">
+          <a href="#" class="itemDescription">Configurações</a>
+        </li>
+      </ul>
+
+      <!-- btn que aparece no menu mobile -->
+      <button class="open_btn">
+        <img class="open_img" src="../assets/img/seta-direita.png" alt="">
+      </button>
     </div>
 
     <section class="help">
@@ -46,7 +97,19 @@
         <button class="btnHelp" aria-label="Contatar um especialista"> <span>CONTATAR</span></button>
       </div>
     </section>
+
+    <!-- divs que aparecem no menu mobile  -->
+    <div class="logout">
+      <button class="logoltBtn">
+        <img class="open_img" src="../assets/img/002-sair-do-usurio.png" alt="">
+        <span class="pLOgout itemDescription">
+          Logout
+        </span>
+      </button>
+    </div>
   </nav>
+
+
 
   <!-- Área principal -->
   <main class="main">
@@ -67,53 +130,55 @@
     <!-- Conteúdo principal -->
     <section class="content">
       <div class="paiAtalhos">
-        <!-- Atalho dos gastos do cartão -->
-        <article class="atalhoPadrao atalhoComPct">
-          <div class="dPctAtalho">
-            <span class="pctAtalho">+23%</span>
-          </div>
-          <div class="dNameValue">
-            <span class="nameAtalho">Gastos do mês</span>
-            <span class="valueAtalho">R$ 2.444,67</span>
-          </div>
-        </article>
+        <div class="filhaPaiAtalho">
+          <!-- Atalho dos gastos do cartão -->
+          <article class="atalhoPadrao atalhoComPct">
+            <div class="dPctAtalho">
+              <span class="pctAtalho">+23%</span>
+            </div>
+            <div class="dNameValue">
+              <span class="nameAtalho">Gastos do mês</span>
+              <span class="valueAtalho">R$ 2.444,67</span>
+            </div>
+          </article>
 
-        <!-- Atalho dos gastos recebidos -->
-        <article class="atalhoPadrao atalhoComPct">
-          <div class="dPctAtalho">
-            <span class="pctAtalho">+61%</span>
-          </div>
-          <div class="dNameValue">
-            <span class="nameAtalho">Recebimentos</span>
-            <span class="valueAtalho">R$ 3.974,64</span>
-          </div>
-        </article>
+          <!-- Atalho dos gastos recebidos -->
+          <article class="atalhoPadrao atalhoComPct">
+            <div class="dPctAtalho">
+              <span class="pctAtalho">+61%</span>
+            </div>
+            <div class="dNameValue">
+              <span class="nameAtalho">Recebimentos</span>
+              <span class="valueAtalho">R$ 3.974,64</span>
+            </div>
+          </article>
 
-        <!-- Atalho dos investimentos -->
-        <article class="atalhoPadrao atalhoComPct">
-          <div class="dAtalhoIvstm">
-            <span class="pctInvestments">+R$ 242,13 (+2.54%) </span>
-          </div>
-          <div class="dNameValue">
-            <span class="nameAtalho">Investimentos</span>
-            <span class="valueAtalho">R$ 6.546,11</span>
-          </div>
-        </article>
+          <!-- Atalho dos investimentos -->
+          <article class="atalhoPadrao atalhoComPct">
+            <div class="dAtalhoIvstm">
+              <span class="pctInvestments">+R$ 242,13 (+2.54%) </span>
+            </div>
+            <div class="dNameValue">
+              <span class="nameAtalho">Investimentos</span>
+              <span class="valueAtalho">R$ 6.546,11</span>
+            </div>
+          </article>
 
-        <!-- Atalho dos cartões -->
-        <article class="atalhoNoPct atalhoPadrao">
-          <div class="dNameValueNoPct">
-            <span class="nameAtalho">Cartões</span>
-            <span class="valueAtalho">R$ 2.444,67</span>
-          </div>
-        </article>
+          <!-- Atalho dos cartões -->
+          <article class="atalhoNoPct atalhoPadrao">
+            <div class="dNameValueNoPct">
+              <span class="nameAtalho">Cartões</span>
+              <span class="valueAtalho">R$ 2.444,67</span>
+            </div>
+          </article>
 
-        <!-- Adicionar atalho -->
-        <div class="atalhoPadrao cfgAtalho">
-          <button class="btnAddAtalho" aria-label="Adicionar atalho">
-            <span class="Positivo">+</span>
-          </button>
-          <span class="spConfigAtalho">configurar <br> atalhos</span>
+          <!-- Adicionar atalho -->
+          <div class="atalhoPadrao cfgAtalho">
+            <button class="btnAddAtalho" aria-label="Adicionar atalho">
+              <span class="Positivo">+</span>
+            </button>
+            <span class="spConfigAtalho">configurar <br> atalhos</span>
+          </div>
         </div>
       </div>
 
@@ -251,12 +316,12 @@
             </div>
           </div>
           <div class="btnVeEXComp">
-            <button class="btnVerExtrado " aria-label="Ver extrato">VER EXTRATO</button>
+            <button class="btnVerExtrado" aria-label="Ver extrato">VER EXTRATO</button>
           </div>
         </article>
       </section>
     </section>
   </main>
+  <script src="../assets/js/menu.js"></script>
 </body>
-
 </html>
