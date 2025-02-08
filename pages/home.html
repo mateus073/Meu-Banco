@@ -57,11 +57,11 @@
       </div>
 
       <ul class="menu">
-          <div class="menuDivProfile">
-            <img src="../assets/img/001-usurio-de-perfil.png" alt="Foto do Perfil">
-            <span class="spmob itemDescription">Bem-vindo, <span class="MenuNameUser">Tider Cardoso</span></span>
-          </div>
-        
+        <div class="menuDivProfile">
+          <img src="../assets/img/001-usurio-de-perfil.png" alt="Foto do Perfil">
+          <span class="spmob itemDescription">Bem-vindo, <span class="MenuNameUser">Tider Cardoso</span></span>
+        </div>
+
         <li class="active">
           <img src="../assets/img/home-white.png" alt="Ícone de Painel">
           <a href="#" style="color: white;" class="itemDescription">Painel</a>
@@ -322,6 +322,15 @@
       </section>
     </section>
   </main>
-  <script src="../assets/js/menu.js"></script>
+  <script src="../assets/js/classes.js"></script>
+  <script src="../assets/js/home.js"></script>
+  <!-- js do menu mobile -->
+  <script>
+    document.querySelector('.open_btn').addEventListener('click', () => {
+      document.querySelector('.MOBsidebar').classList.toggle('opemSidbar')
+      document.querySelector('.help').classList.toggle('openHelp')
+    })
+  </script>
 </body>
+
 </html>

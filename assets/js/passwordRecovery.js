@@ -109,7 +109,7 @@ function updatePassword() {
 
         // Exibe uma mensagem de sucesso
         alert('Senha atualizada com sucesso!');
-        window.location.href = '../pages/home.html';
+        window.location.href = '../index.html';
         // Reseta os campos e oculta a área de senha
         inputPassword.value = '';
         divPassword.style.display = "none";

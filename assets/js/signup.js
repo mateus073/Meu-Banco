@@ -47,7 +47,6 @@ inputPassword.addEventListener('keyup', () => {
         correctPassword = true
         correctOrWrong(true, inputPassword, labelPassword)// funcao que adiciona efeito de cor
         labelPassword.innerHTML = 'Senha'
-
     }
     colorStandard(inputPassword, labelPassword)
 })
@@ -114,17 +113,19 @@ function register() {
             alert("Usuário já cadastrado. Por favor, faça login.");
             window.location.href = '../../index.html';
         } else {
+            const userId = Math.floor(Math.random() * 10000) + 1;
             // Cria e adiciona o novo usuário à lista
-            let usuario = new Usuario(name, senha, remenberDevice);
+            let usuario = new Usuario(name, senha, remenberDevice, userId);
             listUser.push(usuario);
 
             // Salva a lista atualizada no localStorage
             localStorage.setItem("listUser", JSON.stringify(listUser));
             alert("Cadastro realizado com sucesso! Você já pode fazer login.");
-            window.location.href = '../pages/home.html';
+            window.location.href = '../index.html';
         }
     }
     else { // Caso os campos não estejam preenchidos corretamente
         alert('Preencha todos os campos corretamente.');
     }
 }
+

@@ -1320,79 +1320,8 @@ body {
 /* ressponsividade mobile */
 
 @media(max-width: 650px) {
-    * {
-        margin: 0;
-        padding: 0;
-    }
-    
-    :root {
-        --font-size-base: 16px;
-        --border-radius: 6px;
-    }
-    
-    body {
-        min-height: 100vh;
-    }
-    
-    .sidebar {
-        padding: 1.3rem 0rem;
-    }
-    
-    .sidebar .navMenu {
-        gap: 50px;
-        margin: 0 auto;
-        width: 100%;
-    }
-    
-    .navMenu .dLogoSidebar img {
-        max-width: 200px;
-        max-height: 43.13px;
-        margin: 0 10px;
-    }
-    
-    .navMenu .dLogoSidebar {
-        gap: 20px;
-    }
-    
-    .menu li {
-        border-radius: 12px 0px 0px 12px;
-        padding-left: 10px;
-        gap: 20px;
-        width: 85%;
-        height: 50px;
-    }
-    
-    .sidebar .help {
-        gap: 16px;
-        padding: 16px;
-        width: 80%;
-        min-width: 180px;
-        border-radius: 6px;
-    }
-    
-    .help h2 {
-        font-size: 24px;
-        line-height: 29px;
-        width: 101px;
-    }
-    
-    .help p {
-        font-size: var(--font-size-base);
-        line-height: 19px;
-        width: 140px;
-        height: 38px;
-    }
-    
-    .help .btnHelp {
-        padding: 8px 24px;
-        border-radius: 6px;
-    }
-    
-    .btnHelp span {
-        width: 96px;
-        height: 22px;
-        font-size: 18px;
-        line-height: 22px;
+    .main {
+        flex: 0.806;
     }
     
     .main .header {
@@ -1410,6 +1339,7 @@ body {
     .search .btnBuscar {
         height: 20px;
         width: 20px;
+        padding: 0;
         margin-right: 8px;
     }
     
@@ -1423,32 +1353,153 @@ body {
         line-height: 19px;
     }
     
-    .header .profile {
-        gap: 24px;
-    }
-    
-    .profile .dPfProfile {
-        gap: 8px;
-    }
-    
+  
     .content .paiAtalhos {
-        min-height: 200px;
+        min-height: 160px;
     }
     
     .paiAtalhos .filhaPaiAtalho {
         gap: 16px;
-        padding: 0rem 2.5rem;
+        padding: 0rem 0.7rem;
     }
     
     .atalhoPadrao {
-        width: 205.2px;
-        height: 140px;
+        width: 160px;
+        height: 110px;
         border-radius: 8px;
-        padding: 16px;
+        padding: 10px;
     }
     
     .atalhoComPct {
+        gap: 6px;
+    }
+    
+    .pctAtalho {
+        margin: 0 auto;
+        font-size: 19px;
+        line-height: 22px;
+    }
+    
+    .dAtalhoIvstm {
+        padding: 4px 8px;
         gap: 8px;
+        height: 22px;
+        border-radius: 6px;
+    }
+    
+    .pctInvestments {
+        height: 14px;
+        font-size: 12px;
+        line-height: 14px;
+    }
+    
+    .dNameValue {
+        padding: 0px;
+        margin: 0 auto;
+        width: 100%;
+        height: 45px;
+    }
+    
+    .dNameValueNoPct {
+        width: 100%;
+        height: 45px;
+    }
+    
+    .atalhoPadrao .nameAtalho {
+        line-height: 19px;
+    }
+    
+    .atalhoPadrao .valueAtalho {
+        height: 26px;
+        font-size: 20px;
+        line-height: 29px;
+    }
+    
+    .paiAtalhos .cfgAtalho {
+        gap: 15px;
+    }
+    
+    .cfgAtalho .btnAddAtalho {
+        padding: 0px;
+        gap: 15px;
+        width: 32px;
+        height: 32px;
+        border-radius: 100px;
+    }
+    
+    .btnAddAtalho .Positivo {
+        width: 14px;
+        height: 24px;
+        font-size: 24px;
+        line-height: 24px;
+    }
+    
+    .cfgAtalho .spConfigAtalho {
+        width: auto;
+        height: 44px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+    
+    .dCardExpenses {
+        margin: 0 0.7rem;
+        gap: 20px;
+        margin-bottom: 16px;
+    }
+    
+    .dCardExpenses .paiCardInfoAdd {
+        height: fit-content;
+        padding: 20px 0px;
+        gap: 11px;
+        border-radius: 8px;
+    }
+    
+    .paiCardInfoAdd .h2card {
+        height: 24px;
+        font-size: 18px;
+        text-align: center;
+        line-height: 24px;
+    }
+    
+    .paiCardInfoAdd .dcardHist {
+        flex-direction: column;
+        gap: 24px;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+    
+    .dcardHist .cardLimit {
+        width: 240px;
+    }
+    
+    .dcardHist .cardInfoExtra {
+        width: 100%;
+        gap: 15px;
+    }
+
+    .btnMaisDetalhes .storeMoreDetails {
+        font-size: 18px;
+        line-height: 22px;
+        width: 100%;
+        height: 100%;
+        border-radius: 6px;
+    }
+    
+    .dCardExpenses .purchaseHisty {
+        min-width: 300px;
+        padding: 18px;
+        gap: 16px;
+        border-radius: 8px;
+    }
+    
+    .purchaseHisty .h2UC {
+        width: 100%;
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    .ulComp .itemLst {
+        gap: 10px;
     }
     
 }
