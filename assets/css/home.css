@@ -780,7 +780,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    max-width: 187px;
+    max-width: 200px;
 }
 
 
@@ -846,8 +846,8 @@ body {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    justify-content: space-between;
     padding: 0px;
-    gap: 24px;
     height: 24px;
     width: 100%;
     order: 1;
@@ -856,7 +856,7 @@ body {
 
 /* span de txt com nome do lugar da ultima compra */
 .estabelecimentoValor .estabelecimento {
-    flex-wrap: nowrap;
+    white-space: nowrap;
     height: 24px;
     font-family: var(--font-lato);
     font-style: normal;
@@ -881,7 +881,8 @@ body {
 }
 
 /* div do botao de mais detalhes */
-.cardInfoExtra .btnMaisDetalhes {
+.cardInfoExtra .btnMaisDetalhes,
+.btnMenosDetalhes {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -894,6 +895,7 @@ body {
 }
 
 /* botao de mais detalhes */
+.btnMenosDetalhes .storeMoreDetails, 
 .btnMaisDetalhes .storeMoreDetails {
     flex-wrap: nowrap;
     font-family: var(--font-lato);
@@ -908,12 +910,176 @@ body {
     background: var(--color-primary);
     border-radius: 6px;
     color: var(--color-white);
+    cursor: pointer;
 }
+
+.seeMore {
+    padding: 16px;
+    display: block;
+}
+
+
+.limitAjust {
+    width: 100%;
+    background-color: white;
+    border-radius: 12px;
+    border: solid 1px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.limitAjust-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 600;
+    font-family: var(--font-lato);
+    color: var(--color-grey);
+}
+
+.arrow button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.limitAjust-body h2 {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: var(--font-lato);
+    color: var(--color-grey);
+    margin: 0 0 16px 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.progress {
+    width: 59%;
+    height: 100%;
+    background-color: var(--color-primary);
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.color-box {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    margin-right: 8px;
+    border-radius: 2px;
+}
+
+.color-box.black {
+    background-color: #333;
+}
+
+.color-box.green {
+    background-color: #00b359;
+}
+
+.hserv {
+    /* margin-left: 10px; */
+    font-family: var(--font-lato);
+    font-weight: 800;
+    color: var(--color-grey);
+    font-size: 20px;
+}
+
+.serviceFather {
+    margin-top: 24px
+}
+
+.service {
+    width: 100%;
+    position: relative;
+    height: 130px;
+    overflow: hidden;
+    overflow-x: auto;
+}
+
+.sonService {
+    position: absolute;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    gap: 26px;
+}
+
+
+/* Esconde a barra de rolagem no Chrome, Edge e Safari */
+.service::-webkit-scrollbar {
+    display: none;
+}
+
+.sonService .serviceItem {
+    width: 90px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 7px;
+    text-align: center;
+    border: solid 1px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #484848;
+    font-family: var(--font-lato);
+    cursor: pointer;
+}
+
+.serviceItem:hover {
+    background-color: rgba(27, 198, 129, 0.1);
+}
+
+.btnMenosDetalhes {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto;
+    width: 169px;
+    height: 38px;
+
+}
+
+
+
+
 
 
 /* div pai do historico */
 .dCardExpenses .purchaseHisty {
     min-width: 430px;
+    height: fit-content;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -1085,7 +1251,7 @@ body {
     }
 
     /* some a div que fica o usuario e bem vindo */
-    .header .profile .dPfProfile{
+    .header .profile .dPfProfile {
         display: none;
     }
 
@@ -1247,11 +1413,11 @@ body {
         width: 0px;
         overflow: hidden;
     }
-    
+
     .opemSidbar {
         width: 280px;
     }
-    
+
     /* exibe os itens quando abri menu */
     .opemSidbar .itemDescription {
         width: auto;
@@ -1323,102 +1489,102 @@ body {
     .main {
         flex: 0.806;
     }
-    
+
     .main .header {
         margin: 0 2.5rem;
         padding: 24px 0px;
         height: 84px;
     }
-    
+
     .header .search {
         height: 36px;
         padding: 8px;
         border-radius: 6px;
     }
-    
+
     .search .btnBuscar {
         height: 20px;
         width: 20px;
         padding: 0;
         margin-right: 8px;
     }
-    
+
     .search .btnBuscar img {
         width: 16px;
         height: 16px;
     }
-    
+
     .search .iptBusca {
         font-size: var(--font-size-base);
         line-height: 19px;
     }
-    
-  
+
+
     .content .paiAtalhos {
         min-height: 160px;
     }
-    
+
     .paiAtalhos .filhaPaiAtalho {
         gap: 16px;
         padding: 0rem 0.7rem;
     }
-    
+
     .atalhoPadrao {
         width: 160px;
         height: 110px;
         border-radius: 8px;
         padding: 10px;
     }
-    
+
     .atalhoComPct {
         gap: 6px;
     }
-    
+
     .pctAtalho {
         margin: 0 auto;
         font-size: 19px;
         line-height: 22px;
     }
-    
+
     .dAtalhoIvstm {
         padding: 4px 8px;
         gap: 8px;
         height: 22px;
         border-radius: 6px;
     }
-    
+
     .pctInvestments {
         height: 14px;
         font-size: 12px;
         line-height: 14px;
     }
-    
+
     .dNameValue {
         padding: 0px;
         margin: 0 auto;
         width: 100%;
         height: 45px;
     }
-    
+
     .dNameValueNoPct {
         width: 100%;
         height: 45px;
     }
-    
+
     .atalhoPadrao .nameAtalho {
         line-height: 19px;
     }
-    
+
     .atalhoPadrao .valueAtalho {
         height: 26px;
         font-size: 20px;
         line-height: 29px;
     }
-    
+
     .paiAtalhos .cfgAtalho {
         gap: 15px;
     }
-    
+
     .cfgAtalho .btnAddAtalho {
         padding: 0px;
         gap: 15px;
@@ -1426,55 +1592,59 @@ body {
         height: 32px;
         border-radius: 100px;
     }
-    
+
     .btnAddAtalho .Positivo {
         width: 14px;
         height: 24px;
         font-size: 24px;
         line-height: 24px;
     }
-    
+
     .cfgAtalho .spConfigAtalho {
         width: auto;
         height: 44px;
         font-size: 18px;
         line-height: 22px;
     }
-    
+
     .dCardExpenses {
         margin: 0 0.7rem;
         gap: 20px;
         margin-bottom: 16px;
     }
-    
+
     .dCardExpenses .paiCardInfoAdd {
         height: fit-content;
         padding: 20px 0px;
         gap: 11px;
         border-radius: 8px;
     }
-    
+
     .paiCardInfoAdd .h2card {
         height: 24px;
         font-size: 18px;
         text-align: center;
         line-height: 24px;
     }
-    
+
     .paiCardInfoAdd .dcardHist {
         flex-direction: column;
         gap: 24px;
         align-items: center;
         margin-bottom: 16px;
     }
-    
+
     .dcardHist .cardLimit {
         width: 240px;
     }
-    
+
     .dcardHist .cardInfoExtra {
         width: 100%;
         gap: 15px;
+    }
+
+    .txtLimit .sValorLimit {
+        font-size: 20px;
     }
 
     .btnMaisDetalhes .storeMoreDetails {
@@ -1484,14 +1654,14 @@ body {
         height: 100%;
         border-radius: 6px;
     }
-    
+
     .dCardExpenses .purchaseHisty {
         min-width: 300px;
         padding: 18px;
         gap: 16px;
         border-radius: 8px;
     }
-    
+
     .purchaseHisty .h2UC {
         width: 100%;
         font-size: 18px;
@@ -1501,5 +1671,5 @@ body {
     .ulComp .itemLst {
         gap: 10px;
     }
-    
+
 }
