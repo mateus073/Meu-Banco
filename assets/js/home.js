@@ -10,37 +10,46 @@ document.querySelectorAll('.spanNameUser').forEach((spanName) => {
 
 
 
-
 // seleciona dados e instancia as classes
 if (loggedInUser) {
-   const usuarioDataFilter = new UsuarioDataFilter(loggedInUser)
+   const usuarioDataFilter = new UsuarioDataFilter(loggedInUser) // class que passa os dados filtrados pra class que preeche a tela 
 
    const dataCardd = usuarioDataFilter.filterCardData() // dados do cartao   
    const elDomCard = {
-      cardNumber: document.querySelector(".cardNumber"),
-      cardName: document.querySelector(".sCardName"),
-      validade: document.querySelector(".cardDateNumber"),
-      barrLmt: document.querySelector(".barrLimit2"),
-      limiteMensal: document.querySelector(".value"),
-      limiteDisponivel: document.querySelector(".sValorLimit"),
-      ultimaCompra: document.querySelector(".estabelecimento"),
-      valorUltimaCompra: document.querySelector(".valor"),
-      botaoMaisDetalhes: document.querySelector(".storeMoreDetails"),
-   };// objeto que contem os elementos do cartao
+      domcardNumber: document.querySelector(".cardNumber"),
+      domcardName: document.querySelector(".sCardName"),
+      domvalidade: document.querySelector(".cardDateNumber"),
+      dombarrLmt: document.querySelector(".barrLimit2"),
+      domlimiteMensal: document.querySelector(".value"),
+      domlimiteDisponivel: document.querySelector(".sValorLimit"),
+      domultimaCompra: document.querySelector(".estabelecimento"),
+      domvalorUltimaCompra: document.querySelector(".valor"),
+      domBtnMaisDetalhes: document.querySelector(".storeMoreDetails"),
+      domDivVerMais: document.querySelector(".seeMore"),
+      domBtnAjustLmti: document.querySelector(".btnAjustLmt"),
+      domhVlrLimit: document.querySelector(".hVlrLimit"),
+      domBarrLmtAprovado: document.querySelector(".progress"),
+      domLmtEmUso: document.querySelector(".emUso"),
+      domLmtDisponivel: document.querySelector(".disponívelUso"),
+      domBtnVerMenos: document.querySelector(".storeMoreDetails"),
+   }; // objeto que contem os elementos do cartao
   
    
    // instancia da class que recebe os dados pra atualizar a tela
    const updateCard = new UpdateCardScreen(dataCardd, elDomCard)
-   updateCard.conferiredados()
+   updateCard.refreshScreen()
+   // updateCard.conferiredados()
+
    
    
-   // dados do historico de compras 
+   // dados do historico de compras  e seues elementos no dom
    //const dataShortcutData = usuarioDataFilter.filterShortcutData()
+   // const elDomShortcutData = {}
 
 
-   // dados do atalho 
+   // dados do atalho e seus elemento no dom
    //const dataPurchaseHistory = usuarioDataFilter.filterPurchaseHistory()
-
+   // const elDomPurchaseHistory = {}
 }
 
 

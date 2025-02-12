@@ -30,8 +30,10 @@ class Usuario {
             {
                 inUser: true, // variavel que define se e pra exibir esse cartao na tela
                 nameCard: "card 01 - ouroCard",
+                cardStatus: 'active',
                 cardBalance: 1500, // Saldo no cartão
                 limit: 3500,
+                approvedLimit: 5000,
                 invoice: 0, // fatura
                 purchase: [ // compras
                     { type: "Debito", value: 110, date: '2025-02-28T17:24:09.861Z', merchant: 'Bazar Dbgt' },
@@ -42,7 +44,6 @@ class Usuario {
                 ],
                 dataCard: {
                     cardName: this.nameCard(),
-                    cardStatus: 'active',
                     cardNumber: this.generateRandomNumber(),
                     cv: this.generateRandomCV(),
                     cardPassword: '123456',
@@ -52,9 +53,12 @@ class Usuario {
             {
                 inUser: false, // variavel que define se e pra exibir esse cartao na tela
                 nameCard: "card 02 -prataCard",
+                cardStatus: 'active',
                 cardBalance: 222, // Saldo no cartão
                 limit: 2222,
+                approvedLimit: 3500,
                 invoice: 0, // fatura
+                cardPassword: '654321',
                 purchase: [ // compr
                     { type: "Debito", value: 910, date: '2025-02-28T17:24:09.861Z', merchant: 'Bazar Mituzi' },
                     { type: "Credito", value: 84, date: '2025-02-31T17:24:09.861Z', merchant: 'Bazar Shokun' },
@@ -64,10 +68,8 @@ class Usuario {
                 ],
                 dataCard: {
                     cardName: this.nameCard(),
-                    cardStatus: 'active',
                     cardNumber: this.generateRandomNumber(),
                     cv: this.generateRandomCV(),
-                    cardPassword: '654321',
                     expirationDate: '12/30'
                 }
             }
@@ -160,11 +162,13 @@ class UsuarioDataFilter {
         // Cria o objeto com os dados do cartão
         const dateCard = {
             nameCard: cardAndPurchases.nameCard,
+            approvedLimit: cardAndPurchases.approvedLimit,
             cardBalance: cardAndPurchases.cardBalance,
+            cardStatus: cardAndPurchases.cardStatus,
             limit: cardAndPurchases.limit,
             invoice: cardAndPurchases.invoice,
-            purchase: cardAndPurchases.purchase,
-            dataCard: cardAndPurchases.dataCard,
+            purchase: cardAndPurchases.purchase, // arrai de historico de compras
+            dataCard: cardAndPurchases.dataCard, // objeto com os dados do cartao do usuario
         };
 
         // console.log("Dados do cartão filtrados:", dateCard);
@@ -180,45 +184,139 @@ class UsuarioDataFilter {
 
 
 
-
 // class reponsavel por preencher a parte de cartoes da tela home com infos do usuario
 // recbe um objeto com os dados do cartao ja filtrados 
 // recebe um objeto com os elementos do doom necesario
 class UpdateCardScreen {
-    constructor(dataCardd, elDomCard) {
-        this.dataCardd = dataCardd
-        this.elDomCard = elDomCard
+    constructor({ nameCard, approvedLimit, cardBalance, limit, invoice, purchase, dataCard }, elDomCard) {
+        // dados do proprio cartao
+        const { cardName, cardNumber, cardPassword, cv, expirationDate } = dataCard
+        this.cardName = cardName
+        this.cardNumber = cardNumber
+        this.cardPassword = cardPassword
+        this.cardCv = cv
+        this.cardExpirationDate = expirationDate
+
+        // dados relacionado ao cartao
+        this.nameCard = nameCard
+        this.approvedLimit = approvedLimit
+        this.cardBalance = cardBalance
+        this.limit = limit
+        this.invoice = invoice
+        this.arayPurchase = purchase
+
+        // Desconstrução dos elementos DOM do objeto passado
+        const {
+            domcardNumber,
+            domcardName,
+            domvalidade,
+            dombarrLmt,
+            domlimiteMensal,
+            domlimiteDisponivel,
+            domultimaCompra,
+            domvalorUltimaCompra,
+            domBtnMaisDetalhes,
+            domDivVerMais,
+            domBtnAjustLmti,
+            domhVlrLimit,
+            domLmtEmUso,
+            domLmtDisponivel,
+            domBtnVerMenos,
+            domBarrLmtAprovado,
+
+        } = elDomCard;
+
+        // Atribuindo os elementos desconstruídos às propriedades da instância
+        this.domcardNumber = domcardNumber;
+        this.domcardName = domcardName;
+        this.domvalidade = domvalidade;
+        this.dombarrLmt = dombarrLmt;
+        this.domlimiteMensal = domlimiteMensal;
+        this.domlimiteDisponivel = domlimiteDisponivel;
+        this.domultimaCompra = domultimaCompra;
+        this.domvalorUltimaCompra = domvalorUltimaCompra;
+        this.domBtnMaisDetalhes = domBtnMaisDetalhes;
+        this.domDivVerMais = domDivVerMais;
+        this.domBtnAjustLmti = domBtnAjustLmti;
+        this.domhVlrLimit = domhVlrLimit;
+        this.domLmtEmUso = domLmtEmUso;
+        this.domLmtDisponivel = domLmtDisponivel;
+        this.domBtnVerMenos = domBtnVerMenos;
+        this.domBarrLmtAprovado = domBarrLmtAprovado
     }
 
+    // metodo reponsavel por confeirir se todos os dados estao corretos
     conferiredados() {
-        console.log('elementos dom e dados do cartao de atualizar tela: ')
-        console.log(this.elDomCard)
-        console.log(this.dataCardd)
+        console.group("Verificação dos Dados do Cartão");
 
+        // Dados relacionados ao cartão
+        console.log("nameCard:", this.nameCard);
+        console.log("approvedLimit:", this.approvedLimit);
+        console.log("cardBalance:", this.cardBalance);
+        console.log("limit:", this.limit);
+        console.log("invoice:", this.invoice);
+        console.log("arayPurchase:", this.arayPurchase);
+
+        // Dados do próprio cartão (dados pessoais/internos)
+        console.log("cardName:", this.cardName);
+        console.log("cardNumber:", this.cardNumber);
+        console.log("cardPassword:", this.cardPassword);
+        console.log("cv:", this.cv);
+        console.log("expirationDate:", this.expirationDate);
+
+        // Elementos DOM
+        console.log("domcardNumber:", this.domcardNumber);
+        console.log("domcardName:", this.domcardName);
+        console.log("domvalidade:", this.domvalidade);
+        console.log("dombarrLmt:", this.dombarrLmt);
+        console.log("domlimiteMensal:", this.domlimiteMensal);
+        console.log("domlimiteDisponivel:", this.domlimiteDisponivel);
+        console.log("domultimaCompra:", this.domultimaCompra);
+        console.log("domvalorUltimaCompra:", this.domvalorUltimaCompra);
+        console.log("domBtnMaisDetalhes:", this.domBtnMaisDetalhes);
+        console.log("domDivVerMais:", this.domDivVerMais);
+        console.log("domBtnAjustLmti:", this.domBtnAjustLmti);
+        console.log("domhVlrLimit:", this.domhVlrLimit);
+        console.log("domLmtEmUso:", this.domLmtEmUso);
+        console.log("domLmtDisponivel:", this.domLmtDisponivel);
+        console.log("domBtnVerMenos:", this.domBtnVerMenos);
+        console.log("dombarrlimitDisponivel:", this.domBarrLmtAprovado);
+
+        console.groupEnd();
+    }
+
+    refreshScreen() {
         // preenchendo cartao
-        this.elDomCard.cardNumber.textContent = this.dataCardd.dataCard.cardNumber
-        this.elDomCard.cardName.textContent = this.dataCardd.dataCard.cardName.toUpperCase()
-        this.elDomCard.validade.textContent = this.dataCardd.dataCard.expirationDate
+        this.domcardNumber.textContent = this.cardNumber
+        this.domcardName.textContent = this.cardName.toUpperCase()
+        this.domvalidade.textContent = this.cardExpirationDate
 
-        // preenchendo limite:
-        let creditTransactions = this.dataCardd.purchase.filter(purchase => purchase.type === 'Credito') // filtra compraas no credito 
+       // preenchendo limite:
+        let creditTransactions = this.arayPurchase.filter(purchase => purchase.type === 'Credito') // filtra compraas no credito 
         let totalCredit = creditTransactions.reduce((sum, transactions) => sum + transactions.value, 0) // soma as compras no credito 
         // barr de limite
-        let pctLimit = (totalCredit / this.dataCardd.limit) * 100
-        this.elDomCard.barrLmt.style.width = `${pctLimit}%`
+        let pctLimit = (totalCredit / this.limit) * 100
+        this.dombarrLmt.style.width = `${pctLimit}%`
         // txt de limite mensal
-        this.elDomCard.limiteMensal.textContent = `R$ ${totalCredit.toLocaleString('pt-BR')}/${this.dataCardd.limit.toLocaleString('pt-BR')}`
-
+        this.domlimiteMensal.textContent = `R$ ${totalCredit.toLocaleString('pt-BR')}/${this.limit.toLocaleString('pt-BR')}`
+ 
         // txt de limite disponivel
-        this.elDomCard.limiteDisponivel.textContent = `R$ ${this.dataCardd.limit.toLocaleString('pt-BR')}.00`
+        this.domlimiteDisponivel.textContent = `R$ ${this.limit.toLocaleString('pt-BR')}.00`
 
-        let purchaseOrdered = this.dataCardd.purchase.sort((a, b) => new Date(b.date) - new Date(a.date)); // ordena as compras por data
+        // odena as compras da mais recente pra mais antiga e exibe a mais recente na tela
+        let purchaseOrdered = this.arayPurchase.sort((a, b) => new Date(b.date) - new Date(a.date)); // ordena as compras por data
         purchaseOrdered.reverse() // reverte a ordem deixando da mais recente pra mais antiga
-        let  recentPurchase = purchaseOrdered[0]
-        this.elDomCard.ultimaCompra.textContent = recentPurchase.merchant
-        this.elDomCard.valorUltimaCompra.textContent = `R$ ${recentPurchase.value}.00`
+        let recentPurchase = purchaseOrdered[0] // acessa a primeira ou seja a mais recente
+        this.domultimaCompra.textContent = recentPurchase.merchant
+        this.domvalorUltimaCompra.textContent = `R$ ${recentPurchase.value}.00`
 
-        console.log(recentPurchase)
+        // div do ajustar limit
+        this.domhVlrLimit.textContent = `R$ ${this.limit}`
+        // barra de limite em uso
+        let pctLmtUso = (this.limit / this.approvedLimit) * 100
+        this.domBarrLmtAprovado.style.width = `${pctLmtUso}%`
+        this.domLmtEmUso.textContent = `Em uso: R$ ${this.limit}`
+        this.domLmtDisponivel.textContent = `Disponível para uso: R$ ${this.approvedLimit}`
         return
     }
 
