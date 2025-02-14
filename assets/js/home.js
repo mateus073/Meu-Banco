@@ -9,6 +9,25 @@ document.querySelectorAll('.spanNameUser').forEach((spanName) => {
 })
 
 
+// funcionalidade de ver mais da div cartao
+const btnVerMais  = document.querySelector('.btnMaDt')
+const btnVerMenos  = document.querySelector('.btnMeDt')
+const divInfoExtra = document.querySelector('.seeMore')
+
+btnVerMais.addEventListener('click', () => {
+   divInfoExtra.style.display = "block"
+   btnVerMais.style.display = "none"
+   
+})
+
+btnVerMenos.addEventListener('click', () => {
+   divInfoExtra.style.display = "none"
+   btnVerMais.style.display = "block"
+   
+})
+
+
+
 
 // seleciona dados e instancia as classes
 if (loggedInUser) {
@@ -24,14 +43,11 @@ if (loggedInUser) {
       domlimiteDisponivel: document.querySelector(".sValorLimit"),
       domultimaCompra: document.querySelector(".estabelecimento"),
       domvalorUltimaCompra: document.querySelector(".valor"),
-      domBtnMaisDetalhes: document.querySelector(".storeMoreDetails"),
-      domDivVerMais: document.querySelector(".seeMore"),
       domBtnAjustLmti: document.querySelector(".btnAjustLmt"),
       domhVlrLimit: document.querySelector(".hVlrLimit"),
       domBarrLmtAprovado: document.querySelector(".progress"),
       domLmtEmUso: document.querySelector(".emUso"),
-      domLmtDisponivel: document.querySelector(".disponívelUso"),
-      domBtnVerMenos: document.querySelector(".storeMoreDetails"),
+      domLmtDisponivel: document.querySelector(".disponívelUso"),      
    }; // objeto que contem os elementos do cartao
   
    

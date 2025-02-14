@@ -34,13 +34,35 @@ class Usuario {
                 cardBalance: 1500, // Saldo no cartão
                 limit: 3500,
                 approvedLimit: 5000,
-                invoice: 0, // fatura
+                invoice: [
+                    {
+                        id: "fatura_001", // Identificador único
+                        descricao: "Conta de Luz",
+                        valor: 250.75,
+                        dataVencimento: "2025-03-10",
+                        dataPagamento: null, // Se for pago, preenche com a data
+                        status: "pendente", // "pendente", "pago", "atrasado"
+                        metodoPagamento: null, // "cartao", "boleto", "pix", etc.
+                        categoria: "Contas",
+                    },
+                    {
+                        id: "fatura_002",
+                        descricao: "Cartão de Crédito",
+                        valor: 1500.00,
+                        dataVencimento: "2025-02-20",
+                        dataPagamento: "2025-02-18",
+                        status: "pago",
+                        metodoPagamento: "pix",
+                        categoria: "Crédito",
+                    }
+                ],
+                dateInvoicePayment: '2025-02-28T17:24:09.861Z',
                 purchase: [ // compras
                     { type: "Debito", value: 110, date: '2025-02-28T17:24:09.861Z', merchant: 'Bazar Dbgt' },
-                    { type: "Credito", value: 984, date: '2025-02-11T17:24:09.861Z', merchant: 'Bazar Mituzi' },
-                    { type: "Credito", value: 24, date: '2025-02-12T17:24:09.861Z', merchant: 'Bazar Esferas' },
+                    { type: "Credito", value: 984, date: '2025-02-11T17:24:09.861Z', merchant: 'Bazar Mituzi', installments: 7 },
+                    { type: "Credito", value: 24, date: '2025-02-12T17:24:09.861Z', merchant: 'Bazar Esferas', installments: 1 },
                     { type: "Debito", value: 664, date: '2025-02-14T17:24:09.861Z', merchant: 'Bazar nituzi' },
-                    { type: "Credito", value: 274, date: '2025-02-21T17:24:09.861Z', merchant: 'Bazar Konoha' },
+                    { type: "Credito", value: 274, date: '2025-02-21T17:24:09.861Z', merchant: 'Bazar Konoha', installments: 4 },
                 ],
                 dataCard: {
                     cardName: this.nameCard(),
@@ -60,11 +82,11 @@ class Usuario {
                 invoice: 0, // fatura
                 cardPassword: '654321',
                 purchase: [ // compr
-                    { type: "Debito", value: 910, date: '2025-02-28T17:24:09.861Z', merchant: 'Bazar Mituzi' },
-                    { type: "Credito", value: 84, date: '2025-02-31T17:24:09.861Z', merchant: 'Bazar Shokun' },
+                    { type: "Credito", value: 910, date: '2025-02-28T17:24:09.861Z', merchant: 'Bazar Mituzi', installments: 4 },
+                    { type: "Credito", value: 84, date: '2025-02-31T17:24:09.861Z', merchant: 'Bazar Shokun', installments: 2 },
                     { type: "Debito", value: 334, date: '2025-02-20T17:24:09.861Z', merchant: 'Bazar MM' },
                     { type: "Debito", value: 64, date: '2025-02-24T17:24:09.861Z', merchant: 'Bazar L&D' },
-                    { type: "Credito", value: 2474, date: '2025-02-21T17:24:09.861Z', merchant: 'Bazar zk' },
+                    { type: "Credito", value: 2474, date: '2025-02-21T17:24:09.861Z', merchant: 'Bazar zk', installments: 7 },
                 ],
                 dataCard: {
                     cardName: this.nameCard(),
@@ -137,6 +159,13 @@ class Usuario {
 }
 
 
+// class reponsavel por manipular os dados inseridos 
+class BankDataManager {
+    constructor(user) {
+
+    }
+
+}
 
 
 
@@ -167,6 +196,7 @@ class UsuarioDataFilter {
             cardStatus: cardAndPurchases.cardStatus,
             limit: cardAndPurchases.limit,
             invoice: cardAndPurchases.invoice,
+            dateInvoicePayment: cardAndPurchases.dateInvoicePayment,
             purchase: cardAndPurchases.purchase, // arrai de historico de compras
             dataCard: cardAndPurchases.dataCard, // objeto com os dados do cartao do usuario
         };
@@ -188,7 +218,7 @@ class UsuarioDataFilter {
 // recbe um objeto com os dados do cartao ja filtrados 
 // recebe um objeto com os elementos do doom necesario
 class UpdateCardScreen {
-    constructor({ nameCard, approvedLimit, cardBalance, limit, invoice, purchase, dataCard }, elDomCard) {
+    constructor({ nameCard, approvedLimit, cardBalance, limit, invoice, dateInvoicePayment, purchase, dataCard }, elDomCard) {
         // dados do proprio cartao
         const { cardName, cardNumber, cardPassword, cv, expirationDate } = dataCard
         this.cardName = cardName
@@ -204,6 +234,7 @@ class UpdateCardScreen {
         this.limit = limit
         this.invoice = invoice
         this.arayPurchase = purchase
+        this.dateInvoicePayment = dateInvoicePayment
 
         // Desconstrução dos elementos DOM do objeto passado
         const {
@@ -215,13 +246,10 @@ class UpdateCardScreen {
             domlimiteDisponivel,
             domultimaCompra,
             domvalorUltimaCompra,
-            domBtnMaisDetalhes,
-            domDivVerMais,
             domBtnAjustLmti,
             domhVlrLimit,
             domLmtEmUso,
             domLmtDisponivel,
-            domBtnVerMenos,
             domBarrLmtAprovado,
 
         } = elDomCard;
@@ -235,13 +263,10 @@ class UpdateCardScreen {
         this.domlimiteDisponivel = domlimiteDisponivel;
         this.domultimaCompra = domultimaCompra;
         this.domvalorUltimaCompra = domvalorUltimaCompra;
-        this.domBtnMaisDetalhes = domBtnMaisDetalhes;
-        this.domDivVerMais = domDivVerMais;
         this.domBtnAjustLmti = domBtnAjustLmti;
         this.domhVlrLimit = domhVlrLimit;
         this.domLmtEmUso = domLmtEmUso;
         this.domLmtDisponivel = domLmtDisponivel;
-        this.domBtnVerMenos = domBtnVerMenos;
         this.domBarrLmtAprovado = domBarrLmtAprovado
     }
 
@@ -291,7 +316,7 @@ class UpdateCardScreen {
         this.domcardName.textContent = this.cardName.toUpperCase()
         this.domvalidade.textContent = this.cardExpirationDate
 
-       // preenchendo limite:
+        // preenchendo limite:
         let creditTransactions = this.arayPurchase.filter(purchase => purchase.type === 'Credito') // filtra compraas no credito 
         let totalCredit = creditTransactions.reduce((sum, transactions) => sum + transactions.value, 0) // soma as compras no credito 
         // barr de limite
@@ -299,11 +324,11 @@ class UpdateCardScreen {
         this.dombarrLmt.style.width = `${pctLimit}%`
         // txt de limite mensal
         this.domlimiteMensal.textContent = `R$ ${totalCredit.toLocaleString('pt-BR')}/${this.limit.toLocaleString('pt-BR')}`
- 
+
         // txt de limite disponivel
         this.domlimiteDisponivel.textContent = `R$ ${this.limit.toLocaleString('pt-BR')}.00`
 
-        // odena as compras da mais recente pra mais antiga e exibe a mais recente na tela
+        // ordena as compras da mais recente pra mais antiga e exibe a mais recente na tela
         let purchaseOrdered = this.arayPurchase.sort((a, b) => new Date(b.date) - new Date(a.date)); // ordena as compras por data
         purchaseOrdered.reverse() // reverte a ordem deixando da mais recente pra mais antiga
         let recentPurchase = purchaseOrdered[0] // acessa a primeira ou seja a mais recente
@@ -321,4 +346,10 @@ class UpdateCardScreen {
     }
 
 }
+
+
+
+
+
+// logica de fatura limite fica na funcao de adicionar compras
 

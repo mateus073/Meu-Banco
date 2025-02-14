@@ -5,6 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../assets/css/home.css">
+  <link rel="stylesheet" href="../assets/css/inserirDados.css">
+  <link rel="stylesheet" href="../assets/css/carterira.css">
+  <link rel="stylesheet" href="../assets/css/transferencias.css">
+  <link rel="stylesheet" href="../assets/css/servicos.css">
+  <link rel="stylesheet" href="../assets/css/configuraçoes.css">
+  <link rel="stylesheet" href="../assets/css/enterData.css">
   <title>Meu Banco - Painel de Controle</title>
 </head>
 
@@ -17,25 +23,29 @@
       </div>
 
       <ul class="menu">
-        <li class="active" style="background-color:rgba(27, 198, 129, 1);">
+        <li class="menuLi" data-target="sHome" style="background-color:rgba(27, 198, 129, 1); color: white;">
           <img src="../assets/img/home-white.png" alt="Ícone de Painel">
           <a href="#" style="color: white;" class="">Painel</a>
         </li>
-        <li>
-          <img src="../assets/img/variant3-default.png" alt="Ícone de Carteira">
-          <a href="#" class="">Carteira</a>
+        <li class="menuLi" data-target="sCarteira" >
+          <img src="../assets/img/wallt-default.png" alt="Ícone de Carteira">
+          <a href="#" class= "">Carteira</a>
         </li>
-        <li>
+        <li class="menuLi" data-target="sTransferencia" >
           <img src="../assets/img/transfer-default.png" alt="Ícone de Transferências">
           <a href="#" class="">Transferências</a>
         </li>
-        <li>
+        <li class="menuLi" data-target="sServicos" >
           <img src="../assets/img/services-default.png" alt="Ícone de Serviços">
           <a href="#" class="">Serviços</a>
         </li>
-        <li>
+        <li class="menuLi" data-target="sConfiguracoes">
           <img src="../assets/img/cog-default.png" alt="Ícone de Configurações">
           <a href="#" class="">Configurações</a>
+        </li>
+        <li class="menuLi" data-target="sInserirDados">
+          <img src="../assets/img/add-default.png" alt="Ícone de Configurações">
+          <a href="#" class="">inserir dados</a>
         </li>
       </ul>
     </div>
@@ -62,25 +72,29 @@
           <span class="spmob itemDescription">Bem-vindo, <span class="spanNameUser">Tider Cardoso</span></span>
         </div>
 
-        <li class="active">
+        <li class="menuLi" style="background-color:rgba(27, 198, 129, 1);">
           <img src="../assets/img/home-white.png" alt="Ícone de Painel">
           <a href="#" style="color: white;" class="itemDescription">Painel</a>
         </li>
-        <li>
-          <img src="../assets/img/variant3-default.png" alt="Ícone de Carteira">
+        <li class="menuLi" data-target="sCarteira">
+          <img src="../assets/img/wallt-default.png" alt="Ícone de Carteira">
           <a href="#" class="itemDescription">Carteira</a>
         </li>
-        <li>
+        <li class="menuLi"  data-target="sTransferencia">
           <img src="../assets/img/transfer-default.png" alt="Ícone de Transferências">
           <a href="#" class="itemDescription">Transferências</a>
         </li>
-        <li>
+        <li class="menuLi"  data-target="sServicos">
           <img src="../assets/img/services-default.png" alt="Ícone de Serviços">
           <a href="#" class="itemDescription">Serviços</a>
         </li>
-        <li>
+        <li class="menuLi" data-target="sConfiguracoes">
           <img src="../assets/img/cog-default.png" alt="Ícone de Configurações">
           <a href="#" class="itemDescription">Configurações</a>
+        </li>
+        <li class="menuLi" data-target="sinserirDados">
+          <img src="../assets/img/add-default.png" alt="Ícone de Configurações">
+          <a href="#" class="itemDescription">inserir dados</a>
         </li>
       </ul>
 
@@ -127,8 +141,8 @@
       </div>
     </header>
 
-    <!-- Conteúdo principal -->
-    <section class="content">
+    <!-- section home -->
+    <section class="section sHome ative" class="section">
       <div class="paiAtalhos">
         <div class="filhaPaiAtalho">
           <!-- Atalho dos gastos do cartão -->
@@ -236,11 +250,43 @@
                 </div>
               </div>
               <div class="btnMaisDetalhes">
-                <button class="storeMoreDetails" aria-label="Ver mais detalhes">MAIS DETALHES</button>
+                <button class="storeMoreDetails btnMaDt" aria-label="Ver mais detalhes">MAIS DETALHES</button>
               </div>
             </div>
           </div>
           <div class="seeMore">
+              <div class="fCard">
+                <div class="finfo">
+                  <p class="ftitle">Fatura atual</p>
+                  <p class="famount">R$ 835,00</p>
+                  <p class="flimit">
+                    Limite disponível <span class="favailable">R$ 2.265,00</span>
+                  </p>
+                  <p class="invoiceClosing">
+                    Fecha em <span class="sInvoiceClosing"> 24 FEV</span>
+                  </p>
+                </div>
+                <div class="fprogress-bar">
+                  <div class="fbarrgren2"></div>
+                  <div class="fbarrblue2"></div>
+                  <div class="fbarrorange2"></div>
+                </div>
+                <div class="finfo2">
+                  <div class="fitem2">
+                    <p class="ftitle2">Limite disponível</p>
+                    <p class="fvalue2 fgreen2"><span class="farrow2" style="background-color:#1db954;"></span>R$2.265,00</p>
+                  </div>
+                  <div class="fitem2">
+                    <p class="ftitle2">Fatura atual</p>
+                    <p class="fvalue2 fblue2"><span class="farrow2" style="background-color: #00a0ff;"></span>R$ 835,00</p>
+                  </div>
+                  <div class="fitem3">
+                    <p class="ftitle2">proximas faturas</p>
+                    <p class="fvalue2 orange2"><span class="farrow2" style="background-color: #e9983c;"></span>R$ 234,00</p>
+                  </div>
+                </div>
+              </div>
+
             <div class="limitAjust">
               <div class="limitAjust-header">
                 <span class="title">Ajustar Limite</span>
@@ -255,10 +301,11 @@
                 </div>
                 <div class="info">
                   <div class="info-item">
-                    <span class="color-box black"></span><span class="emUso">Em uso: R$ 1.000</span> 
+                    <span class="color-box black"></span><span class="emUso">Em uso: R$ 1.000</span>
                   </div>
                   <div class="info-item">
-                    <span class="color-box green"></span> <span class="disponívelUso">Disponível para uso: R$ 5.550</span>
+                    <span class="color-box green"></span> <span class="disponívelUso">Disponível para uso: R$
+                      5.550</span>
                   </div>
                 </div>
               </div>
@@ -301,7 +348,7 @@
               </div>
             </div>
             <div class="btnMenosDetalhes">
-              <button class="storeMoreDetails" aria-label="Ver mais detalhes">MENOS DETALHES</button>
+              <button class="storeMoreDetails btnMeDt" aria-label="Ver mais detalhes">MENOS DETALHES</button>
             </div>
           </div>
         </article>
@@ -385,16 +432,119 @@
         </article>
       </section>
     </section>
+
+    <!-- seçao carteira -->
+    <section class="section sCarteira">
+      <h1>seçao de carteiraaaaa</h1>
+    </section>
+
+    <!-- sesao de transferencias  -->
+    <section class="section sTransferencia">
+      <h1>sesao de transferenciaaaaa</h1>
+    </section>
+
+    <!-- secao de servicoes  -->
+    <section class="section sServicos">
+      <h1>seçao de servicoessssssss</h1>
+    </section>
+
+    <!-- secao de configuraçoes  -->
+    <section class="section sConfiguracoes">
+      <h1>seçao de configuraçoessssssss</h1>
+    </section>
+
+    <!-- secao de inserir os dados, onde o usuario insere as compras transaçoes etc.... -->
+    <section class="section sInserirDados">
+      <div class="container">
+        <!-- Formulário para Transações -->
+        <div class="dForm">
+          <h2>Adicionar Transação</h2>
+          <form id="transactionForm">
+            <div class="form-group">
+              <label for="transactionType">Tipo</label>
+              <select id="transactionType" name="type" required>
+                <option value="">Selecione</option>
+                <option value="received">Recebida</option>
+                <option value="sent">Enviada</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="transactionValue">Valor</label>
+              <input type="number" id="transactionValue" name="value" placeholder="0.00" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label for="transactionDate">Data</label>
+              <input type="date" id="transactionDate" name="date" required>
+            </div>
+            <div class="form-group">
+              <label for="transactionName">Nome da Transação</label>
+              <input type="text" id="transactionName" name="nameTransaction" placeholder="Nome da transação" required>
+            </div>
+            <button type="submit" class="btn">SALVAR TRANSAÇOES</button>
+          </form>
+        </div>
+
+        <!-- Formulário para Compras -->
+        <div class="dForm">
+          <h2>Adicionar Compra</h2>
+          <form id="purchaseForm">
+            <div class="form-group">
+              <label for="purchaseType">Tipo</label>
+              <select id="purchaseType" name="type" required>
+                <option value="">Selecione</option>
+                <option value="Debito">Débito</option>
+                <option value="Credito">Crédito</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="purchaseValue">Valor</label>
+              <input type="number" id="purchaseValue" name="value" placeholder="0.00" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label for="purchaseDate">Data</label>
+              <input type="date" id="purchaseDate" name="date" required>
+            </div>
+            <div class="form-group">
+              <label for="purchaseMerchant">Estabelecimento</label>
+              <input type="text" id="purchaseMerchant" name="merchant" placeholder="Nome do estabelecimento" required>
+            </div>
+            <div class="form-group">
+              <label for="purchaseInstallments">Parcelas (somente para Crédito)</label>
+              <input type="number" id="purchaseInstallments" name="installments" placeholder="Ex: 2">
+            </div>
+            <button type="submit" class="btn">SALVAR COMPRAS</button>
+          </form>
+        </div>
+
+        <!-- Formulário para Investimentos -->
+        <div class="dForm">
+          <h2>Adicionar Investimento</h2>
+          <form id="investmentForm">
+            <div class="form-group">
+              <label for="investmentDate">Data</label>
+              <input type="date" id="investmentDate" name="date" required>
+            </div>
+            <div class="form-group">
+              <label for="investmentValue">Valor</label>
+              <input type="number" id="investmentValue" name="value" placeholder="0.00" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label for="investmentType">Tipo de Investimento</label>
+              <select id="investmentType" name="type" required>
+                <option value="">Selecione</option>
+                <option value="stocks">Ações</option>
+                <option value="bonds">Títulos</option>
+              </select>
+            </div>
+            <button type="submit" class="btn">SALVAR INVESTIMENTOS</button>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
   <script src="../assets/js/classes.js"></script>
   <script src="../assets/js/home.js"></script>
-  <!-- js do menu mobile -->
-  <script>
-    document.querySelector('.open_btn').addEventListener('click', () => {
-      document.querySelector('.MOBsidebar').classList.toggle('opemSidbar')
-      document.querySelector('.help').classList.toggle('openHelp')
-    })
-  </script>
+  <script src="../assets/js/menu.js"></script>
 </body>
 
 </html>

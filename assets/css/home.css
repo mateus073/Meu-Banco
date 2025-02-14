@@ -282,13 +282,13 @@ body {
 
 
 /* div onde vai ficar o conteudo principal de cada sessao */
-.main .content {
+.main .sHome {
     display: flex;
     flex-direction: column;
 }
 
 /* div pai das divs de atalho do home dentro dela tem a div que serve de scrol */
-.content .paiAtalhos {
+.sHome .paiAtalhos {
     display: flex;
     min-height: 200px;
     align-items: center;
@@ -523,11 +523,10 @@ body {
 
 /* css da div pai a que tem o cartao e o historico de compras */
 .dCardExpenses {
-    margin: 0 2.5rem;
+    margin: 1rem 2.5rem;
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
-    margin-bottom: 16px;
 }
 
 
@@ -536,7 +535,6 @@ body {
     /*pra div nao crecer e ficar do comprimeento do lista decompras que ta do lado*/
     flex: 1;
     padding: 24px;
-    gap: 16px;
     background: var(--color-white);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
@@ -554,10 +552,7 @@ body {
     line-height: 24px;
     text-align: left;
     color: var(--color-grey);
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+    margin-bottom: 16px;
 }
 
 /* div principal da sessao de cartao onde tem o cartao e infos de limite etc... */
@@ -895,7 +890,7 @@ body {
 }
 
 /* botao de mais detalhes */
-.btnMenosDetalhes .storeMoreDetails, 
+.btnMenosDetalhes .storeMoreDetails,
 .btnMaisDetalhes .storeMoreDetails {
     flex-wrap: nowrap;
     font-family: var(--font-lato);
@@ -914,11 +909,137 @@ body {
 }
 
 .seeMore {
-    padding: 16px;
-    display: block;
+    padding: 0 16px;
+    display: none;
+}
+
+/* começo do css da div de fatura */
+.fatherfCard {
+    border-radius: 10px;
+    border: solid 1px black;
+}
+
+.fCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+}
+
+.finfo {
+    /* flex: 1; */
+    width: 100%;
+}
+
+.ftitle {
+    font-size: 14px;
+    color: var(--color-grey);
+    font-family: var(--font-lato);
+    font-weight: 600;
+    margin: 0;
+}
+
+.famount {
+    font-size: 24px;
+    font-family: var(--font-lato);
+    font-weight: 700;
+    color: var(--color-grey);
+    margin: 5px 0;
 }
 
 
+.flimit,
+.invoiceClosing {
+
+    font-size: 14px;
+    font-family: var(--font-lato);
+    font-weight: 500;
+    color: var(--color-grey);
+    margin-bottom: 10px;
+}
+
+.favailable,
+.sInvoiceClosing {
+    font-family: var(--font-lato);
+    font-weight: 600;
+    color: var(--color-grey);
+}
+
+.fprogress-bar {
+    width: 15px;
+    height: 200px;
+    margin: 0px 20px;
+    background-color: rgba(0, 0, 0, 0.085);
+    border-radius: 5px;
+}
+
+.fbarrgren2 {
+    height: 90px;
+    border-radius: 5px 5px 0px 0px;
+    background-color: #1db954;
+    /* Verde */
+}
+
+.fbarrblue2 {
+    height: 90px;
+    /* border-radius: 0px 0px 5px 5px; */
+    background-color: #00a0ff;
+    /* Azul */
+}
+
+.fbarrorange2 {
+    height: 15px;
+    border-radius: 0px 0px 5px 5px;
+    background-color: orange;
+}
+
+
+/* segunda metade da div de fatura */
+.finfo2 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.fitem2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.ftitle2 {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+.fvalue2 {
+    font-size: 18px;
+    margin: 5px 0 0;
+    display: flex;
+    align-items: center;
+}
+
+.fvalue2 .farrow2 {
+    height: 5px;
+    width: 5px;
+    background-color: #00a0ff;
+    margin-right: 16px;
+    border-radius: 50%;
+}
+
+.orange2,
+.fgreen2,
+.fblue2 {
+    font-family: var(--font-lato);
+    color:var(--color-grey) ;
+    font-weight: 700;
+}
+
+
+
+/* começo do css da div de limit */
 .limitAjust {
     width: 100%;
     background-color: white;
@@ -1270,7 +1391,8 @@ body {
         height: 100vh;
         border-radius: 0px 18px 18px 0px;
         position: fixed;
-        transition: all .5s;
+        transition: all 0.4s ease;
+        /* Aplica a transição a todas as propriedades */
         /* min-width: 82px; */
         z-index: 2;
     }
@@ -1428,7 +1550,7 @@ body {
     }
 
     .opemSidbar {
-        width: 280px;
+        width: 230px;
     }
 
     /* exibe os itens quando abri menu */
@@ -1533,7 +1655,7 @@ body {
     }
 
 
-    .content .paiAtalhos {
+    .sHome .paiAtalhos {
         min-height: 160px;
     }
 
@@ -1627,6 +1749,7 @@ body {
     }
 
     .dCardExpenses .paiCardInfoAdd {
+
         height: fit-content;
         padding: 20px 0px;
         gap: 11px;
@@ -1668,6 +1791,74 @@ body {
         border-radius: 6px;
     }
 
+    /* Responsividade para dispositivos móveis */
+    .fCard {
+        padding: 15px;
+    }
+
+    .finfo {
+        width: 100%;
+    }
+
+    .ftitle {
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .famount {
+        font-size: 20px;
+        margin: 5px 0;
+    }
+
+    .flimit,
+    .invoiceClosing {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .favailable,
+    .sInvoiceClosing {
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .fprogress-bar {
+        width: 10px;
+        height: 150px;
+        margin: 0 10px;
+    }
+
+    .fbarrgren2 {
+        height: 70px;
+
+    }
+
+    .fbarrblue2 {
+        height: 70px;
+    }
+
+    /* Segunda metade da div de fatura */
+    .finfo2 {
+        gap: 15px;
+    }
+
+    .ftitle2 {
+        font-size: 12px;
+    }
+
+    .fvalue2 {
+        font-size: 16px;
+        margin: 5px 0 0;
+    }
+
+    .fvalue2 .farrow2 {
+        height: 4px;
+        width: 4px;
+        margin-right: 10px;
+    }
+
+
     .dCardExpenses .purchaseHisty {
         min-width: 300px;
         padding: 18px;
@@ -1684,5 +1875,14 @@ body {
     .ulComp .itemLst {
         gap: 10px;
     }
+}
 
+
+/* css do js */
+.main .section {
+    display: none;
+}
+
+.main .ative {
+    display: flex;
 }
