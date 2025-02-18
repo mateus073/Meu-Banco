@@ -14,7 +14,7 @@ class Usuario {
         this.accountStatus = 'active';  // Status da conta
         this.accountCreated = new Date();  // Data de criação da conta
         this.investimentos = 0;
-        this.saldo = 0;
+        this.balance = 4000;
         this.loanLimit = 5000;  // Limite de empréstimo
         this.transactions = [
             { type: "received", value: 110, date: '2025-02-11T17:24:09.861Z', nameTransaction: 'Person fictitious 01' }, // recebida
@@ -166,7 +166,6 @@ class BankDataManager {
     }
 
 }
-
 
 
 

@@ -1,3 +1,5 @@
+
+// obs nao apagar esse usuario poque ele ira passar para as outras partes do site esse usuario logado
 const ids = JSON.parse(localStorage.getItem("idUserLogado")) // recupera o id pra acessar o usuario
 const users = JSON.parse(localStorage.getItem("listUser")) || []; // Recupera o array de usuários do localStorage
 const loggedInUser = users.find(user => user.id === ids); // Encontra o usuário no array com base no ID

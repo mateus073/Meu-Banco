@@ -1,8 +1,10 @@
 .sServicos {
-    background-color: aliceblue;
-    width: 100%;
+    background-color: #ffff;
+    color: #484848;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
-    border: solid 3px black;
-    padding: 100px 0px;
-    text-align: center;
+    margin: 24px;
 }
