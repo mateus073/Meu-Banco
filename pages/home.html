@@ -546,6 +546,26 @@
             <button type="submit" class="btn btnIvest">SALVAR INVESTIMENTOS</button>
           </form>
         </div>
+
+        <!-- Formulário para pagar fatura -->
+        <div class="dForm">
+          <h2>Pagar Fatura</h2>
+          <form id="PagarFaturaForm">
+            <div class="form-group">
+              <p class="pff">
+                Valor sendo pago: <span class="valorASerPago">00</span>
+              </p>
+            </div>
+            <div class="form-group">
+              <label for="faturasOpc">Selecione uma faturas</label>
+              <select id="opcFaturas" name="type" required>
+                <!-- exemplo de formato de opc que sera criada -->
+                <!-- <option value="2025-5">Fatura do dia: <span>2025-5</span></option> -->
+              </select>
+            </div>
+            <button type="submit" class="btn btnPagarFatura">PAGAR FATURA</button>
+          </form>
+        </div>
       </div>
     </section>
   </main>
