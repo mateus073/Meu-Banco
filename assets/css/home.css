@@ -453,17 +453,22 @@ body {
 
 
 /* css da div de criar e configurar atalhos */
-.paiAtalhos .cfgAtalho {
+.paiAtalhos .cfgAtalho,
+.paiAtalhos .atalhoComImg {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 16px;
     align-items: center;
+
+}
+
+.paiAtalhos .cfgAtalho {
     background: #EAE9E9;
 }
 
 /* div do btn de adicionar atalho a do + */
-.cfgAtalho .btnAddAtalho {
+.atalhoPadrao .divImgAtalho {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -472,34 +477,12 @@ body {
     gap: 10px;
     width: 32px;
     height: 32px;
-    background: var(--color-grey);
-    border-radius: 100px;
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
 }
 
-/* span do que tem o + de configurar atalho */
-.btnAddAtalho .Positivo {
-    width: 14px;
-    height: 24px;
-    font-family: var(--font-lato);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 24px;
-    text-align: center;
-    color: var(--color-white);
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
 
-}
 
 /* texto de configurar atalho */
-.cfgAtalho .spConfigAtalho {
+.atalhoPadrao .txtAtalhoImg {
     width: 173.2px;
     height: 44px;
     font-family: var(--font-lato);
@@ -509,12 +492,6 @@ body {
     line-height: 22px;
     text-align: center;
     color: var(--color-grey);
-    /* Inside auto layut */
-    flex: none;
-    order: 1;
-    align-self: stretch;
-    flex-grow: 0;
-
 }
 
 
@@ -951,7 +928,6 @@ body {
 
 .flimit,
 .invoiceClosing {
-
     font-size: 14px;
     font-family: var(--font-lato);
     font-weight: 500;
@@ -967,29 +943,31 @@ body {
 }
 
 .fprogress-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     width: 15px;
     height: 200px;
     margin: 0px 20px;
-    background-color: rgba(0, 0, 0, 0.085);
+    background-color: #1db954;
     border-radius: 5px;
 }
 
-.fbarrgren2 {
+/* .fbarrgren2 {
     height: 90px;
     border-radius: 5px 5px 0px 0px;
     background-color: #1db954;
-    /* Verde */
-}
+} */
 
 .fbarrblue2 {
-    height: 90px;
+    /* height: 90px; */
     /* border-radius: 0px 0px 5px 5px; */
     background-color: #00a0ff;
     /* Azul */
 }
 
 .fbarrorange2 {
-    height: 15px;
+    height: 22%;
     border-radius: 0px 0px 5px 5px;
     background-color: orange;
 }
@@ -1081,16 +1059,16 @@ body {
 .progress-bar {
     width: 100%;
     height: 8px;
-    background-color: #e0e0e0;
+    background-color: var(--color-primary);
     border-radius: 4px;
     overflow: hidden;
     margin-bottom: 16px;
 }
 
 .progress {
-    width: 59%;
+    /* width: 59%; */
     height: 100%;
-    background-color: var(--color-primary);
+    background-color: rgb(49, 47, 47);
 }
 
 .info {
@@ -1189,7 +1167,6 @@ body {
     margin: 0 auto;
     width: 169px;
     height: 38px;
-
 }
 
 
@@ -1207,7 +1184,6 @@ body {
     justify-content: center;
     align-items: center;
     padding: 24px;
-    gap: 16px;
     background: var(--color-white);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
@@ -1217,6 +1193,7 @@ body {
 .purchaseHisty .h2UC {
     width: 100%;
     font-family: var(--font-lato);
+    margin-bottom: 16px;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -1294,6 +1271,7 @@ body {
 
 /* nome do estabelecimento do item da lista */
 .itemLstEsquerda .nLugar {
+    text-transform: capitalize;
     font-family: var(--font-lato);
     font-style: normal;
     font-weight: 400;
@@ -1316,8 +1294,6 @@ body {
 
 /* valor da compra do li da lista de compras */
 .itemLst .itemLstDireta {
-    width: 65px;
-    height: 17px;
     font-family: var(--font-lato);
     font-style: normal;
     font-weight: 600;
@@ -1636,6 +1612,7 @@ body {
     .header .profile {
         gap: 16px;
     }
+
     .header .search {
         height: 36px;
         padding: 8px;
@@ -1890,4 +1867,8 @@ body {
 
 .main .ative {
     display: flex;
+}
+
+.hidePurchase {
+    display: none;
 }

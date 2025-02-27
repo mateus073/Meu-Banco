@@ -146,52 +146,93 @@
       <div class="paiAtalhos">
         <div class="filhaPaiAtalho">
           <!-- Atalho dos gastos do cartão -->
-          <article class="atalhoPadrao atalhoComPct">
+          <article id="atalhoGastoMes" class="atalhoPadrao atalhoComPct">
             <div class="dPctAtalho">
-              <span class="pctAtalho">+23%</span>
+              <span class="pctAtalho">+00%</span>
             </div>
             <div class="dNameValue">
               <span class="nameAtalho">Gastos do mês</span>
-              <span class="valueAtalho">R$ 2.444,67</span>
+              <span class="valueAtalho">R$ 0.000,00</span>
             </div>
           </article>
 
           <!-- Atalho dos gastos recebidos -->
-          <article class="atalhoPadrao atalhoComPct">
+          <article id="atalhoRecebimentos" class="atalhoPadrao atalhoComPct">
             <div class="dPctAtalho">
-              <span class="pctAtalho">+61%</span>
+              <span class="pctAtalho">+00%</span>
             </div>
             <div class="dNameValue">
               <span class="nameAtalho">Recebimentos</span>
-              <span class="valueAtalho">R$ 3.974,64</span>
+              <span class="valueAtalho">R$ 0.000,00</span>
             </div>
           </article>
 
           <!-- Atalho dos investimentos -->
-          <article class="atalhoPadrao atalhoComPct">
+          <article id="atalhoInvestimentos" class="atalhoPadrao atalhoComPct">
             <div class="dAtalhoIvstm">
-              <span class="pctInvestments">+R$ 242,13 (+2.54%) </span>
+              <span class="pctInvestments">+R$ 000,00 (+0.00%)</span>
             </div>
             <div class="dNameValue">
               <span class="nameAtalho">Investimentos</span>
-              <span class="valueAtalho">R$ 6.546,11</span>
+              <span class="valueAtalho">R$ 0.000,00</span>
             </div>
           </article>
 
           <!-- Atalho dos cartões -->
-          <article class="atalhoNoPct atalhoPadrao">
+          <article id="atalhoCartoes" class="atalhoNoPct atalhoPadrao">
             <div class="dNameValueNoPct">
               <span class="nameAtalho">Cartões</span>
-              <span class="valueAtalho">R$ 2.444,67</span>
+              <span class="valueAtalho">R$ 0.000,00</span>
             </div>
           </article>
 
+          <!-- Atalho do saldo -->
+          <article id="atalhoSaldo" class="atalhoNoPct atalhoPadrao">
+            <div class="dNameValueNoPct">
+              <span class="nameAtalho">Saldo</span>
+              <span class="valueAtalho">R$ 00.000,00</span>
+            </div>
+          </article>
+
+          <!-- Atalho dos emprestimos -->
+          <article id="atalhoImprestimo" class="atalhoNoPct atalhoPadrao">
+            <div class="dNameValueNoPct">
+              <span class="nameAtalho">Pegar Emprestimo</span>
+              <span class="valueAtalho">R$ 00.000,00</span>
+            </div>
+          </article>
+
+
+          <!-- chave pix -->
+          <div id="AtalhoPix" class="atalhoPadrao atalhoComImg">
+            <div class="divImgAtalho" aria-label="Adicionar atalho">
+              <img src="../assets/img/chave.png" alt="">
+            </div>
+            <span class="txtAtalhoImg">Transferencia<br>via pix</span>
+          </div>
+
+          <!-- recarga celular -->
+          <div id="atalhoRecarga" class="atalhoPadrao atalhoComImg ">
+            <div class="divImgAtalho" aria-label="Adicionar atalho">
+              <img src="../assets/img/movel-5g.png" alt="">
+            </div>
+            <span class="txtAtalhoImg">Recarga <br> de celular</span>
+          </div>
+
+          <!-- pagar boleto -->
+          <div id="atalhoBoleto" class="atalhoPadrao atalhoComImg ">
+            <div class="divImgAtalho" aria-label="Adicionar atalho">
+              <img src="../assets/img/leitura-de-codigo-de-barras.png" alt="">
+            </div>
+            <span class="txtAtalhoImg">Pagar<br> boleto</span>
+          </div>
+
           <!-- Adicionar atalho -->
-          <div class="atalhoPadrao cfgAtalho">
-            <button class="btnAddAtalho" aria-label="Adicionar atalho">
-              <span class="Positivo">+</span>
-            </button>
-            <span class="spConfigAtalho">configurar <br> atalhos</span>
+          <div id="cfgAtalho" class="atalhoPadrao atalhoComImg">
+            <div class="divImgAtalho" aria-label="Adicionar atalho">
+              <img src="../assets/img/adicionar.png" alt="">
+            </div>
+            <span class="txtAtalhoImg">configurar <br> atalhos</span>
           </div>
         </div>
       </div>
@@ -203,7 +244,6 @@
           <h2 class="h2card">Cartões</h2>
 
           <div class="dcardHist">
-
             <div class="cardLimit">
               <div class="card">
                 <img src="../assets/img/logo_branco.png" alt="Logo do Cartão" class="logoInCard">
@@ -263,28 +303,31 @@
                   Limite disponível <span class="favailable">R$ 2.265,00</span>
                 </p>
                 <p class="invoiceClosing">
-                  Fecha em <span class="sInvoiceClosing"> 24 FEV</span>
+                  Fecha no dia <span class="sInvoiceClosing"> 24 FEV</span>
                 </p>
               </div>
               <div class="fprogress-bar">
-                <div class="fbarrgren2"></div>
+                <!-- <div class="fbarrgren2"></div> -->
                 <div class="fbarrblue2"></div>
                 <div class="fbarrorange2"></div>
               </div>
               <div class="finfo2">
                 <div class="fitem2">
                   <p class="ftitle2">Limite disponível</p>
-                  <p class="fvalue2 fgreen2"><span class="farrow2" style="background-color:#1db954;"></span>R$2.265,00
+                  <p class="fvalue2 fgreen2"><span class="farrow2" style="background-color:#1db954;"></span><span
+                      class="sGrenTxt">R$ 000,00</span>
                   </p>
                 </div>
                 <div class="fitem2">
                   <p class="ftitle2">Fatura atual</p>
-                  <p class="fvalue2 fblue2"><span class="farrow2" style="background-color: #00a0ff;"></span>R$ 835,00
+                  <p class="fvalue2 fblue2"><span class="farrow2" style="background-color: #00a0ff;"></span><span
+                      class="sBlueTxt">R$ 000,00</span>
                   </p>
                 </div>
                 <div class="fitem3">
                   <p class="ftitle2">proximas faturas</p>
-                  <p class="fvalue2 orange2"><span class="farrow2" style="background-color: #e9983c;"></span>R$ 234,00
+                  <p class="fvalue2 orange2"><span class="farrow2" style="background-color: #e9983c;"></span><span
+                      class="sOrangeTxt">R$ 000,00</span>
                   </p>
                 </div>
               </div>
@@ -298,17 +341,17 @@
                 </div>
               </div>
               <div class="limitAjust-body">
-                <h2 class="hVlrLimit">R$ 3.000</h2>
+                <h2 class="hVlrLimit">R$ 000</h2>
                 <div class="progress-bar">
                   <div class="progress"></div>
                 </div>
                 <div class="info">
                   <div class="info-item">
-                    <span class="color-box black"></span><span class="emUso">Em uso: R$ 1.000</span>
+                    <span class="color-box black"></span><span class="emUso">Em uso: R$ 0.000</span>
                   </div>
                   <div class="info-item">
                     <span class="color-box green"></span> <span class="disponívelUso">Disponível para uso: R$
-                      5.550</span>
+                      000</span>
                   </div>
                 </div>
               </div>
@@ -360,7 +403,8 @@
         <article class="purchaseHisty">
           <h2 class="h2UC">Últimas Compras</h2>
           <div class="listsComp">
-            <div class="dDiaMes">
+            <!-- <div class="dDiaMes">
+              suas divs sao criadas no css, exemplo de como ficaram comentadas: 
               <h3 class="titleDataCompr">03/jan</h3>
               <ul class="ulComp">
                 <div class="itemLst">
@@ -378,56 +422,25 @@
                   </div>
                   <div class="itemLstDireta">R$ 300,00</div>
                 </div>
+                <h3 class="titleDataCompr">9/fev</h3>
+                <ul class="ulComp">
+                  <div class="itemLst">
+                    <div class="itemLstEsquerda">
+                      <span class="nLugar">Loja mundo</span>
+                      <span class="CredDeb">Compra no debito</span>
+                    </div>
+                    <div class="itemLstDireta">R$ 49,00</div>
+                  </div>
 
-                <div class="itemLst">
-                  <div class="itemLstEsquerda">
-                    <span class="nLugar">Mercado</span>
-                    <span class="CredDeb">Compra no credito</span>
-                  </div>
-                  <div class="itemLstDireta">R$ 980,00</div>
-                </div>
-              </ul>
-            </div>
-            <div class="dDiaMes">
-              <h3 class="titleDataCompr">03/jan</h3>
-              <ul class="ulComp">
-                <div class="itemLst">
-                  <div class="itemLstEsquerda">
-                    <span class="nLugar">Loja 1Real</span>
-                    <span class="CredDeb">Compra no credito</span>
-                  </div>
-                  <div class="itemLstDireta">R$ 89,00</div>
-                </div>
-
-                <div class="itemLst">
-                  <div class="itemLstEsquerda">
-                    <span class="nLugar">Loja 1Real</span>
-                    <span class="CredDeb">Compra no credito</span>
-                  </div>
-                  <div class="itemLstDireta">R$ 89,00</div>
-                </div>
-
-                <div class="itemLst">
-                  <div class="itemLstEsquerda">
-                    <span class="nLugar">Bazar Mizuto</span>
-                    <span class="CredDeb">Compra no debito</span>
-                  </div>
-                  <div class="itemLstDireta">R$ 300,00</div>
-                </div>
-              </ul>
-            </div>
-            <div class="dDiaMes">
-              <h3 class="titleDataCompr">03/jan</h3>
-              <ul class="ulComp">
-                <div class="itemLst">
-                  <div class="itemLstEsquerda">
-                    <span class="nLugar">Loja 1Real</span>
-                    <span class="CredDeb">Compra no credito</span>
-                  </div>
-                  <div class="itemLstDireta">R$ 89,00</div>
-                </div>
-              </ul>
-            </div>
+                  <div class="itemLst">
+                    <div class="itemLstEsquerda">
+                      <span class="nLugar">cafe ghol Mizuto</span>
+                      <span class="CredDeb">Compra no debito</span>
+                    </div>
+                    <div class="itemLstDireta">R$ 340,00</div>
+                  </div> 
+                </ul>
+            </div>-->
           </div>
           <div class="btnVeEXComp">
             <button class="btnVerExtrado" aria-label="Ver extrato">VER EXTRATO</button>
@@ -441,20 +454,41 @@
       <h1>seçao de carteiraaaaa</h1>
     </section>
 
+
+
+
+
+
     <!-- sesao de transferencias  -->
     <section class="section sTransferencia">
       <h1>sesao de transferenciaaaaa</h1>
     </section>
+
+
+
+
+
+
 
     <!-- secao de servicoes  -->
     <section class="section sServicos">
       <h1>seçao de servicoessssssss</h1>
     </section>
 
+
+
+
+
+
     <!-- secao de configuraçoes  -->
     <section class="section sConfiguracoes">
       <h1>seçao de configuraçoessssssss</h1>
     </section>
+
+
+
+
+
 
     <!-- secao de inserir os dados, onde o usuario insere as compras transaçoes etc.... -->
     <section class="section sInserirDados">

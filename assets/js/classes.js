@@ -18,8 +18,8 @@ class Usuario {
         this.balance = 4000;
         this.loanLimit = 5000;  // Limite de empréstimo
         this.transactions = [
-            // { type: "received", value: 110, date: '2025-02-11T17:24:09.861Z', nameTransaction: 'Person fictitious 01' }, // recebida
-            // { type: "sent", value: 900, date: '2025-02-08T17:24:09.861Z', nameTransaction: 'Person fictitious 02' }, // enviada 
+            { type: "received", value: 110, date: '2025-02', nameTransaction: 'Person fictitious 01' }, // recebida
+            { type: "sent", value: 900, date: '2025-02-08', nameTransaction: 'Person fictitious 02' }, // enviada 
         ];
         this.pixKey = [
             { tipo: 'CPF', chave: '' },
@@ -36,13 +36,13 @@ class Usuario {
                 limitAvailable: 3500, // limite em uso 
                 approvedLimit: 5000, // limite aprovado 
                 invoice: [], // array de faturas
-                dateInvoicePayment: '2025-02-28T17:24:09.861Z',
+                dateInvoicePayment: '2025-02-28',
                 purchase: [ // compras
-                    // { type: "Debito", value: 110, date: '2025-02-28T17:24:09.861Z', merchant: 'Bazar Dbgt' },
-                    // { type: "Credito", value: 984, date: '2025-02-11T17:24:09.861Z', merchant: 'Bazar Mituzi', installments: 7 },
-                    // { type: "Credito", value: 24, date: '2025-02-12T17:24:09.861Z', merchant: 'Bazar Esferas', installments: 1 },
-                    // { type: "Debito", value: 664, date: '2025-02-14T17:24:09.861Z', merchant: 'Bazar nituzi' },
-                    // { type: "Credito", value: 274, date: '2025-02-21T17:24:09.861Z', merchant: 'Bazar Konoha', installments: 4 },
+                    { type: "Debito", value: 110, date: '2025-02-28', merchant: 'Bazar Dbgt' },
+                    { type: "Credito", value: 984, date: '2025-02-11', merchant: 'Bazar Mituzi', installments: 7 },
+                    { type: "Credito", value: 24, date: '2025-02-12', merchant: 'Bazar Esferas', installments: 1 },
+                    { type: "Debito", value: 664, date: '2025-02-14', merchant: 'Bazar nituzi' },
+                    { type: "Credito", value: 274, date: '2025-02-21', merchant: 'Bazar Konoha', installments: 4 },
                 ],
                 dataCard: { // dados cartao
                     cardName: this.nameCard(),
@@ -140,134 +140,160 @@ class Usuario {
 }
 
 
-// class reponsavel por manipular os dados inseridos 
-class BankDataManager {
-    constructor(user) {
-
-    }
-}
-
 
 
 // class responsavel por filtrar os dados a tela baseada no objeto usuario 
 // dados recebidos = objeto usuario presente no local Storage (apenas um usuario nao o array de usuarios)
-class UsuarioDataFilter {
-    constructor(user) {
-        this.user = user
-    }
+// class UsuarioDataFilter {
+//     constructor(user) {
+//         this.user = user
+//     }
 
-    // retorna os dados pra div atalhos
-    filterShortcutData() {
-        console.log("metodo que filtra os dados pro configurar atalho")
-        console.log(this.user)
-    }
+//     // retorna os dados pra div atalhos
+//     filterShortcutData() {
+//         console.log("metodo que filtra os dados pro configurar atalho")
+//         console.log(this.user)
+//     }
 
-    // Retorna os dados necessarios pra div cartao
-    filterCardData() {
-        const cardAndPurchases = this.user.cards.find(card => card.inUser === true);
+//     // Retorna os dados necessarios pra div cartao
+//     filterHomeData() {
+//         const cardAndPurchases = this.user.cards.find(card => card.inUser === true);
 
-        // Cria o objeto com os dados do cartão
-        const dateCard = {
-            nameCard: cardAndPurchases.nameCard,
-            approvedLimit: cardAndPurchases.approvedLimit,
-            cardBalance: cardAndPurchases.cardBalance,
-            cardStatus: cardAndPurchases.cardStatus,
-            limit: cardAndPurchases.limit,
-            invoice: cardAndPurchases.invoice,
-            dateInvoicePayment: cardAndPurchases.dateInvoicePayment,
-            purchase: cardAndPurchases.purchase, // arrai de historico de compras
-            dataCard: cardAndPurchases.dataCard, // objeto com os dados do cartao do usuario
-        };
+//         // Cria o objeto com os dados do cartão
+//         const dateCard = {
+//             nameCard: cardAndPurchases.nameCard,
+//             approvedLimit: cardAndPurchases.approvedLimit,
+//             cardBalance: cardAndPurchases.cardBalance,
+//             cardStatus: cardAndPurchases.cardStatus,
+//             limit: cardAndPurchases.limit,
+//             invoice: cardAndPurchases.invoice,
+//             dateInvoicePayment: cardAndPurchases.dateInvoicePayment,
+//             purchase: cardAndPurchases.purchase, // arrai de historico de compras
+//             dataCard: cardAndPurchases.dataCard, // objeto com os dados do cartao do usuario
+//         };
 
-        // console.log("Dados do cartão filtrados:", dateCard);
-        return dateCard;
-    }
-
-
-    // retorna todo o historico ja organizado por data
-    filterPurchaseHistory() {
-        console.log("metod que filtra os dados pro historico")
-    }
-}
+//         // console.log("Dados do cartão filtrados:", dateCard);
+//         return console.log(dateCard);
+//     }
 
 
+//     // retorna todo o historico ja organizado por data
+//     filterPurchaseHistory() {
+//         console.log("metod que filtra os dados pro historico")
+//     }
+// }
 
 
-// class reponsavel por preencher a parte de cartoes da tela home com infos do usuario
+
+
+// class reponsavel por preencher a tela home com infos do usuario
 // recbe um objeto com os dados do cartao ja filtrados 
 // recebe um objeto com os elementos do doom necesario
 class UpdateCardScreen {
-    constructor({ nameCard, approvedLimit, cardBalance, limit, invoice, dateInvoicePayment, purchase, dataCard }, elDomCard) {
-        // dados do proprio cartao
-        const { cardName, cardNumber, cardPassword, cv, expirationDate } = dataCard
-        this.cardName = cardName
-        this.cardNumber = cardNumber
-        this.cardPassword = cardPassword
-        this.cardCv = cv
-        this.cardExpirationDate = expirationDate
-
-        // dados relacionado ao cartao
-        this.nameCard = nameCard
-        this.approvedLimit = approvedLimit
-        this.cardBalance = cardBalance
-        this.limit = limit
-        this.invoice = invoice
-        this.arayPurchase = purchase
-        this.dateInvoicePayment = dateInvoicePayment
-
+    constructor(user, elDomCard) {
+        this.userLogado = user
         // Desconstrução dos elementos DOM do objeto passado
         const {
+            // divs de atalho
+            domAtGastoMes,
+            domAtReceb,
+            domAtInvest,
+            domAtCart,
+            domAtSaldo,
+            domAtImprest,
+            domAtPix,
+            domAtRecarga,
+            domAtBoleto,
+            domAtConfig,
+
+            // Dados do cartão
             domcardNumber,
             domcardName,
             domvalidade,
+
+            // Barra de limite e valores
             dombarrLmt,
             domlimiteMensal,
-            domlimiteDisponivel,
+            domSLimiteDisponivel,
+
+            // Última compra
             domultimaCompra,
             domvalorUltimaCompra,
+
+            // Dados da fatura
+            domFaturaAtual,
+            domLimiteDisponivel,
+            domDAtaFechamentoFatura,
+
+            // Barrinhas que exibem limites
+            domBarrVerde,
+            domBarrAzul,
+            domBarrLaranja,
+
+            // Textos ao lado das barrinhas
+            domTxtBarrVerde,
+            domTxtBarrAzul,
+            domTxtBarrLaranja,
+
+            // Elementos finais do cartão
             domBtnAjustLmti,
             domhVlrLimit,
+            domBarrLA,
             domLmtEmUso,
             domLmtDisponivel,
-            domBarrLmtAprovado,
 
+            domDivCompras,
+            btnVerExtrato
         } = elDomCard;
 
-        // Atribuindo os elementos desconstruídos às propriedades da instância
+        // Atribuição dos elementos desconstruídos às propriedades da instância
+        this.domAtGastoMes = domAtGastoMes;
+        this.domAtReceb = domAtReceb;
+        this.domAtInvest = domAtInvest;
+        this.domAtCart = domAtCart;
+        this.domAtSaldo = domAtSaldo;
+        this.domAtImprest = domAtImprest;
+        this.domAtPix = domAtPix;
+        this.domAtRecarga = domAtRecarga;
+        this.domAtBoleto = domAtBoleto;
+        this.domAtConfig = domAtConfig;
+
         this.domcardNumber = domcardNumber;
         this.domcardName = domcardName;
         this.domvalidade = domvalidade;
+
         this.dombarrLmt = dombarrLmt;
         this.domlimiteMensal = domlimiteMensal;
-        this.domlimiteDisponivel = domlimiteDisponivel;
+        this.domSLimiteDisponivel = domSLimiteDisponivel;
+
         this.domultimaCompra = domultimaCompra;
         this.domvalorUltimaCompra = domvalorUltimaCompra;
+
+        this.domFaturaAtual = domFaturaAtual;
+        this.domLimiteDisponivel = domLimiteDisponivel;
+        this.domDAtaFechamentoFatura = domDAtaFechamentoFatura;
+
+        this.domBarrVerde = domBarrVerde;
+        this.domBarrAzul = domBarrAzul;
+        this.domBarrLaranja = domBarrLaranja;
+
+        this.domTxtBarrVerde = domTxtBarrVerde;
+        this.domTxtBarrAzul = domTxtBarrAzul;
+        this.domTxtBarrLaranja = domTxtBarrLaranja;
+
         this.domBtnAjustLmti = domBtnAjustLmti;
         this.domhVlrLimit = domhVlrLimit;
+        this.domBarrLA = domBarrLA;
         this.domLmtEmUso = domLmtEmUso;
         this.domLmtDisponivel = domLmtDisponivel;
-        this.domBarrLmtAprovado = domBarrLmtAprovado
+
+        this.domDivCompras = domDivCompras
+        this.btnVerExtrato = btnVerExtrato
     }
 
-    // metodo reponsavel por confeirir se todos os dados estao corretos
-    conferiredados() {
+    // Método responsável por conferir se todos os dados estão corretos
+    conferirDados() {
         console.group("Verificação dos Dados do Cartão");
-
-        // Dados relacionados ao cartão
-        console.log("nameCard:", this.nameCard);
-        console.log("approvedLimit:", this.approvedLimit);
-        console.log("cardBalance:", this.cardBalance);
-        console.log("limit:", this.limit);
-        console.log("invoice:", this.invoice);
-        console.log("arayPurchase:", this.arayPurchase);
-
-        // Dados do próprio cartão (dados pessoais/internos)
-        console.log("cardName:", this.cardName);
-        console.log("cardNumber:", this.cardNumber);
-        console.log("cardPassword:", this.cardPassword);
-        console.log("cv:", this.cv);
-        console.log("expirationDate:", this.expirationDate);
-
         // Elementos DOM
         console.log("domcardNumber:", this.domcardNumber);
         console.log("domcardName:", this.domcardName);
@@ -277,58 +303,615 @@ class UpdateCardScreen {
         console.log("domlimiteDisponivel:", this.domlimiteDisponivel);
         console.log("domultimaCompra:", this.domultimaCompra);
         console.log("domvalorUltimaCompra:", this.domvalorUltimaCompra);
-        console.log("domBtnMaisDetalhes:", this.domBtnMaisDetalhes);
-        console.log("domDivVerMais:", this.domDivVerMais);
+        console.log("domFaturaAtual:", this.domFaturaAtual);
+        console.log("domLimiteDisponivel:", this.domLimiteDisponivel);
+        console.log("domDAtaFechamentoFatura:", this.domDAtaFechamentoFatura);
+        console.log("domBarrVerde:", this.domBarrVerde);
+        console.log("domBarrAzul:", this.domBarrAzul);
+        console.log("domBarrLaranja:", this.domBarrLaranja);
+        console.log("domTxtBarrVerde:", this.domTxtBarrVerde);
+        console.log("domTxtBarrAzul:", this.domTxtBarrAzul);
+        console.log("domTxtBarrLaranja:", this.domTxtBarrLaranja);
         console.log("domBtnAjustLmti:", this.domBtnAjustLmti);
         console.log("domhVlrLimit:", this.domhVlrLimit);
+        console.log("domBarrLmtAprovado:", this.domBarrLmtAprovado);
         console.log("domLmtEmUso:", this.domLmtEmUso);
         console.log("domLmtDisponivel:", this.domLmtDisponivel);
-        console.log("domBtnVerMenos:", this.domBtnVerMenos);
-        console.log("dombarrlimitDisponivel:", this.domBarrLmtAprovado);
 
         console.groupEnd();
     }
 
-    // metodo reponsavel por atualizar a tela com os dados recebidos
-    refreshScreen() {
-        // preenchendo cartao
-        this.domcardNumber.textContent = this.cardNumber
-        this.domcardName.textContent = this.cardName.toUpperCase()
-        this.domvalidade.textContent = this.cardExpirationDate
 
-        // preenchendo limite:
-        let creditTransactions = this.arayPurchase.filter(purchase => purchase.type === 'Credito') // filtra compraas no credito 
-        let totalCredit = creditTransactions.reduce((sum, transactions) => sum + transactions.value, 0) // soma as compras no credito 
-        // barr de limite
-        let pctLimit = (totalCredit / this.limit) * 100
-        this.dombarrLmt.style.width = `${pctLimit}%`
-        // txt de limite mensal
-        this.domlimiteMensal.textContent = `R$ ${totalCredit.toLocaleString('pt-BR')}/${this.limit.toLocaleString('pt-BR')}`
 
-        // txt de limite disponivel
-        this.domlimiteDisponivel.textContent = `R$ ${this.limit.toLocaleString('pt-BR')}.00`
+    conferirurser() {
+        let cardUsing = this.userLogado.cards.find(card => card.inUser === true);
+
+        console.log('objeto usuario:')
+        console.log(this.userLogado)
+
+        // console.log('cartao em uso:')
+        // console.log(cardUsing)
+    }
+
+    // metodo reponsavel por atualizar as divs de atalhos
+    refreshShortcut() {
+        let transReceived = this.userLogado.transactions.filter(transaction => transaction.type === "received")
+
+        let date = new Date();
+
+        // Formata o mês atual
+        let currentYear = date.getFullYear();
+        let currentMonth = (date.getMonth() + 1).toString().padStart(2, '0');
+        let currentDay = date.getDate().toString().padStart(2, '0');
+
+        let month = `${currentYear}-${currentMonth}-${currentDay}`;
+
+        // Cria uma data para o mês anterior
+        let previousDate = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate());
+        let previousYear = previousDate.getFullYear();
+        let previousMonth = (previousDate.getMonth() + 1).toString().padStart(2, '0');
+        let previousDay = previousDate.getDate().toString().padStart(2, '0');
+
+        let beforeMonth = `${previousYear}-${previousMonth}-${previousDay}`;
+
+        /*console.log("Mês atual:", month);
+        console.log("Mês anterior:", beforeMonth);
+        console.log('cartao em uso')
+        console.log(transReceived)*/
+
+        // DIV DE GASTOS DO MES
+        // chama o metodo reponsavel por obter o gasto do mes(compras e transferencias) e a pct de diferenca do gasto desse mes e do mes anterior
+        let monthExpenses = this.monthExpenses()
+        let currenExpense = monthExpenses.currentTot // pega o gasto total - mes atual
+        let pctDifferenceExpense = monthExpenses.pctDifference // pega a pct de diferenca do gasto desse mes e do anterior
+
+        this.domAtGastoMes.querySelector('.pctAtalho').textContent = `+${pctDifferenceExpense.toLocaleString('pt-BR')}%` // prenche o dom de pct 
+        this.domAtGastoMes.querySelector('.valueAtalho').textContent = `R$ ${currenExpense.toLocaleString('pt-BR')}.00` // preenche o dom de valor do gasto do mes
+
+        // pega resultado do metodo que vai obter o total de compras no credito
+        let totCred = this.totalinvoice()
+        // prenche a div de cartoes
+        this.domAtCart.querySelector('.valueAtalho').textContent = `R$ ${totCred.toLocaleString('pt-BR')}.00`
+
+        // prenche a div de saldo
+        this.domAtSaldo.querySelector('.valueAtalho').textContent = `R$ ${this.userLogado.balance.toLocaleString('pt-BR')}.00`
+
+
+        // preenchendo a div de emprestimos:
+        this.domAtImprest.querySelector('.valueAtalho').textContent = `R$ ${this.userLogado.loanLimit.toLocaleString('pt-BR')}.00`
+    }
+
+
+
+    // metodo reponsavel por atualizar a parte do cartoes
+    refreshCard() {
+        // pegando o cartao que esta em uso
+        let cardUsing = this.userLogado.cards.find(card => card.inUser === true);
 
         // ordena as compras da mais recente pra mais antiga e exibe a mais recente na tela
-        let purchaseOrdered = this.arayPurchase.sort((a, b) => new Date(b.date) - new Date(a.date)); // ordena as compras por data
+        let purchaseOrdered = cardUsing.purchase.sort((a, b) => new Date(b.date) - new Date(a.date)); // ordena as compras por data
         purchaseOrdered.reverse() // reverte a ordem deixando da mais recente pra mais antiga
+
+        this.datePurchase(purchaseOrdered) // passa as compras ja organizadas pro metodo que vai preecher e exibir na tela as compras
+
+        // preenchendo cartao
+        this.domcardNumber.textContent = cardUsing.dataCard.cardNumber
+        this.domcardName.textContent = cardUsing.dataCard.cardName.toUpperCase()
+        this.domvalidade.textContent = cardUsing.dataCard.expirationDate
+
+        // preenchendo limite:
+        let totalCredit = this.totalinvoice() //metodo que vai obter o valor total da fatura
+        // barr de limite
+        let pctLimit = (totalCredit / cardUsing.limitAvailable) * 100
+        this.dombarrLmt.style.width = `${pctLimit}%`
+
+        // txt de limite mensalc=
+        this.domlimiteMensal.textContent = `R$ ${totalCredit.toLocaleString('pt-BR')}/${cardUsing.limitAvailable.toLocaleString('pt-BR')}`
+
+        // // txt de limite disponivel
+        this.domSLimiteDisponivel.textContent = `R$ ${cardUsing.limitAvailable.toLocaleString('pt-BR')}.00`
+
+        // exibindo a ultima compra
         let recentPurchase = purchaseOrdered[0] // acessa a primeira ou seja a mais recente
-        this.domultimaCompra.textContent = recentPurchase.merchant
+        let nameBreve = this.shortenName(recentPurchase.merchant)
+        this.domultimaCompra.textContent = nameBreve
         this.domvalorUltimaCompra.textContent = `R$ ${recentPurchase.value}.00`
 
-        // div do ajustar limit
-        this.domhVlrLimit.textContent = `R$ ${this.limit}`
-        // barra de limite em uso
-        let pctLmtUso = (this.limit / this.approvedLimit) * 100
-        this.domBarrLmtAprovado.style.width = `${pctLmtUso}%`
-        this.domLmtEmUso.textContent = `Em uso: R$ ${this.limit}`
-        this.domLmtDisponivel.textContent = `Disponível para uso: R$ ${this.approvedLimit}`
+        // Primeira div que é exibida após clicar em "ver mais" 
+        //obtendo a fatura atual e preenche oque precisa de seus dados
+        const currentDate = new Date();
+        const month = currentDate.getMonth() + 1; // getMonth() retorna 0-11, por isso somamos 1
+        const year = currentDate.getFullYear();
+
+        // Cria a chave no formato "ano-mês" (exemplo: "2025-2")
+        const dateKey = `${year}-${month + 1}`; // +1 pq ele e pra pegar a fatura do proximo mes abaixo
+
+        // Procura a fatura cujo vencimento (data) corresponda à chave (formato "ano-mês")
+        // Converte a data de vencimento da fatura para um objeto Date para extrair o ano e o mês
+        const invoiceToPay = cardUsing.invoice.find(f => {
+            const dueDate = new Date(f.expirationDate);
+            const dueKey = `${dueDate.getFullYear()}-${dueDate.getMonth() + 1}`;
+            return dueKey === dateKey;
+        });
+
+        // verifica se a fatura atual existe e se nao esta paga 
+        // e preeche os elementos da primeira div que e exibida no ver mais do cartao
+        if (invoiceToPay) {
+            //  lmtDisponivel recebe o limit em uso menos o valor total das compras no credito
+            let lmtDisponivel = cardUsing.limitAvailable - totalCredit
+
+            // obtem o valor total de todas as faturas
+            let invoices = cardUsing.invoice
+            let somInvoices = invoices.reduce((tot, item) => tot + (item.totalInvoice || 0), 0)
+
+            // obtem o valor das proximas fatura subtraindo o valor da fatura atual
+            let valPrInvoices = somInvoices - invoiceToPay.totalInvoice
+
+            // preenche a parte esqueda da div extra que mostra fatura atual, lmt disponivel e data de vencimento 
+            this.domFaturaAtual.textContent = `R$ ${invoiceToPay.totalInvoice}` //texto de fatura
+            this.domLimiteDisponivel.textContent = lmtDisponivel.toFixed(2) // limite deisponivel 
+            this.domTxtBarrVerde.textContent = lmtDisponivel.toFixed(2) // text da div extraa com barr vertical direita
+
+            // acessando data de fechamento da fatura e deixando ela no formato que o metodo que ira formatala aceite 
+            let dateClose = new Date(invoiceToPay.expirationDate)
+            let year = dateClose.getFullYear();
+            let month = dateClose.getMonth() + 1; // getMonth() retorna de 0 a 11, por isso adiciona 1
+            let day = dateClose.getDate();
+            let newDAtef = `${year}-${month}-${day}`;
+            this.domDAtaFechamentoFatura.textContent = this.formatDate(newDAtef) // preenche a tela com a data no formato ex: 22 de marco
+
+
+            // preeche a barra vertical azul e o txt de (fatura atual)
+            let pctBlue = (invoiceToPay.totalInvoice / cardUsing.limitAvailable) * 100
+            this.domBarrAzul.style.height = `${pctBlue}%`
+            this.domTxtBarrAzul.textContent = `R$ ${invoiceToPay.totalInvoice}` // tecto de fatura do lado direito
+
+
+            // preenche a barra vertical laranja e seu texto (Proximas faturas)
+            let pctorange = (valPrInvoices / cardUsing.limitAvailable) * 100
+            this.domBarrLaranja.style.height = `${pctorange}%`
+            this.domTxtBarrLaranja.textContent = valPrInvoices.toFixed(2)
+
+            // console.log("Fatura do mes encontrada:", invoiceToPay);
+        } else {
+            console.log("Nenhuma fatura encontrada para este mes:", dateKey);
+        }
+
+        // elementos da div de ajustar limit:
+        this.domhVlrLimit.textContent = `R$ ${totalCredit.toLocaleString('pt-BR')}`
+
+        this.domBarrLA.style.width = `${pctLimit}%`
+
+        this.domLmtEmUso.textContent = `Em uso: R$ ${cardUsing.limitAvailable}`
+        this.domLmtDisponivel.textContent = `Disponivel para uso: R$ ${cardUsing.approvedLimit}`
+
         return
     }
 
+
+
+    // metodo responsavel por obter o valor tototal dos valores de compras feitas no credito
+    totalinvoice() {
+        // pegando o cartao que esta em uso
+        let cardUsing = this.userLogado.cards.find(card => card.inUser === true);
+
+        // somanda as compras no credito:
+        let creditTransactions = cardUsing.purchase.filter(purchase => purchase.type === 'Credito') // filtra compraas no credito 
+        let totalCredit = creditTransactions.reduce((sum, transactions) => sum + transactions.value, 0) // soma as compras no credito 
+
+        return totalCredit
+    }
+
+
+
+    // metodo reponsavel por obter o valor total dos gastos incluindo compras feitas no cred e deb, transaçoes feitas
+    monthExpenses() {
+        let currentMonthPurchase = 0; // toral de compras no cartao desse mes
+        let previusMonthPurchase = 0; // toral de compras no cartao do mes passado
+
+        let currentMonthTransaction = 0; // total de transferenica feita nesse mes 
+        let previusMonthTransaction = 0; // total de transferenica feita mes no mes pasado
+
+        let allOK = false; // variavel de controle 
+
+
+        // obtendo a data atual e do mes passado no formato 'YYYY-MM':
+        const today = new Date();
+
+        // Obtém o ano e o mês atual (lembrando que getMonth() retorna 0 para janeiro, por isso somamos 1)
+        const currentYear = today.getFullYear();
+        const currentMonth = (today.getMonth() + 1).toString().padStart(2, '0');
+        const currentYearMonth = `${currentYear}-${currentMonth}`;
+        // console.log("Mês/Ano atual:", currentYearMonth);
+
+        // Para obter a data de um mês atrás, criamos uma nova data com o mês decrementado
+        const previusdateMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+        const previudateYear = previusdateMonth.getFullYear();
+        const previusMonth = (previusdateMonth.getMonth() + 1).toString().padStart(2, '0');
+        const previusYearsMont = `${previudateYear}-${previusMonth}`;
+        // console.log("Mês/Ano de um mês atrás:", previusYearsMont);
+
+
+
+        // OBTEM OS VALORES DAS COMPRAS NO CARTAO
+        // pegando o cartao que esta em uso
+        let cardUsing = this.userLogado.cards.find(card => card.inUser === true);
+        let purchase = cardUsing.purchase
+        // console.log(purchase)
+
+        // criando objeto com o valor total e as compras de cada mes
+        const groupPurchase = purchase.reduce((acc, purchase) => {
+            // converte a data pra um objeto date e extrai o ano e mes
+            const dateObj = new Date(purchase.date)
+            const year = dateObj.getFullYear()
+            const month = (dateObj.getMonth() + 1).toString().padStart(2, '0'); // padStart garante dois dígitos
+            const key = `${year}-${month}`
+
+            // se nao existir essa chave ainda, cria o objeto inicial
+            if (!acc[key]) {
+                acc[key] = {
+                    total: 0,
+                    purchase: []
+                }
+            }
+
+            // acumula o valor da compra e armazena a compra
+            acc[key].total += purchase.value
+            acc[key].purchase.push(purchase)
+            return acc;
+        }, {})
+
+        // console.log(groupPurchase)
+        if (groupPurchase[`${currentYearMonth}`].total && groupPurchase[`${previusYearsMont}`].total) {
+            currentMonthPurchase = groupPurchase[`${currentYearMonth}`].total // obtem o valor das compras desse mes 
+            previusMonthPurchase = groupPurchase[`${previusYearsMont}`].total // obtem o valor das compras do mes passado
+            // console.log(`Valor total das compras feitas no cartão - mês passado: ${previusMonthPurchase}`)
+            // console.log(`Valor total das compras feitas no cartão - mês atual: ${currentMonthPurchase}`)
+            allOK = true
+        } else {
+            allOK = false
+            console.log('Erro: Compras dos últimos dois meses não encontradas para essa funcionalidade')
+        }
+
+
+
+
+        // OBTEM OS VALORES DAS TRANSAÇOES FEITAS ESSE MES
+        const SentTransactions = this.userLogado.transactions.filter(transaction => transaction.type === 'sent')
+        // console.log(SentTransactions)
+
+        // criando objeto com o valor total das transaçoes feitas(nao as recebidas) de cada mes
+        const groupTransaction = SentTransactions.reduce((acc, transaction) => {
+            // converte a data pra um objeto date e extrai o ano e mes
+            const dateObj = new Date(transaction.date)
+            const year = dateObj.getFullYear()
+            const month = (dateObj.getMonth() + 1).toString().padStart(2, '0'); // padStart garante dois dígitos
+            const key = `${year}-${month}`
+
+            // se nao existir essa chave ainda, cria o objeto inicial
+            if (!acc[key]) {
+                acc[key] = {
+                    total: 0,
+                    transaction: []
+                }
+            }
+
+            // acumula o valor da compra e armazena a compra
+            acc[key].total += transaction.value
+            acc[key].transaction.push(transaction)
+            return acc;
+        }, {})
+        // console.log(groupTransaction)
+
+        // console.log(groupTransaction)
+        if (groupTransaction[`${currentYearMonth}`].total && groupTransaction[`${previusYearsMont}`].total) {
+            currentMonthTransaction = groupTransaction[`${currentYearMonth}`].total // obtem o valor das compras desse mes 
+            previusMonthTransaction = groupTransaction[`${previusYearsMont}`].total // obtem o valor das compras do mes passado
+            // console.log(`Valor total das transações feitas - mês passado: ${previusMonthTransaction}`)
+            // console.log(`Valor total das transações feitas - mês atual: ${currentMonthTransaction}`)
+            allOK = true
+        } else {
+            console.log('erro, transaçoes feitas nos ultimos dois meses nao encontradas para essa funcionalidae')
+            allOK = false
+        }
+
+        if (allOK) {
+            let curretTotExpense = currentMonthPurchase + currentMonthTransaction
+            let previusTotExpense = previusMonthPurchase + previusMonthTransaction
+            // console.log(`gastos totais desse mes: ${curretTotExpense}`)
+            // console.log(`gastos totoais do mes passado ${previusTotExpense}`)
+
+            //calculo pra descobri a diferenca em pct
+            let pctDifference = ((curretTotExpense - previusTotExpense) / previusTotExpense) * 100;
+            let pctFormatted = Math.round(pctDifference)
+
+            console.log(`difenrenca em pect: ${pctFormatted}`)
+            
+            return {
+                currentTot: curretTotExpense,
+                pctDifference: pctFormatted
+            }
+        }
+
+
+
+
+
+
+
+
+    }
+
+    // metodo que obtem a quantidade de datas que foi feito pelo menos 1 compra pra saber a quantidade de divs irei criar
+    datePurchase(purchaseOrdered) {
+        // console.log(purchaseOrdered)
+
+        //  Set e usado para guardar combinações únicas de ano e mês (ex.: "2025-02")
+        const unicoYearMont = new Set();
+        let arrayDate = []
+
+        purchaseOrdered.forEach(purchase => {
+            // A data completa já está no formato YYYY-MM-DD, então podemos usá-la diretamente como chave
+            const fullDate = purchase.date;
+
+            // Verificamos se essa combinação de ano e mês já está no Set.
+            if (!unicoYearMont.has(fullDate)) {
+                // Se NÃO estiver, adicionamos ao Set para rastrear que já encontramos esse ano e mês
+                unicoYearMont.add(fullDate)
+
+                // E então imprimimos a data no console (ou podemos armazená - la em outro lugar)
+                arrayDate.push(fullDate)
+                // console.log(fullDate);
+            }
+        })
+
+        this.createDivsDte(arrayDate, purchaseOrdered)
+        // console.log(arrayDate.length)
+    }
+
+
+    /* metodo que ira criar a lista de compras organizando as compras de cada dia em sua propria ul*/
+    createDivsDte(arrayDate, purchaseOrdered) {
+        // console.log(arrayDate);
+        // console.log(purchaseOrdered);
+        // console.log(this.domDivCompras);
+
+        // Para cada data em arrayDate
+        arrayDate.forEach(data => {
+            // Cria o container para a data
+            const divDiaMes = document.createElement("div");
+            divDiaMes.classList.add("dDiaMes");
+
+            // Cria e formata o título com a data
+            const h3Title = document.createElement("h3");
+            h3Title.classList.add("titleDataCompr");
+            let dateF = this.formatDate(data); // Formata a data (ex.: "10 de Abril")
+            h3Title.textContent = dateF;
+
+            // Cria a lista para os itens de compra
+            const ulComp = document.createElement("ul");
+            ulComp.classList.add("ulComp");
+            ulComp.setAttribute('data-op', data);
+
+            // Filtra os itens de compra que correspondem à data atual
+            const comprasDoDia = purchaseOrdered.filter(item => item.date === data);
+
+            // Para cada compra que corresponde à data, cria os elementos necessários
+            comprasDoDia.forEach(compra => {
+                let name = compra.merchant;
+                let type = compra.type;
+                let value = compra.value;
+
+                // Cria o elemento principal com classe "itemLst"
+                const itemLst = document.createElement('div');
+                itemLst.classList.add('itemLst');
+
+                // Cria o container esquerdo para nome e tipo
+                const itemLstEsquerda = document.createElement('div');
+                itemLstEsquerda.classList.add('itemLstEsquerda');
+
+                // Cria o span para o nome do estabelecimento
+                const nLugar = document.createElement('span');
+                nLugar.classList.add('nLugar');
+                nLugar.textContent = name;
+
+                // Cria o span para indicar crédito ou débito
+                const credDeb = document.createElement('span');
+                credDeb.classList.add('CredDeb');
+                credDeb.textContent = `Compra no ${type}`;
+
+                // Anexa os spans ao container esquerdo
+                itemLstEsquerda.appendChild(nLugar);
+                itemLstEsquerda.appendChild(credDeb);
+
+                // Cria o container direito para o valor
+                const itemLstDireta = document.createElement('div');
+                itemLstDireta.classList.add('itemLstDireta');
+                itemLstDireta.textContent = `R$ ${value},00`;
+
+                // Monta o item da lista
+                itemLst.appendChild(itemLstEsquerda);
+                itemLst.appendChild(itemLstDireta);
+
+                // Adiciona o item à lista UL
+                ulComp.appendChild(itemLst);
+            });
+
+            // Anexa o título e a lista de compras à div do dia
+            divDiaMes.appendChild(h3Title);
+            divDiaMes.appendChild(ulComp);
+
+            // Adiciona o container de data e compras ao container principal
+            this.domDivCompras.appendChild(divDiaMes);
+        });
+        this.showAndHidenPurchase()
+
+        // console.log(arrayDate);
+    }
+
+
+    /*metodo reponsavel pela exibiçao de apenas 7 compras
+    faz um loop while que enquanto n chegar no 7 ele da a classs que exibe a li(compra)
+    se passar desse 7 da a class que da display none
+    dps pega as ul que tem li com a class de display none e da display none */
+    showAndHidenPurchase() {
+        const limit = 7; // Limite de exibição
+        let count = 0; // Contador global para as compras exibidas
+
+        // Seleciona todos os containers de dia
+        const dayContainers = document.querySelectorAll('.listsComp .dDiaMes');
+
+        // Inicialmente, percorre cada container para exibir apenas os primeiros 7 itens (globalmente)
+        dayContainers.forEach(day => {
+            // Exibe o container do dia
+            day.style.display = 'block';
+
+            // Seleciona a lista de compras e seus itens
+            const ul = day.querySelector('.ulComp');
+            const items = Array.from(ul.querySelectorAll('.itemLst'));
+
+            // Gerencia a visibilidade dos itens usando um loop forEach (você também pode usar while)
+            items.forEach(item => {
+                if (count < limit) {
+                    item.classList.remove('hidePurchase'); // Exibe o item
+                    count++;
+                } else {
+                    item.classList.add('hidePurchase'); // Oculta o item
+                }
+            });
+
+            // Se todos os itens do dia estiverem ocultos, oculta o container do dia (oculta a div interira incluise h3 de data)
+            const visibleItems = items.filter(item => !item.classList.contains('hidePurchase'));
+            if (visibleItems.length === 0) {
+                day.style.display = 'none';
+            }
+        });
+
+        // Seleciona o botão de "Ver mais"/"Ver menos" (garanta que ele exista no DOM)
+        const btnVerComp = document.querySelector('.btnVerExtrado');
+        if (btnVerComp) {
+            btnVerComp.addEventListener('click', () => {
+                let hiddenExists = false;
+
+                // Verifica se em algum container ainda há itens ocultos
+                dayContainers.forEach(day => {
+                    const ul = day.querySelector('.ulComp');
+                    const items = Array.from(ul.querySelectorAll('.itemLst'));
+                    if (items.some(item => item.classList.contains('hidePurchase'))) {
+                        hiddenExists = true;
+                    }
+                });
+
+                if (hiddenExists) {
+                    // Se houver itens ocultos, exibe todos eles e altera o texto para "Ver menos"
+                    dayContainers.forEach(day => {
+                        day.style.display = 'block';
+                        const ul = day.querySelector('.ulComp');
+                        const items = Array.from(ul.querySelectorAll('.itemLst'));
+                        items.forEach(item => item.classList.remove('hidePurchase'));
+                    });
+                    btnVerComp.textContent = 'VER MENOS';
+                } else {
+                    // Se não houver itens ocultos, re-aplica o limite de 7 e altera o texto para "Ver mais"
+                    count = 0; // Reinicia o contador
+                    dayContainers.forEach(day => {
+                        const ul = day.querySelector('.ulComp');
+                        const items = Array.from(ul.querySelectorAll('.itemLst'));
+                        items.forEach(item => {
+                            if (count < limit) {
+                                item.classList.remove('hidePurchase');
+                                count++;
+                            } else {
+                                item.classList.add('hidePurchase');
+                            }
+                        });
+
+                        // Verifica se o container deve ser exibido ou ocultado
+                        const visibleItems = items.filter(item => !item.classList.contains('hidePurchase'));
+                        day.style.display = visibleItems.length > 0 ? 'block' : 'none';
+                    });
+                    btnVerComp.textContent = 'VER EXTRATO';
+                }
+            });
+        }
+
+        console.log('Exibição configurada.');
+    }
+
+
+    // Método para abreviar o nome do usuário para o cartão
+    shortenName(name) {
+        // Se o nome já tiver 12 caracteres ou menos, retorna sem alteração
+        if (name.length <= 12) {
+            return name;
+        }
+
+        // Remove espaços em excesso e divide o nome em partes
+        const parts = name.trim().split(/\s+/);
+
+        // Se houver ao menos duas partes, usa a lógica para dois nomes
+        if (parts.length >= 2) {
+            const firstName = parts[0];
+            const secondName = parts[1]; // tenta manter o segundo nome por completo
+            const fullCandidate = firstName + " " + secondName;
+
+            // Se o nome composto (primeiro + espaço + segundo) couber em 12 caracteres, retorna-o
+            if (fullCandidate.length <= 12) {
+                return fullCandidate;
+            } else {
+                // Calcula quantos caracteres do primeiro nome podem ser usados para que,
+                // junto com o espaço e o segundo nome completo, o total seja 12
+                const allowedFirstNameLength = 12 - (1 + secondName.length);
+                if (allowedFirstNameLength > 0) {
+                    return firstName.slice(0, allowedFirstNameLength) + " " + secondName;
+                } else {
+                    // Se não houver espaço para nenhuma letra do primeiro nome,
+                    // retorna o segundo nome truncado para 12 caracteres
+                    return secondName.slice(0, 12);
+                }
+            }
+        }
+
+        // Caso haja somente uma parte (nome único), utiliza a estratégia de truncar e adicionar reticências
+        return name.slice(0, 9) + '...';
+    }
+
+
+
+    // metodo responsavel por abreviar as Datas colocando dia e mes ex: '03 junho'
+    // deve receber a  data no seguinte formato: "2025-02-12"
+    formatDate(data) {
+        // data no formato "YYYY-MM-DD"
+        const partes = data.split('-');
+        const ano = partes[0];      // Recebe o ano, mas não será usado na saída
+        const mes = parseInt(partes[1], 10); // Converte "02" para 2
+        const dia = partes[2];
+
+        const nomesDosMeses = [
+            'janeiro', 'fevereiro', 'março', 'abril',
+            'maio', 'junho', 'julho', 'agosto',
+            'setembro', 'outubro', 'novembro', 'dezembro'
+        ];
+
+        // Retorna a data formatada ignorando o ano (exibe "dia mes")
+        // console.log(`${dia}/${nomesDosMeses[mes - 1]}`);
+        let month = nomesDosMeses[mes - 1]
+        let day = dia
+
+        // Adiciona zero à esquerda se necessário
+        let nameMes = month < 10 ? '0' + month : month;
+        let nameday = day < 10 ? '0' + day : day;
+
+        // retorna a data formatada 
+        return `${nameday}/${nameMes.slice(0, 3)}`
+    }
 }
 
 
 
+/* ============================================== 
+    CLASSES REFENTE A "INSERIR DADOS"
+================================================= */
 
 
 // adicona transacoes e manipula dados relacionados 
@@ -564,7 +1147,6 @@ class ManipulatePurchase {
 
         // atulaiza a variavel que defini se a fatura foi paga ou nao
         invoiceToPay.pay = true
-
         this.salvarUsuario()
     }
 
@@ -593,8 +1175,6 @@ class ManipulatePurchase {
 }
 
 
-
-
 // adiciona investimento e manipula dados relacionados
 class ManipulateInvestment {
     constructor(user) {
@@ -609,7 +1189,7 @@ class ManipulateInvestment {
         newInvestment.annualIncome = income
 
         console.log(newInvestment)
-        
+
         // Adiciona o novo investimento ao histórico do usuário
         this.user.investmentHistory.push(newInvestment);
         alert('investimento salvo')
