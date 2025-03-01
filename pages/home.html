@@ -124,7 +124,6 @@
   </nav>
 
 
-
   <!-- Área principal -->
   <main class="main">
     <header class="header">
@@ -195,9 +194,9 @@
           </article>
 
           <!-- Atalho dos emprestimos -->
-          <article id="atalhoImprestimo" class="atalhoNoPct atalhoPadrao">
+          <article id="atalhoEmprestimo" class="atalhoNoPct atalhoPadrao">
             <div class="dNameValueNoPct">
-              <span class="nameAtalho">Pegar Emprestimo</span>
+              <span class="nameAtalho">Emprestimo</span>
               <span class="valueAtalho">R$ 00.000,00</span>
             </div>
           </article>
@@ -235,6 +234,7 @@
             <span class="txtAtalhoImg">configurar <br> atalhos</span>
           </div>
         </div>
+      </div>
       </div>
 
       <!-- Cartões e histórico de compras -->
@@ -449,6 +449,7 @@
       </section>
     </section>
 
+
     <!-- seçao carteira -->
     <section class="section sCarteira">
       <h1>seçao de carteiraaaaa</h1>
@@ -603,6 +604,94 @@
       </div>
     </section>
   </main>
+
+  <!-- div modal que abre pra escolher quais atalho ficaram didspoviesi
+  obs: ta fora do main por questao de z-index e hierarquia de elementos, se ele ficar dentro do main o menu mob que ta fora do main vai incubrilo -->
+  <div class="modal-overlay" id="modalOverlay"> </div>
+
+  <!-- Container do modal -->
+  <div class="modalAt">
+    <div class="dscroll">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h2>Selecionar Atalhos</h2>
+          <button class="btn-close-modal"></button>
+        </div>
+
+        <div class="selecionados">
+          <h3>Atalhos selecionados</h3>
+          <div class="modal-content modal-at-selecionados">
+            <!-- Cada "option-item" representa um atalho/opção -->
+            <div class="option-item">
+              <!-- Substitua a imagem pelo seu ícone -->
+              <img src="../assets/img/leitura-de-codigo-de-barras.png" alt="Extrato" />
+              <span>Atalho</span>
+              <button class="btnAt"></button>
+            </div>
+            <div class="option-item">
+              <img src="../assets/img/leitura-de-codigo-de-barras.png" alt="Empréstimo" />
+              <span>Atalho</span>
+              <button class="btnAt"></button>
+            </div>
+            <!-- <div class="option-item">
+              <img src="../assets/img/leitura-de-codigo-de-barras.png" alt="Consórcio" />
+              <span>Atalho</span>
+              <button class="btnAt"></button>
+            </div>
+            <div class="option-item">
+              <img src="../assets/img/leitura-de-codigo-de-barras.png" alt="Seguro" />
+              <span>Atalho</span>
+              <button class="btnAt"></button>
+            </div>
+            <div class="option-item">
+              <img src="../assets/img/leitura-de-codigo-de-barras.png" alt="Seguro" />
+              <span>Atalho</span>
+              <button class="btnAt"></button>
+            </div>  -->
+          </div>
+        </div>
+
+        <!-- div com atalhos pra serem adicionados -->
+        <div class="naoSelecionados">
+          <h3>Adicionar atalhos</h3>
+          <div class="modal-content modal-n-Selecionados">
+            <!-- Cada "option-item" representa um atalho/opção -->
+            <div class="option-item">
+              <!-- Substitua a imagem pelo seu ícone -->
+              <img src="../assets/img/leitura-de-codigo-de-barras.png" alt="Extrato" />
+              <span>Atalho</span>
+              <button class="btnAt"></button>
+            </div>
+            <div class="option-item">
+              <img src="../assets/img/leitura-de-codigo-de-barras.png" alt="Transferência" />
+              <span>Atalho</span>
+              <button class="btnAt"></button>
+            </div>
+            <!-- <div class="option-item">
+                <img src="../assets/img/leitura-de-codigo-de-barras.png" alt="Games" />
+                <span>Atalho</span>
+                <button class="btnAt"></button>
+              </div>
+              <div class="option-item">
+                <img src="../assets/img/leitura-de-codigo-de-barras.png" alt="Gift Cards" />
+                <span>Atalho</span>
+                <button class="btnAt"></button>
+              </div>
+              <div class="option-item">
+                <img src="../assets/img/leitura-de-codigo-de-barras.png" alt="Gift Cards" />
+                <span>Atalho</span>
+                <button class="btnAt"></button>
+              </div>
+              <div class="option-item">
+                <img src="../assets/img/leitura-de-codigo-de-barras.png" alt="Gift Cards" />
+                <span>Atalho</span>
+                <button class="btnAt"></button>
+              </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="../assets/js/classes.js"></script>
   <script src="../assets/js/home.js"></script>
   <script src="../assets/js/menu.js"></script>

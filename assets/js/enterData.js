@@ -11,7 +11,6 @@ const clsPurchase = new ManipulatePurchase(loggedInUserr)
 
 // class que ira salvar e manipular os dados do investimento
 const clsInvest = new ManipulateInvestment(loggedInUserr)
-
 //clsPurchase.generateInvoices() // chama o metodo que e responsavel pela criaçao da fatura
 
 // console.log(loggedInUserr)
@@ -234,24 +233,26 @@ function saveInvestment() {
     const investmentDate = formTrans.querySelector('#investmentDate').value;
     const investmentName = formTrans.querySelector('#investmentName').value;
     const annualIncome = Math.random()
+
     // Verifica se algum campo está vazio ou inválido
     if (!investmentType || investmentValue <= 0 || !investmentDate || !investmentName) {
         alert('Por favor, preencha todos os campos corretamente!');
         return;
+    } else if (investmentValue > loggedInUserr.balance) {
+        alert('saldo insuficiente!');
+        return
+    } else {
+        // Cria o objeto do novo investimento
+        let newInvestment = {
+            type: investmentType,
+            date: investmentDate,
+            value: investmentValue,
+            nameInvestment: investmentName,
+            annualIncome: 0,
+            pctAnnualIncome: annualIncome.toFixed(2),
+        };
+        return newInvestment
     }
-
-    
-    // Cria o objeto do novo investimento
-    let newInvestment = {
-        type: investmentType,
-        date: investmentDate,
-        value: investmentValue,
-        nameTransaction: investmentName,
-        annualIncome: 0,
-        pctAnnualIncome: annualIncome.toFixed(2),
-    };
-
-    return newInvestment
 }
 
 

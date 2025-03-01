@@ -279,8 +279,6 @@ body {
 
 /* fim do header e comeco do main -- fim do header e comeco do main -- fim do header e comeco do main -- fim do header e comeco do main */
 
-
-
 /* div onde vai ficar o conteudo principal de cada sessao */
 .main .sHome {
     display: flex;
@@ -494,6 +492,176 @@ body {
     color: var(--color-grey);
 }
 
+
+
+
+/* css do modal que aparece com opc de atalhos */
+/* Container que escurece o fundo e centraliza o modal */
+.modal-overlay {
+    display: none;
+    /* Começa oculto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    /* Para ficar na frente de outros elementos */
+}
+/* quando o modal estiver aberto */
+.modal-overlay.overlayOpen {
+    display: block;
+}
+
+.modalAt {
+    position: fixed;
+    display: none;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* height: 0vh; */
+    z-index: 999;
+    padding: 24px;
+    background-color: #fff;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    overflow: hidden;
+    overflow-y: auto;
+    /* Transição suave da altura */
+}
+/* Quando o modal está aberto */
+.modalAt.openModal {
+    display: block;
+    padding: 24px;
+}
+
+/* Para navegadores WebKit (Chrome, Safari, Opera) */
+.modalAt::-webkit-scrollbar {
+    display: none;
+}
+
+.modal-box {
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    /*Centraliza o elemento quando a tela for maior que 800px */
+}
+
+/* Cabeçalho do modal */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.modal-header h2 {
+    font-size: 1.25rem;
+    font-family: var(--font-lato);
+    font-weight: 700;
+    color: var(--color-grey);
+}
+
+.btn-close-modal {
+    height: 32px;
+    width: 32px;
+    background-color: transparent;
+    background-image: url("../img/btn-close.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.selecionados {
+    padding-bottom: 16px;
+    border-bottom: solid 2px var(--color-grey);
+}
+
+.selecionados,
+.naoSelecionados {
+    margin-bottom: 30px;
+}
+
+.selecionados h3,
+.naoSelecionados h3 {
+    color: var(--color-grey);
+    font-family: var(--font-lato);
+    margin-bottom: 24px;
+    font-weight: 600;
+}
+
+/* Conteúdo do modal: grade de opções */
+.modal-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+}
+
+/* Cada item na grade */
+.option-item {
+    position: relative;
+    /*pro botao ficar em cima*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+.option-item img {
+    background-color: rgba(0, 0, 0, 0.175);
+    border-radius: 50%;
+    padding: 16px;
+    margin-bottom: 8px;
+}
+
+.option-item span {
+    font-family: var(--font-lato);
+    font-weight: 600;
+    font-size: var(--font-size-base);
+    color: #333;
+}
+
+/* botao de add ou excluir atalho */
+.selecionados .btnAt {
+    position: absolute;
+    top: 0px;
+    right: -5px;
+    height: 24px;
+    width: 24px;
+    background-color: transparent;
+    background-image: url("../img/btn-remove.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.naoSelecionados .btnAt {
+    position: absolute;
+    top: 0px;
+    right: -5px;
+    height: 24px;
+    width: 24px;
+    background-color: transparent;
+    background-image: url("../img/btn-add.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
 
 /* css das divs de catao e ultimas compras  css das divs de catao e ultimas compras  css das divs de catao e ultimas compras  css das divs de catao e ultimas compras  css das divs de catao e ultimas compras  */
 
@@ -717,12 +885,14 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0px;
-    gap: 58px;
+    /* gap: 58px; */
     width: 100%;
     height: 24px;
 }
 
 .barrText .txtLM {
+    text-align: left;
+    flex: 1;
     margin: 0 auto;
     height: 24px;
     font-family: var(--font-lato);
@@ -734,6 +904,8 @@ body {
 }
 
 .barrText .value {
+    text-align: right;
+    flex: 1;
     margin: 0 auto;
     height: 24px;
     font-family: var(--font-lato);
@@ -1856,6 +2028,52 @@ body {
 
     .ulComp .itemLst {
         gap: 10px;
+    }
+
+    /* div de adicionar atalho  */
+
+    /* Ajusta o container de atalhos */
+    .modalAt {
+        height: 60vh;
+    }
+
+    /* Modal: garante que ocupe a largura total e centralize */
+    .modal-box {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+
+    /* Modal content: diminui o gap entre os itens */
+    .modal-content {
+        gap: 24px;
+    }
+
+    /* Ajusta os itens das opções */
+    .option-item img {
+        width: 55px;
+        height: 55px;
+        /* padding: 12px; */
+    }
+
+    .option-item span {
+        font-size: 0.875rem;
+    }
+
+    /* Ajusta os cabeçalhos das seções */
+    .selecionados h3,
+    .naoSelecionados h3 {
+        margin-bottom: 16px;
+    }
+
+    /* Botões de add/excluir podem ter seus tamanhos ajustados se necessário */
+    .selecionados .btnAt,
+    .naoSelecionados .btnAt {
+        height: 24px;
+        width: 24px;
+        top: -2px;
+        right: -3px;
     }
 }
 

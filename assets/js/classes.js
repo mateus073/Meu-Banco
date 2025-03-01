@@ -18,7 +18,7 @@ class Usuario {
         this.balance = 4000;
         this.loanLimit = 5000;  // Limite de empréstimo
         this.transactions = [
-            { type: "received", value: 110, date: '2025-02', nameTransaction: 'Person fictitious 01' }, // recebida
+            { type: "received", value: 110, date: '2025-02-02', nameTransaction: 'Person fictitious 01' }, // recebida
             { type: "sent", value: 900, date: '2025-02-08', nameTransaction: 'Person fictitious 02' }, // enviada 
         ];
         this.pixKey = [
@@ -26,7 +26,19 @@ class Usuario {
             { tipo: 'Email', chave: '' },
             { tipo: 'Telefone', chave: '' },
             { tipo: 'Aleatória', chave: '' }
-        ]
+        ]; // dados pra criar os atalhos
+        this.shortcuts = [
+            { id: 1, name: 'gastosMes', imgSrc: '../assets/img/extrato-bancrio.png', idName: 'atalhoGastoMes', visible: true },
+            { id: 2, name: 'recebimentos', imgSrc: '../assets/img/benefcios.png', idName: 'atalhoRecebimentos', visible: true },
+            { id: 3, name: 'investimentos', imgSrc: '../assets/img/investment.png', idName: 'atalhoInvestimentos', visible: true },
+            { id: 4, name: 'cartoes', imgSrc: '../assets/img/cartoes-de-credito.png', idName: 'atalhoCartoes', visible: true },
+            { id: 5, name: 'Saldo', imgSrc: '../assets/img/', idName: 'atalhoSaldo', visible: false },
+            { id: 6, name: 'emprestimo', imgSrc: '../assets/img/emprestimo.png', idName: 'atalhoEmprestimo', visible: false },
+            { id: 7, name: 'pix', imgSrc: '../assets/img/chave.png', idName: 'AtalhoPix', visible: false },
+            { id: 8, name: 'recarga', imgSrc: '../assets/img/movel-5g.png', idName: 'atalhoRecarga', visible: false },
+            { id: 9, name: 'boleto', imgSrc: '../assets/img/leitura-de-codigo-de-barras.png', idName: 'atalhoBoleto', visible: false }
+            // Adicione outros atalhos conforme necessário
+        ];
         this.cards = [
             {
                 inUser: true, // variavel que define se e pra exibir esse cartao na tela
@@ -77,7 +89,7 @@ class Usuario {
                     expirationDate: '11/30'
                 }
             }
-        ]
+        ];
         this.investmentHistory = [
             { type: 'stocks', date: '2025-01-01', value: 1000, annualIncome: 0.05, },
             { type: 'bonds', date: '2025-01-15', value: 2000, annualIncome: 0.07, }
@@ -185,11 +197,9 @@ class Usuario {
 
 
 
-
-// class reponsavel por preencher a tela home com infos do usuario
-// recbe um objeto com os dados do cartao ja filtrados 
-// recebe um objeto com os elementos do doom necesario
-class UpdateCardScreen {
+/* CLASS REPONAVEL PELOS ATALHO DA TELA DE HOME
+*/
+class HomeUpdateShortcutScreen {
     constructor(user, elDomCard) {
         this.userLogado = user
         // Desconstrução dos elementos DOM do objeto passado
@@ -206,6 +216,477 @@ class UpdateCardScreen {
             domAtBoleto,
             domAtConfig,
 
+            domModalAtOverlei,
+            domModalAtModal,
+            domModalbtnFechar,
+            domModalAtSelecionados,
+            domModalAtNaoSelecionados
+        } = elDomCard
+
+        // Atribuição dos elementos desconstruídos às propriedades da instância
+        this.domAtGastoMes = domAtGastoMes;
+        this.domAtReceb = domAtReceb;
+        this.domAtInvest = domAtInvest;
+        this.domAtCart = domAtCart;
+        this.domAtSaldo = domAtSaldo;
+        this.domAtImprest = domAtImprest;
+        this.domAtPix = domAtPix;
+        this.domAtRecarga = domAtRecarga;
+        this.domAtBoleto = domAtBoleto;
+        this.domAtConfig = domAtConfig;
+
+        this.domModalAtOverlei = domModalAtOverlei
+        this.domModalAtModal = domModalAtModal
+        this.domModalbtnFechar = domModalbtnFechar
+        this.domModalAtSelecionados = domModalAtSelecionados
+        this.domModalAtNaoSelecionados = domModalAtNaoSelecionados
+    }
+
+    conferirurser() {
+        let cardUsing = this.userLogado.cards.find(card => card.inUser === true);
+
+        console.log('objeto usuario:')
+        console.log(this.userLogado)
+
+        // console.log('cartao em uso:')
+        // console.log(cardUsing)
+    }
+
+
+    // ATUALIZA O DOM DO ATALHO
+    refreshShortcut() {
+        // DIV DE GASTOS DO MES
+        // chama o metodo reponsavel por obter o gasto do mes(compras e transferencias) e a pct de diferenca do gasto desse mes e do mes anterior
+        let monthExpenses = this.monthExpenses()
+        console.log(monthExpenses)
+        let currenExpense = monthExpenses.currentTot // pega o gasto total - mes atual
+        let pctDifferenceExpense = monthExpenses.pctDifference // pega a pct de diferenca do gasto desse mes e do anterior
+        // verifica se o resultado e negativo pra saber se adiciono o "+" na frente ou nao
+        if (pctDifferenceExpense > 0) {
+            this.domAtGastoMes.querySelector('.pctAtalho').textContent = `+${pctDifferenceExpense.toLocaleString('pt-BR')}%` // prenche o dom de pct 
+        } else {
+            this.domAtGastoMes.querySelector('.pctAtalho').textContent = `${pctDifferenceExpense.toLocaleString('pt-BR')}%` // prenche o dom de pct 
+        }
+        this.domAtGastoMes.querySelector('.valueAtalho').textContent = `R$ ${currenExpense.toLocaleString('pt-BR')}.00` // preenche o dom de valor do gasto do mes
+
+
+        // DIV DE RECEBIMENTOS DO MES
+        // chama o metodo reponsavel por obter o gasto do mes(compras e transferencias) e a pct de diferenca do gasto desse mes e do mes anterior
+        let monthReceived = this.moneyReceived()
+        let currenReceived = monthReceived.receivedCurrentTot // pega o gasto total - mes atual
+        let pctDifferenceReceived = monthReceived.receivedPctDifference // pega a pct de diferenca do gasto desse mes e do anterior
+        // verifica se o resultado e negativo pra saber se adiciono o "+" na frente ou nao
+        if (pctDifferenceReceived > 0) {
+            this.domAtReceb.querySelector('.pctAtalho').textContent = `+${pctDifferenceReceived.toLocaleString('pt-BR')}%`
+        } else {
+            this.domAtReceb.querySelector('.pctAtalho').textContent = `${pctDifferenceReceived.toLocaleString('pt-BR')}%`
+        }
+        this.domAtReceb.querySelector('.valueAtalho').textContent = `R$ ${currenReceived.toLocaleString('pt-BR')}.00`
+
+        // DIV DE INVESTIMENTOS
+        // chama metodo responsavel por obter o valor final do total dos investimentos (valor investido/ lucro ate o momento / pct de lucro)
+        let objtotlInvested = this.aggregateInvestmentResults()
+        let investedProfit = objtotlInvested.totalProfit
+        let investedTot = objtotlInvested.totalInvested
+        let investedPct = objtotlInvested.profitPercentage
+
+        this.domAtInvest.querySelector('.pctInvestments').textContent = `+R$${investedProfit.toLocaleString('pt-BR')}(+${investedPct.toLocaleString('pt-BR')}%)`
+        this.domAtInvest.querySelector('.valueAtalho').textContent = `R$ ${investedTot.toLocaleString('pt-BR')}.00`
+
+
+        // DIV ATALHO CARTOES 
+        // pega resultado do metodo que vai obter o total de compras no credito
+        let totCred = this.totalinvoice()
+        this.domAtCart.querySelector('.valueAtalho').textContent = `R$ ${totCred.toLocaleString('pt-BR')}.00`
+
+        // DIV ATALHO SALDO
+        // prenche a div de saldo
+        this.domAtSaldo.querySelector('.valueAtalho').textContent = `R$ ${this.userLogado.balance.toLocaleString('pt-BR')}.00`
+
+        // DIV ATALHO EMPRESTIMO
+        // preenchendo a div de emprestimos:
+        this.domAtImprest.querySelector('.valueAtalho').textContent = `R$ ${this.userLogado.loanLimit.toLocaleString('pt-BR')}.00`
+    }
+
+    // metodo pra fechar e abrir atalho
+    openCloseModalAt() {
+        console.log(userat)
+    }
+
+    // metodo pra criar as opc de atalho baseado no local storage
+    createDivsOpcShortcut() {
+        let userat = this.userLogado.shortcuts
+        console.log(userat)
+        console.log(this.domModalAtModal)
+        console.log(this.domModalAtNaoSelecionados)
+        console.log(this.domModalAtSelecionados)
+        console.log(this.domModalAtOverlei)
+        console.log(this.domModalbtnFechar)
+        console.log(this.domAtConfig)
+
+        // Loop para criar elementos HTML
+        userat.forEach(shortcut => {
+            if (shortcut.visible) {
+                // Cria o elemento div
+                const div = document.createElement('div');
+                div.setAttribute('data-name', shortcut.idName);
+                div.classList.add('option-item');
+
+                // Adiciona a imagem
+                const img = document.createElement('img');
+                img.setAttribute('src', shortcut.imgSrc);
+                img.setAttribute('alt', shortcut.name);
+
+                // Adiciona o nome (span)
+                const span = document.createElement('span');
+                span.textContent = shortcut.name;
+
+                // Adiciona o botão
+                const button = document.createElement('button');
+                button.classList.add('btnAt');
+
+                // Anexa os elementos à div
+                div.appendChild(img);
+                div.appendChild(span);
+                div.appendChild(button);
+
+                // Adiciona a div ao contêiner
+                this.domModalAtSelecionados.appendChild(div);
+            }
+        });
+
+        this.domAtConfig.addEventListener('click', () => {
+            this.domModalAtOverlei.classList.add('overlayOpen')
+            this.domModalAtModal.classList.add('openModal')
+        })
+    }
+
+
+    configShortCut() {
+        console.log('testes')
+    }
+
+
+
+    /* metodo de atalhos - gasto do mes 
+    metodo reponsavel por:
+        - obter o valor total dos gastos do mes atual e do mes anterior
+        - e a difenreca entre eles em pct
+    obs: usa os valores das compras no cartao, e das transaçoes feitas(feitas nao recebidas)
+    */
+    monthExpenses() {
+        // Inicializa variáveis para armazenar os totais
+        let currentMonthPurchase = 0;      // Total de compras do cartão neste mês
+        let previousMonthPurchase = 0;     // Total de compras do cartão do mês passado
+        let currentMonthTransaction = 0;   // Total das transações "sent" neste mês
+        let previousMonthTransaction = 0;  // Total das transações "sent" do mês passado
+
+        // ================================
+        // 1. Obtenção e Formatação das Datas
+        // ================================
+        const today = new Date();  // Data atual
+
+        // Extrai o ano e o mês atual, garantindo dois dígitos para o mês (ex.: "2025-02")
+        const currentYear = today.getFullYear();
+        const currentMonth = (today.getMonth() + 1).toString().padStart(2, '0');
+        const currentYearMonth = `${currentYear}-${currentMonth}`;  // Exemplo: "2025-02"
+
+        // Cria uma data representando o mesmo dia do mês anterior
+        const previousDateMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+        // Extrai o ano e o mês da data do mês anterior (também com dois dígitos)
+        const previousYear = previousDateMonth.getFullYear();
+        const previousMonth = (previousDateMonth.getMonth() + 1).toString().padStart(2, '0');
+        const previousYearMonth = `${previousYear}-${previousMonth}`;  // Exemplo: "2025-01"
+
+        // ================================
+        // 2. Processamento das Compras
+        // ================================
+        // Seleciona o cartão em uso (onde "inUser" é true)
+        const cardUsing = this.userLogado.cards.find(card => card.inUser === true);
+        // Obtém as compras do cartão; se não houver, usa um array vazio
+        const purchases = cardUsing?.purchase || [];
+        console.log('Array de compras do cartão em uso:');
+        console.log(purchases);
+
+        // Agrupa as compras por chave "YYYY-MM" usando reduce
+        const groupPurchase = purchases.reduce((acc, p) => {
+            // Converte a data da compra em um objeto Date
+            const dateObj = new Date(p.date);
+            // Extrai o ano e o mês (com dois dígitos)
+            const year = dateObj.getFullYear();
+            const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+            const key = `${year}-${month}`; // Exemplo: "2025-02"
+
+            // Se essa chave ainda não existir, inicializa o objeto com total = 0 e um array vazio
+            if (!acc[key]) {
+                acc[key] = { total: 0, purchase: [] };
+            }
+            // Adiciona o valor da compra ao total e armazena a compra no array
+            acc[key].total += p.value;
+            acc[key].purchase.push(p);
+            return acc;
+        }, {});
+
+        // Se existir dados para o mês atual, atribui ao total de compras do mês atual
+        if (groupPurchase[currentYearMonth]?.total !== undefined) {
+            currentMonthPurchase = groupPurchase[currentYearMonth].total;
+        }
+        // Se existir dados para o mês passado, usa esses dados; caso contrário, utiliza os dados do mês atual como fallback
+        if (groupPurchase[previousYearMonth]?.total !== undefined) {
+            previousMonthPurchase = groupPurchase[previousYearMonth].total;
+        } else {
+            previousMonthPurchase = currentMonthPurchase;
+        }
+        console.log(`Compras - Mês atual (${currentYearMonth}): ${currentMonthPurchase}`);
+        console.log(`Compras - Mês passado (${previousYearMonth}): ${previousMonthPurchase}`);
+
+        // ================================
+        // 3. Processamento das Transações (tipo "sent")
+        // ================================
+        // Filtra as transações do usuário para obter apenas aquelas com type "sent"
+        const sentTransactions = this.userLogado.transactions.filter(transaction => transaction.type === 'sent');
+
+        // Agrupa as transações por chave "YYYY-MM" usando reduce
+        const groupTransaction = sentTransactions.reduce((acc, t) => {
+            // Converte a data da transação para objeto Date
+            const dateObj = new Date(t.date);
+            // Extrai o ano e o mês (garantindo dois dígitos)
+            const year = dateObj.getFullYear();
+            const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+            const key = `${year}-${month}`; // Exemplo: "2025-02"
+
+            // Se a chave ainda não existe, inicializa-a com total = 0 e um array vazio
+            if (!acc[key]) {
+                acc[key] = { total: 0, transaction: [] };
+            }
+            // Soma o valor da transação e adiciona a transação ao array
+            acc[key].total += t.value;
+            acc[key].transaction.push(t);
+            return acc;
+        }, {});
+
+        // Se existir dados para o mês atual, atribui ao total das transações do mês atual
+        if (groupTransaction[currentYearMonth]?.total !== undefined) {
+            currentMonthTransaction = groupTransaction[currentYearMonth].total;
+        }
+        // Se existir dados para o mês passado, usa esses dados; se não, usa os dados do mês atual como fallback
+        if (groupTransaction[previousYearMonth]?.total !== undefined) {
+            previousMonthTransaction = groupTransaction[previousYearMonth].total;
+        } else {
+            previousMonthTransaction = currentMonthTransaction;
+        }
+        console.log(`Transações feitas - Mês atual (${currentYearMonth}): ${currentMonthTransaction}`);
+        console.log(`Transações feitas - Mês passado (${previousYearMonth}): ${previousMonthTransaction}`);
+
+        // ================================
+        // 4. Cálculo Final dos Gastos e Diferença Percentual
+        // ================================
+        // Soma os totais de compras e transações para o mês atual e o mês passado
+        let currentTotalExpense = currentMonthPurchase + currentMonthTransaction;
+        let previousTotalExpense = previousMonthPurchase + previousMonthTransaction;
+        console.log(`Gastos totais - Mês atual: ${currentTotalExpense}`);
+        console.log(`Gastos totais - Mês passado: ${previousTotalExpense}`);
+
+        // Calcula a diferença percentual entre os gastos dos dois meses
+        // Se previousTotalExpense for 0, definimos a diferença como 0 para evitar divisão por zero
+        let pctDifference = previousTotalExpense !== 0
+            ? ((currentTotalExpense - previousTotalExpense) / previousTotalExpense) * 100
+            : 0;
+        let pctFormatted = Math.round(pctDifference);
+        console.log(`Diferença percentual: ${pctFormatted}%`);
+
+        // Retorna um objeto com o total de gastos do mês atual e a diferença percentual
+        return {
+            currentTot: currentTotalExpense,
+            pctDifference: pctFormatted
+        };
+    }
+
+
+
+
+    // METODO  DE ATALHOS - OBTEM OS DADOS PRO ATALHO RECEBIMENTOS
+    moneyReceived() {
+        // Variáveis para armazenar os totais das transações recebidas
+        let currentMonthTransaction = 0;   // Total das transações recebidas neste mês
+        let previousMonthTransaction = 0;  // Total das transações recebidas no mês passado
+        let allOK = false;                 // Flag para indicar se os dados foram encontrados corretamente
+
+        // ================================
+        // 1. Obtenção e Formatação das Datas
+        // ================================
+        const today = new Date(); // Data atual
+
+        // Extrai o ano e o mês atual (garante dois dígitos para o mês)
+        const currentYear = today.getFullYear();
+        const currentMonth = (today.getMonth() + 1).toString().padStart(2, '0');
+        const currentYearMonth = `${currentYear}-${currentMonth}`; // Ex: "2025-02"
+
+        // Cria uma data representando o mesmo dia do mês anterior
+        const previousDateMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+        const previousYear = previousDateMonth.getFullYear();
+        const previousMonth = (previousDateMonth.getMonth() + 1).toString().padStart(2, '0');
+        const previousYearMonth = `${previousYear}-${previousMonth}`; // Ex: "2025-01"
+
+        // ================================
+        // 2. Processamento das Transações Recebidas
+        // ================================
+        // Filtra as transações do usuário para obter somente aquelas do tipo "received"
+        const receivedTransactions = this.userLogado.transactions.filter(transaction => transaction.type === 'received');
+
+        // Agrupa as transações por ano-mês usando reduce
+        const groupTransaction = receivedTransactions.reduce((acc, transaction) => {
+            // Converte a data da transação para um objeto Date
+            const dateObj = new Date(transaction.date);
+            // Extrai o ano e o mês com dois dígitos
+            const year = dateObj.getFullYear();
+            const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+            const key = `${year}-${month}`; // Chave no formato "YYYY-MM"
+
+            // Se a chave ainda não existir, inicializa-a com total = 0 e um array vazio
+            if (!acc[key]) {
+                acc[key] = { total: 0, transaction: [] };
+            }
+            // Acumula o valor da transação e guarda a transação no array
+            acc[key].total += transaction.value;
+            acc[key].transaction.push(transaction);
+            return acc;
+        }, {});
+
+        // ================================
+        // 3. Verificação e Atribuição dos Totais
+        // ================================
+        // Se houver dados para o mês atual, atribui o total à variável
+        if (groupTransaction[currentYearMonth]?.total !== undefined) {
+            currentMonthTransaction = groupTransaction[currentYearMonth].total;
+            // Se houver dados para o mês passado, usa-os; caso contrário, usa o valor do mês atual como fallback
+            if (groupTransaction[previousYearMonth]?.total !== undefined) {
+                previousMonthTransaction = groupTransaction[previousYearMonth].total;
+            } else {
+                previousMonthTransaction = currentMonthTransaction;
+            }
+            allOK = true;
+        } else {
+            console.log('Erro: Transações recebidas do mês atual não encontradas para essa funcionalidade.');
+            allOK = false;
+        }
+
+        // ================================
+        // 4. Cálculo Final e Retorno dos Dados
+        // ================================
+        if (allOK) {
+            // Para este atalho, o total recebido é o valor das transações do mês atual
+            let currentTotal = currentMonthTransaction;
+            let previousTotal = previousMonthTransaction;
+            console.log(`Transações recebidas - Mês atual (${currentYearMonth}): ${currentTotal}`);
+            console.log(`Transações recebidas - Mês passado (${previousYearMonth}): ${previousTotal}`);
+
+            // Calcula a diferença percentual; se o total do mês passado for 0, define 0% para evitar divisão por zero
+            let pctDifference = previousTotal !== 0 ? ((currentTotal - previousTotal) / previousTotal) * 100 : 0;
+            let pctFormatted = Math.round(pctDifference);
+            console.log(`Diferença percentual: ${pctFormatted}%`);
+
+            // Retorna um objeto com os dados que serão usados na interface
+            return {
+                receivedCurrentTot: currentTotal,
+                receivedPctDifference: pctFormatted
+            };
+        }
+
+        // Caso não haja dados, retorna um objeto com valores zerados
+        return {
+            receivedCurrentTot: 0,
+            receivedPctDifference: 0
+        };
+    }
+
+
+
+
+    /* METODO DE ATALHO -  calcula o rendimento acumulado de um único investimento
+    ele e usado como callback no metodo abaixo que da o loop em todos os investimentos e aplica ele*/
+    calculateRealTimeYield(investment) {
+        // Converte a porcentagem anual para número (caso esteja em string)
+        const annualPct = parseFloat(investment.pctAnnualIncome);
+
+        // Converte a data do investimento para um objeto Date
+        const investmentDate = new Date(investment.date);
+        const now = new Date();
+
+        // Se o investimento ainda não começou, retorna 0
+        if (now < investmentDate) {
+            return 0;
+        }
+
+        // Calcula a diferença em milissegundos e converte para dias
+        const msPerDay = 1000 * 60 * 60 * 24;
+        const elapsedDays = (now - investmentDate) / msPerDay;
+
+        // Fórmula: rendimento = valor investido * (porcentagem anual) * (dias decorrido / 365)
+        const yieldValue = investment.value * annualPct * (elapsedDays / 365);
+
+        // Retorna o rendimento arredondado para duas casas decimais
+        return Number(yieldValue.toFixed(2));
+    }
+
+    /* METODO DE ATALHO - recebe um array de investimentos e retorna o array com os rendimentos calculados
+     metodo chamado no metodo abaixo onde passa o array de investimenos para ele*/
+    calculateInvestmentsWithYield(investments) {
+        return investments.map(investment => {
+            const yieldValue = this.calculateRealTimeYield(investment);
+            return { ...investment, yield: yieldValue };// retorna um objeto ja formatado
+        });
+    }
+
+    // METODO DE ATALHO - que agrega todos os resultados de todos os investimentos
+    aggregateInvestmentResults() {
+        // Obtém o array de investimentos do usuário
+        const investments = this.userLogado.investmentHistory;
+
+        // variaveis que armazenam os valores total de todos os invesmentos
+        let totalInvested = 0;
+        let totalProfit = 0;
+
+
+        investments.forEach(investment => {
+            // Calcula o rendimento para cada investimento
+            const yieldValue = this.calculateRealTimeYield(investment);
+            totalInvested += investment.value;
+            totalProfit += yieldValue;
+        });
+
+        // Calcula a porcentagem de lucro
+        const profitPercentage = totalInvested ? (totalProfit / totalInvested) * 100 : 0;
+
+        return {
+            totalInvested,
+            totalProfit,
+            profitPercentage: Number(profitPercentage.toFixed(2))
+        };
+    }
+
+    // metodo responsavel por obter o valor tototal dos valores de compras feitas no credito
+    totalinvoice() {
+        // pegando o cartao que esta em uso
+        let cardUsing = this.userLogado.cards.find(card => card.inUser === true);
+
+        // somanda as compras no credito:
+        let creditTransactions = cardUsing.purchase.filter(purchase => purchase.type === 'Credito') // filtra compraas no credito 
+        let totalCredit = creditTransactions.reduce((sum, transactions) => sum + transactions.value, 0) // soma as compras no credito 
+
+        return totalCredit
+    }
+}
+
+
+// class reponsavel por preencher a tela home com infos do usuario
+// recbe um objeto com os dados do cartao ja filtrados 
+// recebe um objeto com os elementos do doom necesario
+class HomeUpdateCardScreen {
+    constructor(user, elDomCard) {
+        this.userLogado = user
+        // Desconstrução dos elementos DOM do objeto passado
+        const {
             // Dados do cartão
             domcardNumber,
             domcardName,
@@ -247,17 +728,6 @@ class UpdateCardScreen {
         } = elDomCard;
 
         // Atribuição dos elementos desconstruídos às propriedades da instância
-        this.domAtGastoMes = domAtGastoMes;
-        this.domAtReceb = domAtReceb;
-        this.domAtInvest = domAtInvest;
-        this.domAtCart = domAtCart;
-        this.domAtSaldo = domAtSaldo;
-        this.domAtImprest = domAtImprest;
-        this.domAtPix = domAtPix;
-        this.domAtRecarga = domAtRecarga;
-        this.domAtBoleto = domAtBoleto;
-        this.domAtConfig = domAtConfig;
-
         this.domcardNumber = domcardNumber;
         this.domcardName = domcardName;
         this.domvalidade = domvalidade;
@@ -320,9 +790,6 @@ class UpdateCardScreen {
 
         console.groupEnd();
     }
-
-
-
     conferirurser() {
         let cardUsing = this.userLogado.cards.find(card => card.inUser === true);
 
@@ -333,57 +800,9 @@ class UpdateCardScreen {
         // console.log(cardUsing)
     }
 
-    // metodo reponsavel por atualizar as divs de atalhos
-    refreshShortcut() {
-        let transReceived = this.userLogado.transactions.filter(transaction => transaction.type === "received")
-
-        let date = new Date();
-
-        // Formata o mês atual
-        let currentYear = date.getFullYear();
-        let currentMonth = (date.getMonth() + 1).toString().padStart(2, '0');
-        let currentDay = date.getDate().toString().padStart(2, '0');
-
-        let month = `${currentYear}-${currentMonth}-${currentDay}`;
-
-        // Cria uma data para o mês anterior
-        let previousDate = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate());
-        let previousYear = previousDate.getFullYear();
-        let previousMonth = (previousDate.getMonth() + 1).toString().padStart(2, '0');
-        let previousDay = previousDate.getDate().toString().padStart(2, '0');
-
-        let beforeMonth = `${previousYear}-${previousMonth}-${previousDay}`;
-
-        /*console.log("Mês atual:", month);
-        console.log("Mês anterior:", beforeMonth);
-        console.log('cartao em uso')
-        console.log(transReceived)*/
-
-        // DIV DE GASTOS DO MES
-        // chama o metodo reponsavel por obter o gasto do mes(compras e transferencias) e a pct de diferenca do gasto desse mes e do mes anterior
-        let monthExpenses = this.monthExpenses()
-        let currenExpense = monthExpenses.currentTot // pega o gasto total - mes atual
-        let pctDifferenceExpense = monthExpenses.pctDifference // pega a pct de diferenca do gasto desse mes e do anterior
-
-        this.domAtGastoMes.querySelector('.pctAtalho').textContent = `+${pctDifferenceExpense.toLocaleString('pt-BR')}%` // prenche o dom de pct 
-        this.domAtGastoMes.querySelector('.valueAtalho').textContent = `R$ ${currenExpense.toLocaleString('pt-BR')}.00` // preenche o dom de valor do gasto do mes
-
-        // pega resultado do metodo que vai obter o total de compras no credito
-        let totCred = this.totalinvoice()
-        // prenche a div de cartoes
-        this.domAtCart.querySelector('.valueAtalho').textContent = `R$ ${totCred.toLocaleString('pt-BR')}.00`
-
-        // prenche a div de saldo
-        this.domAtSaldo.querySelector('.valueAtalho').textContent = `R$ ${this.userLogado.balance.toLocaleString('pt-BR')}.00`
 
 
-        // preenchendo a div de emprestimos:
-        this.domAtImprest.querySelector('.valueAtalho').textContent = `R$ ${this.userLogado.loanLimit.toLocaleString('pt-BR')}.00`
-    }
-
-
-
-    // metodo reponsavel por atualizar a parte do cartoes
+    // ATUALIZA DOM DO CARTAO
     refreshCard() {
         // pegando o cartao que esta em uso
         let cardUsing = this.userLogado.cards.find(card => card.inUser === true);
@@ -403,10 +822,10 @@ class UpdateCardScreen {
         let totalCredit = this.totalinvoice() //metodo que vai obter o valor total da fatura
         // barr de limite
         let pctLimit = (totalCredit / cardUsing.limitAvailable) * 100
-        this.dombarrLmt.style.width = `${pctLimit}%`
+        this.dombarrLmt.style.width = `${pctLimit}% `
 
         // txt de limite mensalc=
-        this.domlimiteMensal.textContent = `R$ ${totalCredit.toLocaleString('pt-BR')}/${cardUsing.limitAvailable.toLocaleString('pt-BR')}`
+        this.domlimiteMensal.textContent = `R$ ${totalCredit.toLocaleString('pt-BR')} /${cardUsing.limitAvailable.toLocaleString('pt-BR')}`
 
         // // txt de limite disponivel
         this.domSLimiteDisponivel.textContent = `R$ ${cardUsing.limitAvailable.toLocaleString('pt-BR')}.00`
@@ -490,6 +909,7 @@ class UpdateCardScreen {
 
 
 
+
     // metodo responsavel por obter o valor tototal dos valores de compras feitas no credito
     totalinvoice() {
         // pegando o cartao que esta em uso
@@ -503,146 +923,9 @@ class UpdateCardScreen {
     }
 
 
-
-    // metodo reponsavel por obter o valor total dos gastos incluindo compras feitas no cred e deb, transaçoes feitas
-    monthExpenses() {
-        let currentMonthPurchase = 0; // toral de compras no cartao desse mes
-        let previusMonthPurchase = 0; // toral de compras no cartao do mes passado
-
-        let currentMonthTransaction = 0; // total de transferenica feita nesse mes 
-        let previusMonthTransaction = 0; // total de transferenica feita mes no mes pasado
-
-        let allOK = false; // variavel de controle 
-
-
-        // obtendo a data atual e do mes passado no formato 'YYYY-MM':
-        const today = new Date();
-
-        // Obtém o ano e o mês atual (lembrando que getMonth() retorna 0 para janeiro, por isso somamos 1)
-        const currentYear = today.getFullYear();
-        const currentMonth = (today.getMonth() + 1).toString().padStart(2, '0');
-        const currentYearMonth = `${currentYear}-${currentMonth}`;
-        // console.log("Mês/Ano atual:", currentYearMonth);
-
-        // Para obter a data de um mês atrás, criamos uma nova data com o mês decrementado
-        const previusdateMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
-        const previudateYear = previusdateMonth.getFullYear();
-        const previusMonth = (previusdateMonth.getMonth() + 1).toString().padStart(2, '0');
-        const previusYearsMont = `${previudateYear}-${previusMonth}`;
-        // console.log("Mês/Ano de um mês atrás:", previusYearsMont);
-
-
-
-        // OBTEM OS VALORES DAS COMPRAS NO CARTAO
-        // pegando o cartao que esta em uso
-        let cardUsing = this.userLogado.cards.find(card => card.inUser === true);
-        let purchase = cardUsing.purchase
-        // console.log(purchase)
-
-        // criando objeto com o valor total e as compras de cada mes
-        const groupPurchase = purchase.reduce((acc, purchase) => {
-            // converte a data pra um objeto date e extrai o ano e mes
-            const dateObj = new Date(purchase.date)
-            const year = dateObj.getFullYear()
-            const month = (dateObj.getMonth() + 1).toString().padStart(2, '0'); // padStart garante dois dígitos
-            const key = `${year}-${month}`
-
-            // se nao existir essa chave ainda, cria o objeto inicial
-            if (!acc[key]) {
-                acc[key] = {
-                    total: 0,
-                    purchase: []
-                }
-            }
-
-            // acumula o valor da compra e armazena a compra
-            acc[key].total += purchase.value
-            acc[key].purchase.push(purchase)
-            return acc;
-        }, {})
-
-        // console.log(groupPurchase)
-        if (groupPurchase[`${currentYearMonth}`].total && groupPurchase[`${previusYearsMont}`].total) {
-            currentMonthPurchase = groupPurchase[`${currentYearMonth}`].total // obtem o valor das compras desse mes 
-            previusMonthPurchase = groupPurchase[`${previusYearsMont}`].total // obtem o valor das compras do mes passado
-            // console.log(`Valor total das compras feitas no cartão - mês passado: ${previusMonthPurchase}`)
-            // console.log(`Valor total das compras feitas no cartão - mês atual: ${currentMonthPurchase}`)
-            allOK = true
-        } else {
-            allOK = false
-            console.log('Erro: Compras dos últimos dois meses não encontradas para essa funcionalidade')
-        }
-
-
-
-
-        // OBTEM OS VALORES DAS TRANSAÇOES FEITAS ESSE MES
-        const SentTransactions = this.userLogado.transactions.filter(transaction => transaction.type === 'sent')
-        // console.log(SentTransactions)
-
-        // criando objeto com o valor total das transaçoes feitas(nao as recebidas) de cada mes
-        const groupTransaction = SentTransactions.reduce((acc, transaction) => {
-            // converte a data pra um objeto date e extrai o ano e mes
-            const dateObj = new Date(transaction.date)
-            const year = dateObj.getFullYear()
-            const month = (dateObj.getMonth() + 1).toString().padStart(2, '0'); // padStart garante dois dígitos
-            const key = `${year}-${month}`
-
-            // se nao existir essa chave ainda, cria o objeto inicial
-            if (!acc[key]) {
-                acc[key] = {
-                    total: 0,
-                    transaction: []
-                }
-            }
-
-            // acumula o valor da compra e armazena a compra
-            acc[key].total += transaction.value
-            acc[key].transaction.push(transaction)
-            return acc;
-        }, {})
-        // console.log(groupTransaction)
-
-        // console.log(groupTransaction)
-        if (groupTransaction[`${currentYearMonth}`].total && groupTransaction[`${previusYearsMont}`].total) {
-            currentMonthTransaction = groupTransaction[`${currentYearMonth}`].total // obtem o valor das compras desse mes 
-            previusMonthTransaction = groupTransaction[`${previusYearsMont}`].total // obtem o valor das compras do mes passado
-            // console.log(`Valor total das transações feitas - mês passado: ${previusMonthTransaction}`)
-            // console.log(`Valor total das transações feitas - mês atual: ${currentMonthTransaction}`)
-            allOK = true
-        } else {
-            console.log('erro, transaçoes feitas nos ultimos dois meses nao encontradas para essa funcionalidae')
-            allOK = false
-        }
-
-        if (allOK) {
-            let curretTotExpense = currentMonthPurchase + currentMonthTransaction
-            let previusTotExpense = previusMonthPurchase + previusMonthTransaction
-            // console.log(`gastos totais desse mes: ${curretTotExpense}`)
-            // console.log(`gastos totoais do mes passado ${previusTotExpense}`)
-
-            //calculo pra descobri a diferenca em pct
-            let pctDifference = ((curretTotExpense - previusTotExpense) / previusTotExpense) * 100;
-            let pctFormatted = Math.round(pctDifference)
-
-            console.log(`difenrenca em pect: ${pctFormatted}`)
-            
-            return {
-                currentTot: curretTotExpense,
-                pctDifference: pctFormatted
-            }
-        }
-
-
-
-
-
-
-
-
-    }
-
-    // metodo que obtem a quantidade de datas que foi feito pelo menos 1 compra pra saber a quantidade de divs irei criar
+    /* METODO QUE PASSA AS DATAS DE COMPRAS E O ARRAY DE COMPRAS ORDENADOS
+    ele obtem a quantidade de datas que foi feito pelo menos 1 compra pra saber a quantidade de divs irei criar
+    assim o metodo que ira criar as divs dias e organizar as compras em seus dias, sabe quias divs dia criar */
     datePurchase(purchaseOrdered) {
         // console.log(purchaseOrdered)
 
@@ -670,7 +953,10 @@ class UpdateCardScreen {
     }
 
 
-    /* metodo que ira criar a lista de compras organizando as compras de cada dia em sua propria ul*/
+    /* METODO QUE CRIA O DOM DE LISTA DE COMPRAS 
+    a lista de compras sera organizada em uma div pra cada dia 
+    e cada div dia contera um h3 com a data 
+    e uma ul com os li que sao as compras daquele dia */
     createDivsDte(arrayDate, purchaseOrdered) {
         // console.log(arrayDate);
         // console.log(purchaseOrdered);
@@ -750,7 +1036,7 @@ class UpdateCardScreen {
     }
 
 
-    /*metodo reponsavel pela exibiçao de apenas 7 compras
+    /* METODO QUE LIMITA A EXIBIÇAO DAS COMPRAS EM 7 LI DE COMPRA
     faz um loop while que enquanto n chegar no 7 ele da a classs que exibe a li(compra)
     se passar desse 7 da a class que da display none
     dps pega as ul que tem li com a class de display none e da display none */
@@ -835,11 +1121,11 @@ class UpdateCardScreen {
             });
         }
 
-        console.log('Exibição configurada.');
+        // console.log('Exibição configurada.');
     }
 
 
-    // Método para abreviar o nome do usuário para o cartão
+    // METODO QUE ABREVIA O NOME DO USUARIO PRO CARTAO
     shortenName(name) {
         // Se o nome já tiver 12 caracteres ou menos, retorna sem alteração
         if (name.length <= 12) {
@@ -877,8 +1163,7 @@ class UpdateCardScreen {
     }
 
 
-
-    // metodo responsavel por abreviar as Datas colocando dia e mes ex: '03 junho'
+    // METO QUE FORMATA DATA PRA SER EXIBIDA NO FORMATO: '03 junho'
     // deve receber a  data no seguinte formato: "2025-02-12"
     formatDate(data) {
         // data no formato "YYYY-MM-DD"
@@ -912,7 +1197,6 @@ class UpdateCardScreen {
 /* ============================================== 
     CLASSES REFENTE A "INSERIR DADOS"
 ================================================= */
-
 
 // adicona transacoes e manipula dados relacionados 
 class ManipulateTransation {
@@ -1182,8 +1466,6 @@ class ManipulateInvestment {
     }
 
     addInvestment(newInvestment) {
-
-
         // calcula o rendimento do investimento e passa ele pro obj newinvestment
         let income = newInvestment.value * newInvestment.pctAnnualIncome
         newInvestment.annualIncome = income
@@ -1192,6 +1474,8 @@ class ManipulateInvestment {
 
         // Adiciona o novo investimento ao histórico do usuário
         this.user.investmentHistory.push(newInvestment);
+        this.user.balance -= newInvestment.value // subtrai o valor investido do saldo da conta
+
         alert('investimento salvo')
         console.log('investimento salvo')
 
@@ -1209,7 +1493,6 @@ class ManipulateInvestment {
         if (index !== -1) {
             // Atualiza o usuário no array
             usuarios[index] = this.user;
-
             // Salva o array atualizado no localStorage
             localStorage.setItem("listUser", JSON.stringify(usuarios));
 
