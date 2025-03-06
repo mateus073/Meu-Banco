@@ -1,21 +1,21 @@
 
-// variaveis usadas 
+// VARIAVEIS USADAS:
 let labelName = document.querySelector('#labelName')
 let inputName = document.querySelector('#username');
-let correctName = false
+let correctName = false // vaiavel de controle
 
 let labelPassword = document.querySelector('#labelPassword')
 let inputPassword = document.querySelector('#password');
-let correctPassword = false
+let correctPassword = false // vaiavel de controle
 
 let lbConfPassword = document.querySelector('#labelConfirmPass')
 let iptConfPassword = document.querySelector('#confirm-password');
-let correctPswConfirm = false
+let correctPswConfirm = false // vaiavel de controle
 
 let iptRemenberDevice = document.querySelector('#remember') // checkbox do login automativo 
 let btnConfirm = document.querySelector('.button')
 
-const form = document.querySelector('.frame-1')
+const form = document.querySelector('.frame-1') 
 
 let formulario = document.querySelector('.frame-1').addEventListener("submit", (event) => {
     event.preventDefault()
@@ -27,13 +27,14 @@ inputName.addEventListener('keyup', () => {
     if (inputName.value.length < 5) {
         labelName.innerHTML = 'Insira no minimo 5 caracteres'
         correctName = false
-        correctOrWrong(false, inputName, labelName) // funcao que adiciona efeito de cor
+        correctOrWrong(false, inputName, labelName) // funcao que adiciona efeito de cor vermelho pra errado
     } else {
         labelName.innerHTML = 'Usuário'
         correctName = true
-        correctOrWrong(true, inputName, labelName) // funcao que adiciona efeito de cor
+        correctOrWrong(true, inputName, labelName) // funcao que adiciona efeito de cor verde pra correto
     }
-    colorStandard(inputName, labelName)
+
+    colorStandard(inputName, labelName) // funcao pra voltar a cor padrao dps que limpar o imput
 })
 
 
@@ -42,13 +43,13 @@ inputPassword.addEventListener('keyup', () => {
     if (inputPassword.value.length < 6) {
         labelPassword.innerHTML = 'Insira no minimo 6 caracteres'
         correctPassword = false
-        correctOrWrong(false, inputPassword, labelPassword) // funcao que adiciona efeito de cor
+        correctOrWrong(false, inputPassword, labelPassword) // funcao que adiciona efeito de cor vermelho pra errado
     } else {
         correctPassword = true
-        correctOrWrong(true, inputPassword, labelPassword)// funcao que adiciona efeito de cor
+        correctOrWrong(true, inputPassword, labelPassword)// funcao que adiciona efeito de cor verde pra correto
         labelPassword.innerHTML = 'Senha'
     }
-    colorStandard(inputPassword, labelPassword)
+    colorStandard(inputPassword, labelPassword) // funcao pra voltar a cor padrao dps que limpar o imput
 })
 
 
@@ -57,13 +58,13 @@ iptConfPassword.addEventListener('keyup', () => {
     if (iptConfPassword.value != inputPassword.value) {
         lbConfPassword.innerHTML = '*As senhas não conferem'
         correctPswConfirm = false
-        correctOrWrong(false, iptConfPassword, lbConfPassword) // funcao que adiciona efeito de cor
+        correctOrWrong(false, iptConfPassword, lbConfPassword) // funcao que adiciona efeito de cor vermelho de errado
     } else {
         lbConfPassword.innerHTML = 'Confirmar Senha'
         correctPswConfirm = true
-        correctOrWrong(true, iptConfPassword, lbConfPassword) // funcao que adiciona efeito de cor
+        correctOrWrong(true, iptConfPassword, lbConfPassword) // funcao que adiciona efeito de cor verde de correto
     }
-    colorStandard(iptConfPassword, lbConfPassword)
+    colorStandard(iptConfPassword, lbConfPassword) // funcao pra voltar a cor padrao dps que limpar o imput
 })
 
 
@@ -97,6 +98,7 @@ function colorStandard(ipt, lb) {
 function register() {
     // verifca se todas os iputs estao preenchidos corretamente
     if (correctName && correctPassword && correctPswConfirm) {
+        
         // Recupera a lista de usuários existente no localStorage, ou cria uma lista vazia caso não exista
         let listUser = JSON.parse(localStorage.getItem("listUser") || "[]")
         

@@ -32,7 +32,7 @@ class Usuario {
             { id: 2, name: 'recebimentos', imgSrc: '../assets/img/benefcios.png', idName: 'atalhoRecebimentos', visible: true },
             { id: 3, name: 'investimentos', imgSrc: '../assets/img/investment.png', idName: 'atalhoInvestimentos', visible: true },
             { id: 4, name: 'cartoes', imgSrc: '../assets/img/cartoes-de-credito.png', idName: 'atalhoCartoes', visible: true },
-            { id: 5, name: 'Saldo', imgSrc: '../assets/img/', idName: 'atalhoSaldo', visible: false },
+            { id: 5, name: 'Saldo', imgSrc: '../assets/img/saldo.png', idName: 'atalhoSaldo', visible: false },
             { id: 6, name: 'emprestimo', imgSrc: '../assets/img/emprestimo.png', idName: 'atalhoEmprestimo', visible: false },
             { id: 7, name: 'pix', imgSrc: '../assets/img/chave.png', idName: 'AtalhoPix', visible: false },
             { id: 8, name: 'recarga', imgSrc: '../assets/img/movel-5g.png', idName: 'atalhoRecarga', visible: false },
@@ -154,47 +154,6 @@ class Usuario {
 
 
 
-// class responsavel por filtrar os dados a tela baseada no objeto usuario 
-// dados recebidos = objeto usuario presente no local Storage (apenas um usuario nao o array de usuarios)
-// class UsuarioDataFilter {
-//     constructor(user) {
-//         this.user = user
-//     }
-
-//     // retorna os dados pra div atalhos
-//     filterShortcutData() {
-//         console.log("metodo que filtra os dados pro configurar atalho")
-//         console.log(this.user)
-//     }
-
-//     // Retorna os dados necessarios pra div cartao
-//     filterHomeData() {
-//         const cardAndPurchases = this.user.cards.find(card => card.inUser === true);
-
-//         // Cria o objeto com os dados do cartão
-//         const dateCard = {
-//             nameCard: cardAndPurchases.nameCard,
-//             approvedLimit: cardAndPurchases.approvedLimit,
-//             cardBalance: cardAndPurchases.cardBalance,
-//             cardStatus: cardAndPurchases.cardStatus,
-//             limit: cardAndPurchases.limit,
-//             invoice: cardAndPurchases.invoice,
-//             dateInvoicePayment: cardAndPurchases.dateInvoicePayment,
-//             purchase: cardAndPurchases.purchase, // arrai de historico de compras
-//             dataCard: cardAndPurchases.dataCard, // objeto com os dados do cartao do usuario
-//         };
-
-//         // console.log("Dados do cartão filtrados:", dateCard);
-//         return console.log(dateCard);
-//     }
-
-
-//     // retorna todo o historico ja organizado por data
-//     filterPurchaseHistory() {
-//         console.log("metod que filtra os dados pro historico")
-//     }
-// }
-
 
 
 /* CLASS REPONAVEL PELOS ATALHO DA TELA DE HOME
@@ -248,13 +207,14 @@ class HomeUpdateShortcutScreen {
         console.log('objeto usuario:')
         console.log(this.userLogado)
 
-        // console.log('cartao em uso:')
-        // console.log(cardUsing)
+        console.log('cartao em uso:')
+        console.log(cardUsing)
     }
 
 
     // ATUALIZA O DOM DO ATALHO
     refreshShortcut() {
+        
         // DIV DE GASTOS DO MES
         // chama o metodo reponsavel por obter o gasto do mes(compras e transferencias) e a pct de diferenca do gasto desse mes e do mes anterior
         let monthExpenses = this.monthExpenses()
@@ -306,66 +266,133 @@ class HomeUpdateShortcutScreen {
         // DIV ATALHO EMPRESTIMO
         // preenchendo a div de emprestimos:
         this.domAtImprest.querySelector('.valueAtalho').textContent = `R$ ${this.userLogado.loanLimit.toLocaleString('pt-BR')}.00`
+
+        // // atualizaçao inical do editar atalhos: 
+        // let userat = this.userLogado.shortcuts
+        // this.createDivsOpcShortcut(userat)
     }
 
-    // metodo pra fechar e abrir atalho
-    openCloseModalAt() {
-        console.log(userat)
-    }
 
-    // metodo pra criar as opc de atalho baseado no local storage
-    createDivsOpcShortcut() {
-        let userat = this.userLogado.shortcuts
-        console.log(userat)
-        console.log(this.domModalAtModal)
-        console.log(this.domModalAtNaoSelecionados)
-        console.log(this.domModalAtSelecionados)
-        console.log(this.domModalAtOverlei)
-        console.log(this.domModalbtnFechar)
-        console.log(this.domAtConfig)
+    // Método para criar as opções de atalhos baseadas no local storage
+    createDivsOpcShortcut(userat) {
+        // Limpa os contêineres antes de adicionar novos elementos
+        this.domModalAtSelecionados.innerHTML = "";
+        this.domModalAtNaoSelecionados.innerHTML = "";
 
         // Loop para criar elementos HTML
         userat.forEach(shortcut => {
-            if (shortcut.visible) {
-                // Cria o elemento div
-                const div = document.createElement('div');
-                div.setAttribute('data-name', shortcut.idName);
-                div.classList.add('option-item');
+            // Cria a div e adiciona atributos e classe
+            const div = document.createElement('div');
+            div.setAttribute('data-name', shortcut.idName);
+            div.classList.add('option-item');
 
-                // Adiciona a imagem
-                const img = document.createElement('img');
-                img.setAttribute('src', shortcut.imgSrc);
-                img.setAttribute('alt', shortcut.name);
+            // Cria a imagem
+            const img = document.createElement('img');
+            img.setAttribute('src', shortcut.imgSrc);
+            img.setAttribute('alt', shortcut.name);
 
-                // Adiciona o nome (span)
-                const span = document.createElement('span');
-                span.textContent = shortcut.name;
+            // Cria o span com o nome
+            const span = document.createElement('span');
+            span.textContent = shortcut.name;
 
-                // Adiciona o botão
-                const button = document.createElement('button');
-                button.classList.add('btnAt');
+            // Cria o botão e adiciona classe
+            const button = document.createElement('button');
+            button.classList.add('btnAt');
 
-                // Anexa os elementos à div
-                div.appendChild(img);
-                div.appendChild(span);
-                div.appendChild(button);
+            // Anexa os elementos à div
+            div.appendChild(img);
+            div.appendChild(span);
+            div.appendChild(button);
 
-                // Adiciona a div ao contêiner
-                this.domModalAtSelecionados.appendChild(div);
-            }
+            // Define o contêiner com base na visibilidade e anexa a div
+            const container = shortcut.visible ? this.domModalAtSelecionados : this.domModalAtNaoSelecionados;
+            container.appendChild(div);
         });
 
+        // Configura eventos de clique para gerenciar os atalhos
+        this.configShortCut();
+        this.openCloseModalAt();
+    }
+
+    // Método que configura os atalhos para serem exibidos
+    configShortCut() {
+        const userat = this.userLogado.shortcuts;
+
+        // Obter atalhos selecionados e não selecionados
+        const atSelec = this.domModalAtSelecionados.querySelectorAll('.option-item');
+        const atNoSelec = this.domModalAtNaoSelecionados.querySelectorAll('.option-item');
+
+        // Adiciona eventos de clique aos atalhos selecionados
+        atSelec.forEach(elAt => {
+            elAt.addEventListener('click', () => {
+                const dataName = elAt.dataset.name; // Acessa o atributo data-name
+                const alterarVisi = userat.find(obj => obj.idName === dataName);
+
+                // Atualiza a visibilidade
+                if (alterarVisi) {
+                    alterarVisi.visible = false;
+
+                    console.log("Atalho desmarcado:", alterarVisi);
+
+                    // Salva as alterações no localStorage e recria os atalhos
+                    this.salvarUsuario(userat);
+                    this.toggleDisplay(userat)
+                    this.createDivsOpcShortcut(userat);
+                }
+            });
+        });
+
+        // Adiciona eventos de clique aos atalhos não selecionados
+        atNoSelec.forEach(elAt => {
+            elAt.addEventListener('click', () => {
+                const dataName = elAt.dataset.name;
+                const alterarVisi = userat.find(obj => obj.idName === dataName);
+
+                if (alterarVisi) {
+                    // Verifica se o limite de 4 atalhos exibidos foi atingido
+                    if (atSelec.length < 4) {
+                        alterarVisi.visible = true;
+
+                        console.log("Atalho marcado:", alterarVisi);
+
+                        // Salva as alterações no localStorage e recria os atalhos
+                        this.salvarUsuario(userat);
+                        this.toggleDisplay(userat)
+                        this.createDivsOpcShortcut(userat);
+                    } else {
+                        alert('Número máximo de atalhos exibidos alcançado. Exclua um antes.');
+                    }
+                }
+            });
+        });
+    }
+
+    // metodo pra para aplicar as configurações de visibilidade baseado no array de obj atalhos 
+    toggleDisplay(arrShortCut) {
+        arrShortCut.forEach(ShortCut => {
+            // Seleciona o elemento pelo ID
+            const element = document.getElementById(ShortCut.idName);
+
+            if (element) {
+                // Define o estilo de display com base no status booleano
+                element.style.display = ShortCut.visible ? "block" : "none";
+            } else {
+                console.warn(`Elemento com ID '${ShortCut.idName}' não encontrado.`);
+            }
+        });
+    }
+    // eventos de abri fechar atalho
+    openCloseModalAt() {
         this.domAtConfig.addEventListener('click', () => {
             this.domModalAtOverlei.classList.add('overlayOpen')
             this.domModalAtModal.classList.add('openModal')
         })
+
+        this.domModalbtnFechar.addEventListener('click', () => {
+            this.domModalAtOverlei.classList.remove('overlayOpen')
+            this.domModalAtModal.classList.remove('openModal')
+        })
     }
-
-
-    configShortCut() {
-        console.log('testes')
-    }
-
 
 
     /* metodo de atalhos - gasto do mes 
@@ -405,8 +432,8 @@ class HomeUpdateShortcutScreen {
         const cardUsing = this.userLogado.cards.find(card => card.inUser === true);
         // Obtém as compras do cartão; se não houver, usa um array vazio
         const purchases = cardUsing?.purchase || [];
-        console.log('Array de compras do cartão em uso:');
-        console.log(purchases);
+        // console.log('Array de compras do cartão em uso:');
+        // console.log(purchases);
 
         // Agrupa as compras por chave "YYYY-MM" usando reduce
         const groupPurchase = purchases.reduce((acc, p) => {
@@ -437,8 +464,8 @@ class HomeUpdateShortcutScreen {
         } else {
             previousMonthPurchase = currentMonthPurchase;
         }
-        console.log(`Compras - Mês atual (${currentYearMonth}): ${currentMonthPurchase}`);
-        console.log(`Compras - Mês passado (${previousYearMonth}): ${previousMonthPurchase}`);
+        // console.log(`Compras - Mês atual (${currentYearMonth}): ${currentMonthPurchase}`);
+        // console.log(`Compras - Mês passado (${previousYearMonth}): ${previousMonthPurchase}`);
 
         // ================================
         // 3. Processamento das Transações (tipo "sent")
@@ -475,8 +502,8 @@ class HomeUpdateShortcutScreen {
         } else {
             previousMonthTransaction = currentMonthTransaction;
         }
-        console.log(`Transações feitas - Mês atual (${currentYearMonth}): ${currentMonthTransaction}`);
-        console.log(`Transações feitas - Mês passado (${previousYearMonth}): ${previousMonthTransaction}`);
+        // console.log(`Transações feitas - Mês atual (${currentYearMonth}): ${currentMonthTransaction}`);
+        // console.log(`Transações feitas - Mês passado (${previousYearMonth}): ${previousMonthTransaction}`);
 
         // ================================
         // 4. Cálculo Final dos Gastos e Diferença Percentual
@@ -484,8 +511,8 @@ class HomeUpdateShortcutScreen {
         // Soma os totais de compras e transações para o mês atual e o mês passado
         let currentTotalExpense = currentMonthPurchase + currentMonthTransaction;
         let previousTotalExpense = previousMonthPurchase + previousMonthTransaction;
-        console.log(`Gastos totais - Mês atual: ${currentTotalExpense}`);
-        console.log(`Gastos totais - Mês passado: ${previousTotalExpense}`);
+        // console.log(`Gastos totais - Mês atual: ${currentTotalExpense}`);
+        // console.log(`Gastos totais - Mês passado: ${previousTotalExpense}`);
 
         // Calcula a diferença percentual entre os gastos dos dois meses
         // Se previousTotalExpense for 0, definimos a diferença como 0 para evitar divisão por zero
@@ -493,7 +520,7 @@ class HomeUpdateShortcutScreen {
             ? ((currentTotalExpense - previousTotalExpense) / previousTotalExpense) * 100
             : 0;
         let pctFormatted = Math.round(pctDifference);
-        console.log(`Diferença percentual: ${pctFormatted}%`);
+        // console.log(`Diferença percentual: ${pctFormatted}%`);
 
         // Retorna um objeto com o total de gastos do mês atual e a diferença percentual
         return {
@@ -567,7 +594,7 @@ class HomeUpdateShortcutScreen {
             }
             allOK = true;
         } else {
-            console.log('Erro: Transações recebidas do mês atual não encontradas para essa funcionalidade.');
+            // console.log('Erro: Transações recebidas do mês atual não encontradas para essa funcionalidade.');
             allOK = false;
         }
 
@@ -578,13 +605,13 @@ class HomeUpdateShortcutScreen {
             // Para este atalho, o total recebido é o valor das transações do mês atual
             let currentTotal = currentMonthTransaction;
             let previousTotal = previousMonthTransaction;
-            console.log(`Transações recebidas - Mês atual (${currentYearMonth}): ${currentTotal}`);
-            console.log(`Transações recebidas - Mês passado (${previousYearMonth}): ${previousTotal}`);
+            // console.log(`Transações recebidas - Mês atual (${currentYearMonth}): ${currentTotal}`);
+            // console.log(`Transações recebidas - Mês passado (${previousYearMonth}): ${previousTotal}`);
 
             // Calcula a diferença percentual; se o total do mês passado for 0, define 0% para evitar divisão por zero
             let pctDifference = previousTotal !== 0 ? ((currentTotal - previousTotal) / previousTotal) * 100 : 0;
             let pctFormatted = Math.round(pctDifference);
-            console.log(`Diferença percentual: ${pctFormatted}%`);
+            // console.log(`Diferença percentual: ${pctFormatted}%`);
 
             // Retorna um objeto com os dados que serão usados na interface
             return {
@@ -675,6 +702,29 @@ class HomeUpdateShortcutScreen {
         let totalCredit = creditTransactions.reduce((sum, transactions) => sum + transactions.value, 0) // soma as compras no credito 
 
         return totalCredit
+    }
+
+    // Método para salvar o usuário atualizado no localStorage
+    salvarUsuario(userat) {
+        // Atualiza os atalhos do usuário logado
+        this.userLogado.shortcuts = userat;
+
+        // Busca o array de usuários do localStorage
+        const usuarios = JSON.parse(localStorage.getItem("listUser")) || [];
+
+        // Encontra o índice do usuário no array usando seu ID
+        const index = usuarios.findIndex(user => user.id === this.userLogado.id);
+
+        if (index !== -1) {
+            // Atualiza o usuário no array
+            usuarios[index] = this.userLogado;
+            // Salva o array atualizado no localStorage
+            localStorage.setItem("listUser", JSON.stringify(usuarios));
+
+            console.log("Usuário atualizado com sucesso!");
+        } else {
+            console.error("Usuário não encontrado no localStorage!");
+        }
     }
 }
 
@@ -867,9 +917,9 @@ class HomeUpdateCardScreen {
             let valPrInvoices = somInvoices - invoiceToPay.totalInvoice
 
             // preenche a parte esqueda da div extra que mostra fatura atual, lmt disponivel e data de vencimento 
-            this.domFaturaAtual.textContent = `R$ ${invoiceToPay.totalInvoice}` //texto de fatura
-            this.domLimiteDisponivel.textContent = lmtDisponivel.toFixed(2) // limite deisponivel 
-            this.domTxtBarrVerde.textContent = lmtDisponivel.toFixed(2) // text da div extraa com barr vertical direita
+            this.domFaturaAtual.textContent = `R$ ${invoiceToPay.totalInvoice.toFixed(2)}` //texto de fatura
+            this.domLimiteDisponivel.textContent = `R$ ${lmtDisponivel.toFixed(2)}` // limite deisponivel 
+            this.domTxtBarrVerde.textContent = `R$ ${lmtDisponivel.toFixed(2)}` // text da div extraa com barr vertical direita
 
             // acessando data de fechamento da fatura e deixando ela no formato que o metodo que ira formatala aceite 
             let dateClose = new Date(invoiceToPay.expirationDate)
@@ -883,13 +933,13 @@ class HomeUpdateCardScreen {
             // preeche a barra vertical azul e o txt de (fatura atual)
             let pctBlue = (invoiceToPay.totalInvoice / cardUsing.limitAvailable) * 100
             this.domBarrAzul.style.height = `${pctBlue}%`
-            this.domTxtBarrAzul.textContent = `R$ ${invoiceToPay.totalInvoice}` // tecto de fatura do lado direito
+            this.domTxtBarrAzul.textContent = `R$ ${invoiceToPay.totalInvoice.toFixed(2)}` // tecto de fatura do lado direito
 
 
             // preenche a barra vertical laranja e seu texto (Proximas faturas)
             let pctorange = (valPrInvoices / cardUsing.limitAvailable) * 100
             this.domBarrLaranja.style.height = `${pctorange}%`
-            this.domTxtBarrLaranja.textContent = valPrInvoices.toFixed(2)
+            this.domTxtBarrLaranja.textContent = `R$ ${valPrInvoices.toFixed(2)}`
 
             // console.log("Fatura do mes encontrada:", invoiceToPay);
         } else {

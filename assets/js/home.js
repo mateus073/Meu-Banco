@@ -109,16 +109,20 @@ if (loggedInUser) {
       domModalAtModal: document.querySelector(".modalAt"),
       domModalbtnFechar: document.querySelector(".btn-close-modal"),
       domModalAtSelecionados: document.querySelector(".modal-at-selecionados"),
-      domModalAtNaoSelecionados: document.querySelector(".naoSelecionados")
+      domModalAtNaoSelecionados: document.querySelector(".modal-n-Selecionados")
    }
 
 
    // instancia da class que recebe os dados pra o home - divs de atalho
    const updateshortcut = new HomeUpdateShortcutScreen(loggedInUser, elDomShortcut)
-
    // chamada do metodo dos atalhos
    updateshortcut.refreshShortcut()
-   updateshortcut.createDivsOpcShortcut()
+
+
+   // cria as divs de selecionar atalhos inicialmente no modal
+   let atSelec = loggedInUser.shortcuts
+   updateshortcut.createDivsOpcShortcut(atSelec)
+   updateshortcut.configShortCut()
 
 
 

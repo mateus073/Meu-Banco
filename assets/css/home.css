@@ -325,6 +325,8 @@ body {
     /* Evita que as divs encolham */
 }
 
+
+
 /* restante do css do atalho, porem esse e um dos atalho que nao exibe pct */
 .atalhoNoPct {
     display: flex;
@@ -340,6 +342,26 @@ body {
     justify-content: space-between;
     align-items: flex-start;
     gap: 8px;
+}
+
+#AtalhoPix {
+    display: none;
+}
+
+#atalhoRecarga {
+    display: none;
+}
+
+#atalhoEmprestimo {
+    display: none;
+}
+
+#atalhoBoleto {
+    display: none;
+}
+
+#atalhoSaldo {
+    display: none;
 }
 
 /* span pct do atalho padrao*/
@@ -461,8 +483,8 @@ body {
 
 }
 
-.paiAtalhos .cfgAtalho {
-    background: #EAE9E9;
+#cfgAtalho {
+    background-color: #d8d8d8;
 }
 
 /* div do btn de adicionar atalho a do + */
@@ -511,6 +533,7 @@ body {
     z-index: 2;
     /* Para ficar na frente de outros elementos */
 }
+
 /* quando o modal estiver aberto */
 .modal-overlay.overlayOpen {
     display: block;
@@ -533,6 +556,7 @@ body {
     overflow-y: auto;
     /* Transição suave da altura */
 }
+
 /* Quando o modal está aberto */
 .modalAt.openModal {
     display: block;
@@ -558,6 +582,8 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
+    padding: 0 16px;
+
 }
 
 .modal-header h2 {
@@ -588,6 +614,7 @@ body {
 .selecionados,
 .naoSelecionados {
     margin-bottom: 30px;
+    gap: 16px;
 }
 
 .selecionados h3,
@@ -596,6 +623,7 @@ body {
     font-family: var(--font-lato);
     margin-bottom: 24px;
     font-weight: 600;
+    padding-left: 16px;
 }
 
 /* Conteúdo do modal: grade de opções */
@@ -610,6 +638,8 @@ body {
     position: relative;
     /*pro botao ficar em cima*/
     display: flex;
+    width: 110px;
+    height: 120px;
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -620,6 +650,8 @@ body {
     background-color: rgba(0, 0, 0, 0.175);
     border-radius: 50%;
     padding: 16px;
+    height: 55px;
+    width: 55px;
     margin-bottom: 8px;
 }
 
@@ -634,7 +666,7 @@ body {
 .selecionados .btnAt {
     position: absolute;
     top: 0px;
-    right: -5px;
+    right: 20px;
     height: 24px;
     width: 24px;
     background-color: transparent;
@@ -650,7 +682,7 @@ body {
 .naoSelecionados .btnAt {
     position: absolute;
     top: 0px;
-    right: -5px;
+    right: 20px;
     height: 24px;
     width: 24px;
     background-color: transparent;
@@ -2037,6 +2069,10 @@ body {
         height: 60vh;
     }
 
+    .modalAt.openModal {
+        padding: 16px 5px;
+    }
+
     /* Modal: garante que ocupe a largura total e centralize */
     .modal-box {
         width: 100%;
@@ -2047,7 +2083,12 @@ body {
 
     /* Modal content: diminui o gap entre os itens */
     .modal-content {
-        gap: 24px;
+        gap: 8px;
+    }
+
+    .option-item {
+        width: 90px;
+        height: 100px;
     }
 
     /* Ajusta os itens das opções */
@@ -2073,7 +2114,7 @@ body {
         height: 24px;
         width: 24px;
         top: -2px;
-        right: -3px;
+        right: 15px;
     }
 }
 
