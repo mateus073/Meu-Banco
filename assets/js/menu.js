@@ -1,16 +1,19 @@
+
+// evento de click no botao pra abri e fechar o menu 
 document.querySelector('.open_btn').addEventListener('click', () => {
     document.querySelector('.MOBsidebar').classList.toggle('opemSidbar')
     document.querySelector('.help').classList.toggle('openHelp')
 })
 
 
-// Seleciona todos os itens do menu (li)
-const menuItems = document.querySelectorAll('.menuLi');
-const sections = document.querySelectorAll('.section');
+const menuItems = document.querySelectorAll('.menuLi'); // li do menu 
+const sections = document.querySelectorAll('.section'); // sessoes do site (home, cartao, tranferencias etc...)
+
 
 // Função que altera o estado dos itens
 function toggleMenuItem(event) {
-    // Primeiro, definir todos os itens para o estado inativo (fundo branco txt e img preto)
+
+    // Primeiro, definir todos os itens para o estado inativo (fundo branco, txt e img preto)
     menuItems.forEach((item) => {
         item.style.backgroundColor = "#FFFFFF";
 
@@ -21,18 +24,18 @@ function toggleMenuItem(event) {
         imgTag.src = imgTag.src.replace("white", "default"); // Troca a imagem para a versão inativa(preta)
     });
     
-    // Agora, para o item clicado, aplicar o estado ativo (fundo verde txt e img branco)
+
+    // Agora, para o item clicado, aplicar o estado ativo (fundo verde, txt e img branco)
     const clickedItem = event.currentTarget;
     const clickedA = clickedItem.querySelector('a');
 
-    clickedItem.style.backgroundColor = "#1BC681"; // ativo: fundo verde
-    clickedA.style.color = "#FFFFFF"; // ativo: texto branco
+    clickedItem.style.backgroundColor = "#1BC681"; 
+    clickedA.style.color = "#FFFFFF"; 
 
     const clickedImg = clickedItem.querySelector('img');
     clickedImg.src = clickedImg.src.replace("default", "white");
 
-    // Agora, gerencia as seções:
-    // Remove a classe "ative" de todas as seções
+    // Gerencia as seções removendo a classe "ative" de todas as seções antes de adicionar a ativa pra sessaao selecionada
     sections.forEach((section) => {
         section.classList.remove("ative");
     });
@@ -48,8 +51,6 @@ function toggleMenuItem(event) {
         }
     }
 }
-
-
 
 
 // Adiciona o listener de clique para cada item do menu

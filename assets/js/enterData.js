@@ -1,42 +1,63 @@
-// obs nao apagar esse usuario poque ele ira passar para as outras partes do site esse usuario logado
+// Observação: Não remova este usuário, pois ele será utilizado em outras partes do site.
 const idss = JSON.parse(localStorage.getItem("idUserLogado")) // recupera o id pra acessar o usuario
 const userss = JSON.parse(localStorage.getItem("listUser")) || []; // Recupera o array de usuários do localStorage
 const loggedInUserr = userss.find(user => user.id === idss); // Encontra o usuário no array com base no ID
 
-// class que ira salvar e manipular os dados de transacao
+
+/**=========================================
+ * INSTANCIA DAS CLASSES
+ =========================================== */
+
+/**
+ * Instancia a classe para manipulação de transações,
+ * passando o usuário logado como parâmetro.
+ */
 const clsTransation = new ManipulateTransation(loggedInUserr)
 
-// class que ira salvar e manipular os dados de transaçao
+/**
+ * Instancia a classe para manipulação de compras,
+ * passando o usuário logado como parâmetro.
+ */
 const clsPurchase = new ManipulatePurchase(loggedInUserr)
 
-// class que ira salvar e manipular os dados do investimento
+/**
+ * Instancia a classe para manipulação de investimentos,
+ * passando o usuário logado como parâmetro.
+ */
 const clsInvest = new ManipulateInvestment(loggedInUserr)
-//clsPurchase.generateInvoices() // chama o metodo que e responsavel pela criaçao da fatura
-
-// console.log(loggedInUserr)
 
 
 
 
 
 
-// Função para validar a data
+/** Valida se a data fornecida é válida e está dentro do intervalo permitido.
+ * @param {string} dateStr - Data no formato de string.
+ * @returns {boolean} - Retorna true se a data for válida, caso contrário false.
+ */
 function isValidDate(dateStr) {
     const dateObj = new Date(dateStr); // Converte a string em um objeto de data
-    if (isNaN(dateObj)) return false; // Verifica se a data é válida
+    if (isNaN(dateObj)) return false; // Retorna false se a data for inválida
 
     const year = dateObj.getFullYear();
-    if (year < 2024) return false; // Impede datas antes de 2024
+    if (year < 2024) return false; // Desconsidera datas anteriores a 2024
 
     const today = new Date();
     const oneMonthAhead = new Date();
-    oneMonthAhead.setMonth(today.getMonth() + 1); // Define o limite de um mês no futuro
+    oneMonthAhead.setMonth(today.getMonth() + 1); // Define o limite máximo como um mês a partir de hoje
 
     return dateObj <= oneMonthAhead; // Retorna verdadeiro se a data estiver dentro do intervalo permitido
 }
 
-// Função para validar o valor do formulário e retornar verdadeiro ou falso
-// ela usa a funcao acima de validar data
+
+
+/** Valida os campos de data e valor de um formulário.
+ * Utiliza a função isValidDate para validar o campo de data.
+ * @param {string} formId - ID do formulário.
+ * @param {string} dateFieldId - ID do campo de data.
+ * @param {string} valueFieldId - ID do campo de valor.
+ * @returns {boolean} - Retorna true se os campos forem válidos; caso contrário, false.
+ */
 function isFormValid(formId, dateFieldId, valueFieldId) {
     const dateValue = document.getElementById(dateFieldId).value; // Obtém o valor do campo de data
     const value = parseFloat(document.getElementById(valueFieldId).value) || 0; // Obtém e converte o valor numérico
@@ -46,7 +67,7 @@ function isFormValid(formId, dateFieldId, valueFieldId) {
         alert('Data inválida. Por favor, insira uma data válida dentro do intervalo permitido.');
         return false;
     }
-    // verifica se o valor e valido
+    // verifica se o valor e positivo
     if (value <= 0) {
         alert('Por favor, insira um valor positivo.');
         return false;
@@ -56,13 +77,15 @@ function isFormValid(formId, dateFieldId, valueFieldId) {
 }
 
 
-/*  ============================================================
-    CÓDIGO PARA SALVAR transasoes
-    ============================================================
-*/
 
-// Função para pegar a transaçao e passar pra classe
-// so roda se a data for correta e valor for positivo
+/*  ============================================================
+    CÓDIGO PARA SALVAR TRANSAÇÕES
+    ============================================================*/
+
+/** Cria um objeto de transação a partir dos dados do formulário.
+ * Executa somente se a data for válida e o valor for positivo.
+ * @returns {object|undefined} - Retorna o objeto de transação ou undefined se houver dados incorretos.
+ */
 function transition() {
     // Obtém os valores dos campos do formulário
     let formTrans = document.getElementById('transactionForm');
@@ -71,13 +94,13 @@ function transition() {
     const transactionDate = formTrans.querySelector('#transactionDate').value;
     const transactionName = formTrans.querySelector('#transactionName').value;
 
-    // Verifica se todos os campos foram preenchidos
+    // Verifica se todos os campos foram preenchidos corretamente
     if (!transactionType || !transactionValue || !transactionDate || !transactionName) {
         alert('Por favor, preencha todos os campos corretamente!');
         return;
     }
 
-    // verifica se tem saldo pra fazer
+    // Verifica se há saldo suficiente para transações do tipo "sent"
     if (transactionType === 'sent') {
         if (transactionValue >= loggedInUserr.balance) {
             alert('saldo insuficiente pra transação')
@@ -85,7 +108,7 @@ function transition() {
         }
     }
 
-    // Cria o objeto da nova transação
+    // Cria e retorna o objeto da nova transação
     let newTransction = {
         type: transactionType,
         value: transactionValue,
@@ -93,7 +116,6 @@ function transition() {
         nameTransaction: transactionName
     };
 
-    // retorna o objeto transaçao que sera passado pro metodo de adiciona transaçao ai abaixo
     return newTransction
 }
 
@@ -105,31 +127,29 @@ document.querySelector('.btnSTran').addEventListener('click', (e) => {
     // Valida o formulário antes de criar o objeto transacao
     const isDateValid = isFormValid('transactionForm', 'transactionDate', 'transactionValue');
     if (isDateValid) {
-        let newTransation = transition(); //pega o objeto transaçao ja pronto pra salvar
+        let newTransation = transition(); // Cria o objeto de transação pronto para salvar
 
         // verifica se tudo ocoreu certo em transition (foi retornado o objeto corretamente)
         if (newTransation && typeof newTransation === 'object') {
             clsTransation.addTransaction(newTransation);
-            alert('tudo certo transaçao registrada')
+            alert('Transação registrada com sucesso.')
         }
     } else {
-        console.log('Erro: não posso criar e salvar a transação');
+        console.log('Erro: não foi possível criar e salvar a transação.');
     }
 });
 
 
 
 
-/*  ============================================================
+/* ============================================================
     CÓDIGO PARA SALVAR COMPRAS
-    ============================================================
-*/
+    ============================================================ */
 
-
-
-
-// Função para salvar a compra (sem parâmetro de validação, pois ela já foi feita)
-// so roda se a data for correta e valor for positivo
+/** Cria um objeto de compra a partir dos dados do formulário.
+ * Executa somente se a data for válida, o valor for positivo e os demais dados estiverem corretos.
+ * @returns {object|undefined} - Retorna o objeto da nova compra ou undefined em caso de erro.
+ */
 function purchase() {
     // Seleciona o formulário de compras e coleta os dados
     let formTrans = document.getElementById('purchaseForm');
@@ -139,7 +159,7 @@ function purchase() {
     const purchaseName = formTrans.querySelector('#purchaseMerchant').value;
     const purchaseInstallments = parseInt(formTrans.querySelector('#purchaseInstallments').value) || 0;
 
-    // Verifica se algum campo não foi preenchido
+    // Verifica se os campos obrigatórios foram preenchidos corretamente
     if (!purchaseType || purchaseValue <= 0 || !purchaseDate || !purchaseName) {
         alert('Por favor, preencha todos os campos corretamente!');
         return;
@@ -148,7 +168,7 @@ function purchase() {
     // Encontra o cartão em uso (com inUser === true)
     const cardUsando = loggedInUserr.cards.find(card => card.inUser === true);
 
-    // verifica se o saldo ou limite e suficiente
+    // Verifica se há saldo ou limite suficiente para a compra
     if (purchaseType === 'Debito' && purchaseValue > loggedInUserr.balance) {
         alert('saldo insuficiente pra compra')
         return
@@ -159,7 +179,7 @@ function purchase() {
 
     // verifica se o cartao esta em usuo existe antes de criar o obj compra que sera adicionado nele
     if (cardUsando) {
-        // Cria o objeto da nova compra
+        // Cria e retorna o objeto da nova compra
         let newPurchase = {
             type: purchaseType,
             value: purchaseValue,
@@ -176,7 +196,7 @@ function purchase() {
 }
 
 
-// Evento para validar e salvar a compra ao clicar no botão (.btnCompr)
+// Evento para validar e salvar a compra ao clicar no botão
 document.querySelector('.btnCompr').addEventListener('click', (e) => {
     e.preventDefault(); // Impede o comportamento padrão do formulário
 
@@ -187,6 +207,7 @@ document.querySelector('.btnCompr').addEventListener('click', (e) => {
     const purchaseType = document.getElementById('purchaseType').value;
     const purchaseInstallments = parseInt(document.getElementById('purchaseInstallments').value) || 0;
 
+    // valida se as parcelas nao sao negaticas e se o user esta tentando parcelar um acompra no debito
     if (purchaseInstallments < 0) {
         alert('Erro: número de parcelas negativo');
         valid = false;
@@ -203,12 +224,12 @@ document.querySelector('.btnCompr').addEventListener('click', (e) => {
         if (newPurchase && typeof newPurchase === 'object') {
             console.log(newPurchase)
             alert('tudo certo compra registrada')
-            clsPurchase.addPurchase(newPurchase); // metodo que vai adicionar compra
-            clsPurchase.generateInvoices() // metodo que vai mexer com a fatura
-            getInvoices()
+            clsPurchase.addPurchase(newPurchase); // metodo que vai adicionar compra na faturas 
+            clsPurchase.generateInvoices() // metodo pra gerar faturas
+            getInvoices() // metodo pra Atualiza a lista de faturas na tela
         }
     } else {
-        console.log('Erro: não posso criar e salvar a compra');
+        console.log('Erro: não foi possível criar e salvar a compra.');
     }
 });
 
@@ -220,11 +241,10 @@ document.querySelector('.btnCompr').addEventListener('click', (e) => {
     ============================================================
 */
 
-
-
-
-// Função para salvar o investimento
-// so roda se a data for correta e valor for positivo
+/** Cria um objeto de investimento a partir dos dados do formulário.
+ * Executa somente se a data for válida, o valor for positivo e o usuário possuir saldo suficiente.
+ * @returns {object|undefined} - Retorna o objeto do novo investimento ou undefined em caso de erro.
+ */
 function saveInvestment() {
     // Seleciona o formulário de investimentos e coleta os dados
     let formTrans = document.getElementById('investmentForm');
@@ -234,7 +254,7 @@ function saveInvestment() {
     const investmentName = formTrans.querySelector('#investmentName').value;
     const annualIncome = Math.random()
 
-    // Verifica se algum campo está vazio ou inválido
+    // Verifica se os campos obrigatórios foram preenchidos corretamente
     if (!investmentType || investmentValue <= 0 || !investmentDate || !investmentName) {
         alert('Por favor, preencha todos os campos corretamente!');
         return;
@@ -242,33 +262,34 @@ function saveInvestment() {
         alert('saldo insuficiente!');
         return
     } else {
-        // Cria o objeto do novo investimento
+        // Cria e retorna o objeto do novo investimento
         let newInvestment = {
             type: investmentType,
             date: investmentDate,
             value: investmentValue,
             nameInvestment: investmentName,
-            annualIncome: 0,
-            pctAnnualIncome: annualIncome.toFixed(2),
+            annualIncome: 0, // Inicializa o rendimento anual
+            pctAnnualIncome: annualIncome.toFixed(2), // Percentual simulado de rendimento anual
         };
+
         return newInvestment
     }
 }
 
 
-// Evento para validar e salvar o investimento ao clicar no botão (.btnIvest)
+// Evento para validar e salvar o investimento ao clicar no botão
 document.querySelector('.btnIvest').addEventListener('click', (e) => {
     e.preventDefault(); // Impede o comportamento padrão do formulário
 
     // Valida os campos de data e valor usando isFormValid
     let valid = isFormValid('investmentForm', 'investmentDate', 'investmentValue');
 
-    // se estiver tudo oq ele cria o objInvestmento e passa pro metodo que ira adicionalo 
+    // Se a validação for bem-sucedida, cria o objeto de investimento e o adiciona
     if (valid) {
         let newInvesment = saveInvestment();
         clsInvest.addInvestment(newInvesment)
     } else {
-        console.log('Erro: não posso criar e salvar o investimento');
+        console.log('Erro: não foi possível criar e salvar o investimento.');
     }
 });
 
@@ -276,43 +297,48 @@ document.querySelector('.btnIvest').addEventListener('click', (e) => {
 
 
 /*  ============================================================
-    CÓDIGO PARA pagar a fatura
+    CÓDIGO PARA PAGAR A FATURA
     ============================================================
 */
 
-// Seleciona os elementos necessários da tela
+/** Seleciona os elementos do DOM para o pagamento de faturas:
+ * - formPF: formulário de pagamento de faturas
+ * - valueI: elemento que exibe o valor a ser pago
+ * - select: dropdown para seleção da fatura
+ * - btnP: botão para efetuar o pagamento
+ */
 const formPF = document.querySelector('#PagarFaturaForm');
 const valueI = document.querySelector('.valorASerPago');
 const select = document.querySelector('#opcFaturas');
 const btnP = document.querySelector('.btnPagarFatura');
 
 
-// Função para atualizar a tela com as faturas disponíveis
+/** Atualiza a lista de faturas disponíveis na tela.
+ * Obtém as faturas do cartão ativo do usuário e preenche o elemento <select>.
+ */
 function getInvoices() {
     // Encontra o cartão ativo do usuário
     const cardUsing = loggedInUserr.cards.find(card => card.inUser === true);
-    // console.log(cardUsing);
+    
+    let invoices = cardUsing.invoice; // Obtém o array de faturas do cartão ativo 
+    
+    select.innerHTML = ''; // Limpa as opções existentes no <select>
 
-    // Obtém o array de faturas do cartão ativo 
-    let invoices = cardUsing.invoice; // Certifique-se de que o nome da propriedade está correto!
-
-    // Limpa as opções existentes no <select>
-    select.innerHTML = '';
-
-    // Percorre cada fatura do array
+    // Percorre cada fatura e cria uma opção para o <select>
     for (let x = 0; x < invoices.length; x++) {
+
         // Converte a data de vencimento (expirationDate) para um objeto Date
         const invoiceDate = new Date(invoices[x].expirationDate);
         const invoiceValue = invoices[x].totalInvoice.toFixed(1)
 
-        // Extrai o ano e o mês da data. O mês é incrementado em 1, pois getMonth() começa em 0.
+        // Extrai o ano e o mês da data.
         const year = invoiceDate.getFullYear();
-        const month = (invoiceDate.getMonth() + 1)
+        const month = (invoiceDate.getMonth() + 1) // getMonth() retorna valores de 0 a 11
 
         // Cria a string formatada no formato "YYYY-MM"
         const formattedDate = `${year}-${month}`;
 
-        // Cria um novo elemento <option>
+        // Cria um novo elemento <option> para o <select> de faturas
         const option = document.createElement('option');
 
         // Define o value e o conteúdo de texto da option com a data formatada
@@ -324,19 +350,18 @@ function getInvoices() {
 
         // Define o atributo data-valor com o valor total da fatura
         option.setAttribute('data-valor', invoiceValue);
-
     }
-
-    // Exibe as faturas no console para verificação
-    // console.log("faturas selecionadas e colocadas nas options:")
-    // console.log(invoices);
+    /* //Exibe as faturas no console para verificação
+    console.log("faturas selecionadas e colocadas nas options:")
+    console.log(invoices);
+    */
 }
 getInvoices();
 
 
 
 
-// Adiciona um evento "change" ao <select> ele e disparado sempre que o usuário seleciona uma nova opção
+// Adiciona um evento "change" ao <select> pra atualizar o valor a ser pago sempre que o usuário seleciona uma nova fatura 
 select.addEventListener('change', () => {
     // Obtém a opção atualmente selecionada
     const selectedOption = select.options[select.selectedIndex];
@@ -344,26 +369,27 @@ select.addEventListener('change', () => {
     // Pega o valor do atributo data-valor
     const dataValor = selectedOption.getAttribute('data-valor');
 
-    // Atualiza o elemento valueI com o valor obtido
+    // Atualiza o elemento que exibe o valor a ser pago
     valueI.textContent = `R$ ${dataValor}`;
 });
 
 
 
 
-// Adiciona um listener de clique ao botão que vai passar a data da fatura a ser pago 
+// Evento para efetuar o pagamento da fatura ao clicar no botão
 btnP.addEventListener('click', (e) => {
     e.preventDefault()
+
     // Obtém o valor selecionado do <select>
     const selectedValue = select.value;
 
     if (selectedValue === '') {
         console.log('selecione um fatura pra pagar')
     }
-    // chama o metodo reponsavel por pagar a fatura usando a chave ano-mes
-    // obs: ele so recebe data a partir do proximo mes
+
+    // Chama o método responsável por efetuar o pagamento da fatura usando a chave (formato "YYYY-MM")
+    // Observação: o método aceita datas a partir do próximo mês
     clsPurchase.payInvoice(selectedValue)
 
-    // Exibe o valor selecionado no console (ou pode atualizar outro elemento da página)
     console.log("Valor selecionado:", selectedValue);
 });

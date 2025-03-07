@@ -17,13 +17,13 @@ function entrar() {
     let labelName = document.querySelector('#labelName')
     let inputName = document.querySelector('#username');
 
-
-    // Adiciona um evento ao campo de nome de usuário para restaurar o estilo padrão ao digitar
+    // Adiciona um evento ao imput de nome de usuário para restaurar o estilo padrão ao digitar
     inputName.addEventListener('keyup', () => {
         colorStandard(inputName, labelName)
     })
 
-    // pega o label e imput da div onde o usuario digita a senha 
+
+    // pega o label e imput de onde o usuario digita a senha 
     let labelPassword = document.querySelector('#labelPassword')
     let inputPassword = document.querySelector('#password');
 
@@ -32,7 +32,8 @@ function entrar() {
         colorStandard(inputPassword, labelPassword)
     })
 
-    // Objeto para armazenar os dados do usuário válido (se encontrado)
+
+    // array para armazenar os dados do usuário válido (se encontrado)
     let listaUserStorage = [];
 
     // Objeto que armazenará os dados do usuário válido, caso seja encontrado
@@ -44,8 +45,6 @@ function entrar() {
 
     // Recupera a lista de usuários cadastrados do localStorage (ou seja, usuários previamente registrados)
     listaUserStorage = JSON.parse(localStorage.getItem('listUser')) || [];
-
-    console.log(listaUserStorage)
 
     // Itera sobre a lista de usuários para verificar se o usuário e a senha fornecidos correspondem a um registro existente
     listaUserStorage.forEach((item) => {
@@ -66,10 +65,10 @@ function entrar() {
         let idUser = userValid.id;
         localStorage.setItem("idUserLogado", idUser); // Armazena o ID no localStorage com uma chave única
         
-        console.log(listaUserStorage)
         window.location.href = '../pages/home.html'; // Redireciona o usuário para a página home
         alert('usuario e senha corretos')
-    } // Caso contrário, exibe mensagens de erro visual nos campos de entrada
+    } 
+    // Caso contrário, exibe mensagens de erro visual nos campos de entrada
     else {
         labelName.setAttribute('style', 'color: red');
         inputName.setAttribute('style', 'border-color: red');
