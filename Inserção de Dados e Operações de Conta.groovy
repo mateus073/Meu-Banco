@@ -1,74 +1,70 @@
-# Inserção de Dados e Operações de Conta
+Inserção de Dados e Operações de Conta
+Este projeto contém a implementação para inserir dados fictícios na conta do usuário e gerenciar operações financeiras, como transações, compras, investimentos e pagamento de faturas. A seguir, a documentação detalhada desta parte do sistema.
 
-Este projeto contém a implementação para inserir dados fictícios na conta do usuário e gerenciar operações financeiras como transações, compras, investimentos e pagamento de faturas. A seguir, a documentação detalhada desta parte do sistema.
-
----
-
-## Índice
-
-- [Recuperação dos Dados do Usuário](#recuperação-dos-dados-do-usuário)
-- [Instanciação das Classes de Manipulação](#instanciação-das-classes-de-manipulação)
-- [Validação de Dados e Formulários](#validação-de-dados-e-formulários)
-  - [Função `isValidDate`](#função-isvaliddate)
-  - [Função `isFormValid`](#função-isformvalid)
-- [Inserção e Salvamento das Operações](#inserção-e-salvamento-das-operações)
-  - [Transações](#transações)
-  - [Compras](#compras)
-  - [Investimentos](#investimentos)
-- [Pagamento de Faturas](#pagamento-de-faturas)
-- [Considerações Finais](#considerações-finais)
-
----
-
-## Recuperação dos Dados do Usuário
-
-```js
-// OBS: Não apagar esse usuário, pois ele será utilizado nas demais partes do site
-const idss = JSON.parse(localStorage.getItem("idUserLogado")); // Recupera o ID do usuário logado
-const userss = JSON.parse(localStorage.getItem("listUser")) || []; // Recupera o array de usuários do localStorage
-const loggedInUserr = userss.find(user => user.id === idss); // Encontra o usuário com base no ID
-```
----
-
-## Instanciação das Classes de Manipulação
-
-### Classe para manipular transações
+Índice
+Recuperação dos Dados do Usuário
+Instanciação das Classes de Manipulação
+Validação de Dados e Formulários
+Função isValidDate
+Função isFormValid
+Inserção e Salvamento das Operações
+Transações
+Compras
+Investimentos
+Pagamento de Faturas
+Considerações Finais
+Recuperação dos Dados do Usuário
+js
+Copy
+Edit
+// OBS: Não apagar esse usuário, pois ele será utilizado nas demais partes do site.
+const idss = JSON.parse(localStorage.getItem("idUserLogado")); // Recupera o ID do usuário logado.
+const userss = JSON.parse(localStorage.getItem("listUser")) || []; // Recupera o array de usuários.
+const loggedInUserr = userss.find(user => user.id === idss); // Encontra o usuário com base no ID.
+Instanciação das Classes de Manipulação
+js
+Copy
+Edit
+// Classe para manipular transações.
 const clsTransation = new ManipulateTransation(loggedInUserr);
 
-// Classe para manipular compras
+// Classe para manipular compras.
 const clsPurchase = new ManipulatePurchase(loggedInUserr);
 
-// Classe para manipular investimentos
+// Classe para manipular investimentos.
 const clsInvest = new ManipulateInvestment(loggedInUserr);
+Validação de Dados e Formulários
+Função isValidDate
+Valida a data informada, garantindo que:
 
-## Validação de Dados e Formulários
-### Função isValidDate
-
-### Valida a data informada, garantindo que:
-- data seja válida.
-- ano não seja anterior a 2024.
-- data não ultrapasse um mês a partir da data atual.
-
+A data seja válida.
+O ano não seja anterior a 2024.
+A data não ultrapasse um mês a partir da data atual.
+js
+Copy
+Edit
 function isValidDate(dateStr) {
-    const dateObj = new Date(dateStr); // Converte a string em um objeto Date
-    if (isNaN(dateObj)) return false; // Verifica se a data é válida
+    const dateObj = new Date(dateStr); // Converte a string em um objeto Date.
+    if (isNaN(dateObj)) return false; // Verifica se a data é válida.
 
     const year = dateObj.getFullYear();
-    if (year < 2024) return false; // Impede datas antes de 2024
+    if (year < 2024) return false; // Impede datas anteriores a 2024.
 
     const today = new Date();
     const oneMonthAhead = new Date();
-    oneMonthAhead.setMonth(today.getMonth() + 1); // Limite de um mês no futuro
+    oneMonthAhead.setMonth(today.getMonth() + 1); // Define o limite de um mês no futuro.
 
-    return dateObj <= oneMonthAhead; // Retorna true se estiver dentro do intervalo permitido
+    return dateObj <= oneMonthAhead; // Retorna true se estiver dentro do intervalo permitido.
 }
+Função isFormValid
+Valida os campos de data e valor do formulário utilizando a função isValidDate:
 
-## Função isFormValid
-### Valida os campos de data e valor do formulário, utilizando a função isValidDate:
-
+js
+Copy
+Edit
 function isFormValid(formId, dateFieldId, valueFieldId) {
-    const dateValue = document.getElementById(dateFieldId).value; // Obtém o valor do campo de data
-    const value = parseFloat(document.getElementById(valueFieldId).value) || 0; // Converte o valor para número
+    const dateValue = document.getElementById(dateFieldId).value; // Obtém o valor do campo de data.
+    const value = parseFloat(document.getElementById(valueFieldId).value) || 0; // Converte o valor para número.
 
     if (!isValidDate(dateValue)) {
         alert('Data inválida. Por favor, insira uma data válida dentro do intervalo permitido.');
@@ -78,14 +74,16 @@ function isFormValid(formId, dateFieldId, valueFieldId) {
         alert('Por favor, insira um valor positivo.');
         return false;
     }
-    return true; // Retorna true se as validações forem bem-sucedidas
+    return true; // Retorna true se as validações forem bem-sucedidas.
 }
+Inserção e Salvamento das Operações
+Transações
+Função transition
+Extrai os dados do formulário de transações, valida os campos e cria um objeto com as informações da nova transação. Para transações do tipo "sent", também verifica se há saldo suficiente.
 
-## Inserção e Salvamento das Operações
-### Transações
-Função `transition`
-Extrai os dados do formulário de transações, valida os campos e cria um objeto com as informações da nova transação. Para transações do tipo "sent", também valida se o saldo é suficiente.
-
+js
+Copy
+Edit
 function transition() {
     let formTrans = document.getElementById('transactionForm');
     const transactionType = formTrans.querySelector('#transactionType').value;
@@ -93,19 +91,19 @@ function transition() {
     const transactionDate = formTrans.querySelector('#transactionDate').value;
     const transactionName = formTrans.querySelector('#transactionName').value;
 
-    // Verifica se todos os campos foram preenchidos
+    // Verifica se todos os campos foram preenchidos.
     if (!transactionType || !transactionValue || !transactionDate || !transactionName) {
         alert('Por favor, preencha todos os campos corretamente!');
         return;
     }
 
-    // Para transações do tipo "sent", verifica se há saldo suficiente
+    // Para transações do tipo "sent", verifica se há saldo suficiente.
     if (transactionType === 'sent' && transactionValue >= loggedInUserr.balance) {
         alert('Saldo insuficiente para transação');
         return;
     }
 
-    // Cria e retorna o objeto da nova transação
+    // Cria e retorna o objeto da nova transação.
     let newTransction = {
         type: transactionType,
         value: transactionValue,
@@ -115,19 +113,21 @@ function transition() {
 
     return newTransction;
 }
+Evento para Salvar Transação
+Ao clicar no botão com a classe .btnSTran, o formulário é validado e, se aprovado, a transação é registrada.
 
-### Evento para Salvar Transação
-Ao clicar no botão com classe .btnSTran, o formulário é validado e, se aprovado, a transação é registrada:
-
+js
+Copy
+Edit
 document.querySelector('.btnSTran').addEventListener('click', (e) => {
-    e.preventDefault(); // Impede o envio padrão do formulário
+    e.preventDefault(); // Impede o envio padrão do formulário.
 
-    // Valida o formulário
+    // Valida o formulário.
     const isDateValid = isFormValid('transactionForm', 'transactionDate', 'transactionValue');
     if (isDateValid) {
-        let newTransation = transition(); // Cria o objeto da transação
+        let newTransation = transition(); // Cria o objeto da transação.
 
-        // Se o objeto for criado corretamente, adiciona a transação
+        // Se o objeto for criado corretamente, adiciona a transação.
         if (newTransation && typeof newTransation === 'object') {
             clsTransation.addTransaction(newTransation);
             alert('Tudo certo: transação registrada.');
@@ -136,12 +136,13 @@ document.querySelector('.btnSTran').addEventListener('click', (e) => {
         console.log('Erro: não posso criar e salvar a transação');
     }
 });
+Compras
+Função purchase
+Extrai os dados do formulário de compras, valida os campos e cria um objeto representando a nova compra. Também verifica se o saldo ou limite é suficiente, conforme o tipo de compra.
 
-### Compras
-Função `purchase`
-Extrai os dados do formulário de compras, valida os campos e cria um objeto representando a nova compra. Também verifica se o saldo ou limite é suficiente, de acordo com o tipo de compra.
-
-
+js
+Copy
+Edit
 function purchase() {
     let formTrans = document.getElementById('purchaseForm');
     const purchaseType = formTrans.querySelector('#purchaseType').value;
@@ -155,10 +156,10 @@ function purchase() {
         return;
     }
 
-    // Encontra o cartão em uso
+    // Encontra o cartão em uso.
     const cardUsando = loggedInUserr.cards.find(card => card.inUser === true);
 
-    // Valida saldo para débito e limite para crédito
+    // Valida saldo para débito e limite para crédito.
     if (purchaseType === 'Debito' && purchaseValue > loggedInUserr.balance) {
         alert('Saldo insuficiente para compra');
         return;
@@ -182,12 +183,14 @@ function purchase() {
         return;
     }
 }
+Evento para Salvar Compra
+Valida os campos do formulário (incluindo regras específicas de parcelamento) e, se aprovado, registra a compra e atualiza a fatura.
 
-### Evento para Salvar Compra
-Valida os campos do formulário (incluindo regras específicas de parcelamento) e, se aprovado, registra a compra e atualiza a fatura:
-
+js
+Copy
+Edit
 document.querySelector('.btnCompr').addEventListener('click', (e) => {
-    e.preventDefault(); // Impede o comportamento padrão do formulário
+    e.preventDefault(); // Impede o comportamento padrão do formulário.
 
     let valid = isFormValid('purchaseForm', 'purchaseDate', 'purchaseValue');
 
@@ -208,19 +211,21 @@ document.querySelector('.btnCompr').addEventListener('click', (e) => {
         if (newPurchase && typeof newPurchase === 'object') {
             console.log(newPurchase);
             alert('Tudo certo: compra registrada.');
-            clsPurchase.addPurchase(newPurchase); // Adiciona a compra
-            clsPurchase.generateInvoices(); // Atualiza a fatura
-            getInvoices(); // Atualiza as opções de fatura na interface
+            clsPurchase.addPurchase(newPurchase); // Adiciona a compra.
+            clsPurchase.generateInvoices(); // Atualiza a fatura.
+            getInvoices(); // Atualiza as opções de fatura na interface.
         }
     } else {
         console.log('Erro: não posso criar e salvar a compra');
     }
 });
-
-##Investimentos
-Função `saveInvestment`
+Investimentos
+Função saveInvestment
 Extrai os dados do formulário de investimentos, valida os campos e cria um objeto com as informações do novo investimento. Gera um valor aleatório para a porcentagem anual e o formata para duas casas decimais.
 
+js
+Copy
+Edit
 function saveInvestment() {
     let formTrans = document.getElementById('investmentForm');
     const investmentType = formTrans.querySelector('#investmentType').value;
@@ -247,13 +252,14 @@ function saveInvestment() {
         return newInvestment;
     }
 }
+Evento para Salvar Investimento
+Valida o formulário e, se aprovado, registra o investimento.
 
-### Evento para Salvar Investimento
-Valida o formulário e, se aprovado, registra o investimento:
-
-
+js
+Copy
+Edit
 document.querySelector('.btnIvest').addEventListener('click', (e) => {
-    e.preventDefault(); // Impede o envio padrão do formulário
+    e.preventDefault(); // Impede o envio padrão do formulário.
 
     let valid = isFormValid('investmentForm', 'investmentDate', 'investmentValue');
 
@@ -264,11 +270,13 @@ document.querySelector('.btnIvest').addEventListener('click', (e) => {
         console.log('Erro: não posso criar e salvar o investimento');
     }
 });
+Pagamento de Faturas
+Função getInvoices
+Atualiza o elemento <select> com as faturas disponíveis para o cartão em uso, formatando a data e atribuindo o valor da fatura como atributo data-valor.
 
-## Pagamento de Faturas
-###Função getInvoices
-Atualiza o elemento <select> com as faturas disponíveis para o cartão em uso, formatando a data e atribuindo o valor da fatura como atributo data-valor:
-
+js
+Copy
+Edit
 function getInvoices() {
     const cardUsing = loggedInUserr.cards.find(card => card.inUser === true);
     let invoices = cardUsing.invoice;
@@ -291,20 +299,23 @@ function getInvoices() {
     }
 }
 getInvoices();
+Atualização do Valor da Fatura Selecionada
+Ao alterar a seleção no <select>, atualiza o elemento que exibe o valor da fatura.
 
-### Atualização do Valor da Fatura Selecionada
-Ao alterar a seleção no <select>, atualiza o elemento que exibe o valor da fatura:
-
-
+js
+Copy
+Edit
 select.addEventListener('change', () => {
     const selectedOption = select.options[select.selectedIndex];
     const dataValor = selectedOption.getAttribute('data-valor');
     valueI.textContent = `R$ ${dataValor}`;
 });
+Pagamento da Fatura
+Ao clicar no botão de pagamento, o valor selecionado é utilizado para efetuar o pagamento através do método payInvoice.
 
-### Pagamento da Fatura
-Ao clicar no botão de pagamento, o valor selecionado é utilizado para efetuar o pagamento através do método payInvoice:
-
+js
+Copy
+Edit
 btnP.addEventListener('click', (e) => {
     e.preventDefault();
     const selectedValue = select.value;
@@ -315,12 +326,11 @@ btnP.addEventListener('click', (e) => {
     clsPurchase.payInvoice(selectedValue);
     console.log("Valor selecionado:", selectedValue);
 });
-
-## Considerações Finais
+Considerações Finais
 Esta parte do projeto integra as seguintes funcionalidades:
-- Persistência de Dados: Recupera e utiliza o usuário logado armazenado no localStorage.
-- Manipulação de Operações: Utiliza classes específicas para gerenciar transações, compras e investimentos.
-- Validação: Garante que os dados inseridos (datas e valores) sejam válidos e respeitem as regras de negócio (saldo, limite, parcelamento).
-- Interface Dinâmica: Atualiza a interface com as opções de faturas e permite o pagamento delas.
-Utilize este README para compreender e manter a parte do sistema responsável pela inserção e manipulação de dados fictícios e operações financeiras.
 
+Persistência de Dados: Recupera e utiliza o usuário logado armazenado no localStorage.
+Manipulação de Operações: Utiliza classes específicas para gerenciar transações, compras e investimentos.
+Validação: Garante que os dados inseridos (datas e valores) sejam válidos e respeitem as regras de negócio (saldo, limite, parcelamento).
+Interface Dinâmica: Atualiza a interface com as opções de faturas e permite o pagamento delas.
+Utilize este README para compreender e manter a parte do sistema responsável pela inserção e manipulação de dados fictícios e operações financeiras.
