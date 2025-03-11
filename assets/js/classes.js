@@ -1,32 +1,44 @@
-
-// class usaurio que ira criar e salvar o usuario
-// vai receber infos do formulario de login e usalas pra criar o Usuario no local stroage 
-// dados recebidos:
-// nome 
-// senha 
-// se o usuario clicou em lembrar senha
-// obs seus metodos sao perdidios no ato de aramzernar no local storage pos o local storage nao aceita metodos
+/**
+ * Classe Usuario
+ * Cria e salva as informações do usuário no localStorage.
+ * Recebe dados do formulário de login:
+ * - Nome do usuário
+ * - Senha
+ * - Opção "lembrar senha" (para login automático)
+ *
+ * OBS: Os métodos da classe não serão preservados ao armazenar o objeto
+ * no localStorage, pois ele aceita apenas dados (sem funções).
+ */
 class Usuario {
     constructor(userName, password, rememberDevice, idUser) {
-        this.id = idUser // verifica se pode logar
+        // Dados básicos e de autenticação
+        this.id = idUser  // Identificador único do usuário (usado para login)
         this.userName = userName;
         this.password = password;
-        this.rememberDevice = rememberDevice; // pode logar altomaticamente na proxima 
-        this.accountStatus = 'active';  // Status da conta
-        this.accountCreated = new Date();  // Data de criação da conta
-        this.investimentos = 0;
-        this.balance = 4000;
-        this.loanLimit = 5000;  // Limite de empréstimo
+        this.rememberDevice = rememberDevice;  // Flag para login automático 
+
+        // Informações de conta
+        this.accountStatus = 'active';
+        this.accountCreated = new Date();   // Data de criação da conta
+        this.investimentos = 0;             // Total investido (inicialmente zero)
+        this.balance = 4000;                // Saldo inicial da conta
+        this.loanLimit = 5000;              // Limite de empréstimo disponível
+
+        // Histórico de transações (exemplos iniciais)
         this.transactions = [
             { type: "received", value: 110, date: '2025-02-02', nameTransaction: 'Person fictitious 01' }, // recebida
             { type: "sent", value: 900, date: '2025-02-08', nameTransaction: 'Person fictitious 02' }, // enviada 
         ];
+
+        // chaves pix
         this.pixKey = [
             { tipo: 'CPF', chave: '' },
             { tipo: 'Email', chave: '' },
             { tipo: 'Telefone', chave: '' },
             { tipo: 'Aleatória', chave: '' }
-        ]; // dados pra criar os atalhos
+        ];
+
+        // Dados pra criaçao e exibiçao dos atalhos 
         this.shortcuts = [
             { id: 1, name: 'gastosMes', imgSrc: '../assets/img/extrato-bancrio.png', idName: 'atalhoGastoMes', visible: true },
             { id: 2, name: 'recebimentos', imgSrc: '../assets/img/benefcios.png', idName: 'atalhoRecebimentos', visible: true },
@@ -37,19 +49,20 @@ class Usuario {
             { id: 7, name: 'pix', imgSrc: '../assets/img/chave.png', idName: 'AtalhoPix', visible: false },
             { id: 8, name: 'recarga', imgSrc: '../assets/img/movel-5g.png', idName: 'atalhoRecarga', visible: false },
             { id: 9, name: 'boleto', imgSrc: '../assets/img/leitura-de-codigo-de-barras.png', idName: 'atalhoBoleto', visible: false }
-            // Adicione outros atalhos conforme necessário
         ];
+
+        // Informações dos cartões associados à conta
         this.cards = [
             {
-                inUser: true, // variavel que define se e pra exibir esse cartao na tela
+                inUser: true,                   // variavel que define se e pra exibir esse cartao na tela
                 nameCard: "card 01 - ouroCard",
                 cardStatus: 'active',
-                limit: 3500, // limite que irei subtrair valor das compras
-                limitAvailable: 3500, // limite em uso 
-                approvedLimit: 5000, // limite aprovado 
-                invoice: [], // array de faturas
+                limit: 3500,                    // limite que irei subtrair valor das compras
+                limitAvailable: 3500,           // limite em uso 
+                approvedLimit: 5000,            // limite aprovado 
+                invoice: [],                    // array de faturas
                 dateInvoicePayment: '2025-02-28',
-                purchase: [ // compras
+                purchase: [ // Compras realizadas com o cartão
                     { type: "Debito", value: 110, date: '2025-02-28', merchant: 'Bazar Dbgt' },
                     { type: "Credito", value: 984, date: '2025-02-11', merchant: 'Bazar Mituzi', installments: 7 },
                     { type: "Credito", value: 24, date: '2025-02-12', merchant: 'Bazar Esferas', installments: 1 },
@@ -64,22 +77,22 @@ class Usuario {
                     expirationDate: '12/30'
                 }
             },
-            {
-                inUser: false, // variavel que define se e pra exibir esse cartao na tela
+            { // Cartão inativo (não exibido na tela)
+                inUser: false,          // variavel que define se e pra exibir esse cartao na tela
                 nameCard: "card 02 - prataCard",
                 cardStatus: 'active',
-                limit: 3000, // limite que irei subtrair valor das compras
-                limitAvailable: 3000, // limite em uso 
+                limit: 3000,
+                limitAvailable: 3000,
                 approvedLimit: 3500,
                 invoice: [], // array de faturas
                 cardPassword: '654321',
                 dateInvoicePayment: '2025-02-28T17:24:09.861Z',
-                purchase: [ // compr
-                    // { type: "Credito", value: 910, date: '2025-02-28T17:24:09.861Z', merchant: 'Bazar Mituzi', installments: 4 },
-                    // { type: "Credito", value: 84, date: '2025-02-31T17:24:09.861Z', merchant: 'Bazar Shokun', installments: 2 },
-                    // { type: "Debito", value: 334, date: '2025-02-20T17:24:09.861Z', merchant: 'Bazar MM' },
-                    // { type: "Debito", value: 64, date: '2025-02-24T17:24:09.861Z', merchant: 'Bazar L&D' },
-                    // { type: "Credito", value: 2474, date: '2025-02-21T17:24:09.861Z', merchant: 'Bazar zk', installments: 7 },
+                purchase: [ // compras
+                    { type: "Debito", value: 110, date: '2025-02-28', merchant: 'Bazar Dbgt' },
+                    { type: "Credito", value: 984, date: '2025-02-11', merchant: 'Bazar Mituzi', installments: 7 },
+                    { type: "Credito", value: 24, date: '2025-02-12', merchant: 'Bazar Esferas', installments: 1 },
+                    { type: "Debito", value: 664, date: '2025-02-14', merchant: 'Bazar nituzi' },
+                    { type: "Credito", value: 274, date: '2025-02-21', merchant: 'Bazar Konoha', installments: 4 },
                 ],
                 dataCard: {
                     cardName: this.nameCard(),
@@ -96,9 +109,13 @@ class Usuario {
         ];
     }
 
-    // Método para gerar um número aleatório para o cartão
+    /** Gera um número aleatório formatado para o cartão.
+    * - Gera um número de 16 dígitos.
+    * - Preenche com zeros à esquerda, se necessário.
+    * - Formata em grupos de 4 dígitos separados por espaço.
+    * @returns {string} Número do cartão formatado.
+    */
     generateRandomNumber() {
-        // Gera um número aleatório entre 0 e 9999999999999999 (16 dígitos)
         const randomNumber = Math.floor(Math.random() * 10000000000000000);
 
         // Converte o número para string e preenche com zeros à esquerda, garantindo 16 dígitos
@@ -110,32 +127,29 @@ class Usuario {
         return formattedNumber;
     }
 
-    // Método para abreviar o nome do usuário para o cartão
+
+    /** Abrevia o nome do usuário para exibição no cartão.
+     * - Se o nome tiver até 12 caracteres, retorna-o completo.
+     * - Se tiver mais, utiliza a primeira parte e a inicial da segunda.
+     * - Se ainda exceder, corta o primeiro nome e adiciona reticências.
+     * @returns {string} Nome abreviado para o cartão.
+     */
     nameCard() {
-        // Se o nome tiver 12 caracteres ou menos, retorna sem alteração
         if (this.userName.length <= 12) {
             return this.userName;
         }
-
-        // Divide o nome em partes (removendo espaços extras)
         const parts = this.userName.split(" ").filter(part => part !== "");
 
-        // Se houver pelo menos duas partes, usa a primeira e a inicial da segunda
         if (parts.length >= 2) {
             const firstName = parts[0];
             const secondNameAbbr = parts[1].charAt(0);
 
-            // Monta um candidato: "primeiroNome + espaço + inicialDoSegundoNome"
             let candidate = firstName + " " + secondNameAbbr;
 
-            // Se o candidato couber em 12 caracteres, retorna-o
             if (candidate.length <= 12) {
                 return candidate;
             } else {
-                // Calcula quantos caracteres do primeiro nome são permitidos:
-                // 12 caracteres totais menos 1 para o espaço e 1 para a letra do segundo nome.
-                const allowedFirstNameLength = 12 - 2; // 10
-                // Retorna o primeiro nome encurtado + espaço + inicial do segundo nome
+                const allowedFirstNameLength = 12 - 2; 
                 return firstName.slice(0, allowedFirstNameLength) + " " + secondNameAbbr;
             }
         }
@@ -145,7 +159,10 @@ class Usuario {
         return this.userName.slice(0, 9) + '...';
     }
 
-    // Método para gerar um CVV aleatório
+        /**
+     * Gera um CVV aleatório de 3 dígitos para o cartão.
+     * @returns {number} CVV gerado.
+     */
     generateRandomCV() {
         return Math.floor(Math.random() * 900) + 100;  // CVV de 3 dígitos
     }
@@ -201,6 +218,7 @@ class HomeUpdateShortcutScreen {
         this.domModalAtNaoSelecionados = domModalAtNaoSelecionados
     }
 
+    // metodo pra conferir se os dados inseridos estao corretos:
     conferirurser() {
         let cardUsing = this.userLogado.cards.find(card => card.inUser === true);
 
@@ -214,7 +232,6 @@ class HomeUpdateShortcutScreen {
 
     // ATUALIZA O DOM DO ATALHO
     refreshShortcut() {
-        
         // DIV DE GASTOS DO MES
         // chama o metodo reponsavel por obter o gasto do mes(compras e transferencias) e a pct de diferenca do gasto desse mes e do mes anterior
         let monthExpenses = this.monthExpenses()
@@ -1552,4 +1569,4 @@ class ManipulateInvestment {
         }
     }
 }
-// logica de fatura limite fica na funcao de adicionar compras
+
